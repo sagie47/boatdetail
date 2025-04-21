@@ -1,0 +1,948 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useState, FormEvent } from "react";
+import { Star, ChevronRight, MapPin, Phone, Mail, Instagram, Facebook, Twitter, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+interface QuoteFormData {
+  boatLength: number;
+  boatType: string;
+  services: string[];
+  location: string;
+  utilities: {
+    water: boolean;
+    electricity: boolean;
+  };
+  contact: {
+    name: string;
+    phone: string;
+    email: string;
+  };
+}
+
+const SERVICES = [
+  { name: 'Exterior Wash', price: 16, description: 'Foam pre-soak, hand wash, water spot removal, wax/sealant' },
+  { name: 'Multi-Step Polish', price: 65, description: 'Exterior wash, oxidation removal, compound polish, sealant' },
+  { name: 'Ceramic Coating', price: 100, description: 'Polish plus two layers of gelcoat-specific ceramic coating' },
+  { name: 'Interior Detail', price: 10, description: 'Vacuuming, steam cleaning, surface wipe-down, UV protectant' },
+];
+
+export default function Home() {
+  const [formData, setFormData] = useState<QuoteFormData>({
+    boatLength: 0,
+    boatType: 'pontoon',
+    services: [],
+    location: 'docked',
+    utilities: {
+      water: false,
+      electricity: false,
+    },
+    contact: {
+      name: '',
+      phone: '',
+      email: '',
+    },
+  });
+
+  const [showQuote, setShowQuote] = useState(false);
+  const [quoteTotal, setQuoteTotal] = useState(0);
+
+  const handleServiceChange = (service: string) => {
+    setFormData(prev => ({
+      ...prev,
+      services: prev.services.includes(service)
+        ? prev.services.filter(s => s !== service)
+        : [...prev.services, service]
+    }));
+  };
+
+  const calculateQuote = (e: FormEvent) => {
+    e.preventDefault();
+    const total = formData.services.reduce((acc, service) => {
+      const serviceData = SERVICES.find(s => s.name === service);
+      return acc + (serviceData?.price || 0) * formData.boatLength;
+    }, 0);
+    setQuoteTotal(total);
+    setShowQuote(true);
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col bg-white">
+      {/* Navigation */}
+      <header className="sticky top-0 z-50 w-full border-b bg-black">
+        <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
+          <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/images/dark.png"
+                alt="Kelowna Boat Detailing (Dark Logo)"
+                width={50}
+                height={50}
+                className="h-12 w-auto"
+              />
+              <span className="hidden text-xl font-light tracking-wider text-gold md:inline-block">
+                KELOWNA BOAT DETAILING
+              </span>
+            </Link>
+          </div>
+          <nav className="hidden md:flex gap-8">
+            <Link href="/" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
+              HOME
+            </Link>
+            <Link
+              href="/our-story"
+              className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors"
+            >
+              ABOUT
+            </Link>
+            <Link
+              href="#services"
+              className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors"
+            >
+              SERVICES
+            </Link>
+            <Link
+              href="/pricing"
+              className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors"
+            >
+              PRICING
+            </Link>
+            <Link
+              href="/gallery"
+              className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors"
+            >
+              GALLERY
+            </Link>
+
+          </nav>
+          <div className="flex items-center gap-4">
+            <Link href="#quote" className="hidden md:block">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-gold text-gold bg-black hover:bg-black/90 hover:text-gold"
+              >
+                GET A QUOTE
+              </Button>
+            </Link>
+            <Link href="#book">
+              <Button size="sm" className="bg-gold text-black hover:bg-gold/90">
+                BOOK NOW
+              </Button>
+            </Link>
+            <div className="md:hidden">
+              <Button variant="ghost" size="icon" className="text-gold">
+                <span className="sr-only">Toggle menu</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-6 w-6"
+                >
+                  <line x1="4" x2="20" y1="12" y2="12" />
+                  <line x1="4" x2="20" y1="6" y2="6" />
+                  <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/hero-boat.jpg"
+              alt="Beautiful marina at sunset with boats docked in Kelowna"
+              fill
+              className="object-cover brightness-[0.4]"
+              priority
+            />
+          </div>
+          <div className="container relative z-10 px-4 py-32 md:py-40 lg:py-52">
+            <div className="grid gap-6 md:w-2/3 lg:w-1/2">
+              <h1 className="font-playfair text-5xl font-light tracking-tight text-white sm:text-6xl md:text-7xl">
+                YOUR BOAT, <br />
+                <span className="text-gold">BUT BETTER.</span>
+              </h1>
+              <p className="font-light tracking-wide text-white/90 md:text-xl">
+                Mobile Boat Detailing in Kelowna & the Okanagan
+              </p>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
+                  BOOK A DETAIL
+                </Button>
+                <Link href="/contact">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90"
+                  >
+                    GET A FREE QUOTE
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust Section */}
+        <section className="border-b bg-white">
+          <div className="container grid grid-cols-1 gap-1 px-4 py-1">
+            <div className="flex flex-col justify-center">
+              <div className="h-1"></div>
+            </div>
+          </div>
+        </section>
+
+        {/* Headline */}
+        <section className="bg-white py-16">
+          <div className="container px-4">
+            <h2 className="font-playfair text-3xl font-light tracking-tight sm:text-4xl md:text-5xl">
+              Expert Boat Detailing:{" "}
+              <span className="font-medium text-black">From Freshwater to Finish Line</span>
+            </h2>
+          </div>
+        </section>
+
+        {/* Service Highlights */}
+        <section id="services" className="bg-white py-12">
+          <div className="container px-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                {
+                  title: "EXTERIOR WASH & DRY",
+                  image: "/images/pic.jpeg",
+                  color: "bg-gold",
+                },
+                {
+                  title: "INTERIOR CLEANING",
+                  image: "/images/pic1.png",
+                  color: "bg-gold",
+                },
+                {
+                  title: "OXIDATION REMOVAL",
+                  image: "/images/pic3.png",
+                  color: "bg-gold",
+                },
+                {
+                  title: "SEASONAL PACKAGES",
+                  image: "/images/boat.png",
+                  color: "bg-gold",
+                },
+              ].map((service, i) => (
+                <div key={i} className="group relative overflow-hidden rounded-lg">
+                  <Image
+                    src={service.image || "/placeholder.svg"}
+                    alt={service.title}
+                    width={400}
+                    height={300}
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute bottom-0 w-full p-4">
+                    <div
+                      className={`mb-2 w-fit ${service.color} px-2 py-1 text-xs font-light tracking-wider text-black`}
+                    >
+                      BOOK NOW
+                    </div>
+                    <h3 className="font-light tracking-wider text-white">{service.title}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Professional Washing Section */}
+        <section className="bg-gray-50 py-16">
+          <div className="container px-4">
+            <div className="grid gap-8 md:grid-cols-2">
+              <div>
+                <h2 className="mb-6 font-playfair text-3xl font-light">Professional Washing and Cleaning Boats</h2>
+                <p className="mb-4 font-light text-gray-700 leading-relaxed">
+                  With over a decade of experience, Kelowna Boat Detailing brings showroom shine dockside. From family
+                  pontoons to high-performance wakeboats — we've got you covered.
+                </p>
+                <p className="mb-6 font-light text-gray-700 leading-relaxed">
+                  Our services include Exterior Washing, Interior Deep Cleaning, Gelcoat Polishing, Teak Wood
+                  Restoration, and Ceramic Coating. Choose the best service level for your boat with our premium
+                  detailing packages.
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-full bg-gold/10 p-1">
+                      <Check className="h-4 w-4 text-gold" />
+                    </div>
+                    <span className="text-sm font-light">UV and Mold Protection</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-full bg-gold/10 p-1">
+                      <Check className="h-4 w-4 text-gold" />
+                    </div>
+                    <span className="text-sm font-light">100% Satisfaction</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        {/* Stats Section */}
+        <section className="bg-black py-16">
+          <div className="container px-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="rounded-lg bg-black border border-gold/30 p-8 text-center">
+                <p className="font-playfair text-3xl font-light text-gold">12,025</p>
+                <p className="mt-2 text-sm font-light tracking-wider text-white/70">HAPPY CUSTOMERS</p>
+              </div>
+              <div className="rounded-lg bg-black border border-gold/30 p-8 text-center">
+                <p className="font-playfair text-3xl font-light text-gold">1050</p>
+                <p className="mt-2 text-sm font-light tracking-wider text-white/70">BOATS DETAILED</p>
+              </div>
+              <div className="rounded-lg bg-black border border-gold/30 p-8 text-center">
+                <p className="font-playfair text-3xl font-light text-gold">10,000</p>
+                <p className="mt-2 text-sm font-light tracking-wider text-white/70">HOURS OF DETAILING</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Section */}
+        <section id="pricing" className="bg-white py-16">
+          <div className="container px-4">
+            <h2 className="mb-6 text-center font-playfair text-3xl font-light">OUR SERVICES & PRICING</h2>
+            <p className="mb-12 text-center text-gray-600 max-w-3xl mx-auto">
+              Professional boat detailing services tailored to your vessel's needs. All services are performed by our
+              experienced team using premium products.
+            </p>
+
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {/* Core Services */}
+              <Card className="flex flex-col overflow-hidden rounded-lg border-0 shadow-lg transition-all hover:shadow-xl">
+                <div className="bg-gray-50 p-6 text-center">
+                  <h3 className="font-light tracking-wider text-xl">EXTERIOR WASH & DRY</h3>
+                </div>
+                <CardContent className="flex flex-1 flex-col p-8">
+                  <div className="mb-6 text-center">
+                    <span className="font-playfair text-4xl font-light">$10–$15</span>
+                    <span className="text-sm text-gray-500">/ft</span>
+                  </div>
+                  <div className="mb-8 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Waterline scum removal</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Dry with microfiber to prevent spots</span>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <Link href="/contact">
+                      <Button className="w-full bg-gold text-black hover:bg-gold/90">BOOK SERVICE</Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="flex flex-col overflow-hidden rounded-lg border-0 shadow-lg transition-all hover:shadow-xl">
+                <div className="bg-gray-50 p-6 text-center">
+                  <h3 className="font-light tracking-wider text-xl">INTERIOR VACUUM & WIPE-DOWN</h3>
+                </div>
+                <CardContent className="flex flex-1 flex-col p-8">
+                  <div className="mb-6 text-center">
+                    <span className="font-playfair text-4xl font-light">$10–$12</span>
+                    <span className="text-sm text-gray-500">/ft</span>
+                  </div>
+                  <div className="mb-8 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Vacuum carpets & seats</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Wipe surfaces, cupholders, dash, vinyl</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Clean windows inside and out</span>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <Link href="/contact">
+                      <Button className="w-full bg-gold text-black hover:bg-gold/90">BOOK SERVICE</Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="flex flex-col overflow-hidden rounded-lg border-0 shadow-lg transition-all hover:shadow-xl relative">
+                <div className="absolute top-0 right-0 bg-gold px-4 py-1 text-xs font-light tracking-wider text-black">
+                  POPULAR
+                </div>
+                <div className="bg-black p-6 text-center">
+                  <h3 className="font-light tracking-wider text-xl text-gold">FULL DETAIL PACKAGE</h3>
+                </div>
+                <CardContent className="flex flex-1 flex-col p-8">
+                  <div className="mb-6 text-center">
+                    <span className="font-playfair text-4xl font-light">$20–$25</span>
+                    <span className="text-sm text-gray-500">/ft</span>
+                  </div>
+                  <div className="mb-8 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Exterior wash + interior clean</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Spot removal + quick wax</span>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <Link href="/contact">
+                      <Button className="w-full bg-gold text-black hover:bg-gold/90">BOOK SERVICE</Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="flex flex-col overflow-hidden rounded-lg border-0 shadow-lg transition-all hover:shadow-xl">
+                <div className="bg-gray-50 p-6 text-center">
+                  <h3 className="font-light tracking-wider text-xl">OXIDATION REMOVAL & GELCOAT POLISH</h3>
+                </div>
+                <CardContent className="flex flex-1 flex-col p-8">
+                  <div className="mb-6 text-center">
+                    <span className="font-playfair text-4xl font-light">$30–$60</span>
+                    <span className="text-sm text-gray-500">/ft</span>
+                  </div>
+                  <div className="mb-8 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">One-step compound polish on faded gelcoat</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Requires buffer and polishing pads</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light text-gray-500 italic">Higher margin, slower service</span>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <Link href="/contact">
+                      <Button className="w-full bg-gold text-black hover:bg-gold/90">BOOK SERVICE</Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Ceramic Spray Sealant */}
+              <Card className="flex flex-col overflow-hidden rounded-lg border-0 shadow-lg transition-all hover:shadow-xl">
+                <div className="bg-gray-50 p-6 text-center">
+                  <h3 className="font-light tracking-wider text-xl">CERAMIC SPRAY SEALANT</h3>
+                </div>
+                <CardContent className="flex flex-1 flex-col p-8">
+                  <div className="mb-6 text-center">
+                    <span className="font-playfair text-4xl font-light">$8–$12</span>
+                    <span className="text-sm text-gray-500">/ft</span>
+                  </div>
+                  <div className="mb-8 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Hydrophobic layer for long-lasting shine</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Perfect between full details</span>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <Link href="/contact">
+                      <Button className="w-full bg-gold text-black hover:bg-gold/90">BOOK SERVICE</Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Engine Bay Cleaning */}
+              <Card className="flex flex-col overflow-hidden rounded-lg border-0 shadow-lg transition-all hover:shadow-xl">
+                <div className="bg-gray-50 p-6 text-center">
+                  <h3 className="font-light tracking-wider text-xl">ENGINE BAY CLEANING</h3>
+                </div>
+                <CardContent className="flex flex-1 flex-col p-8">
+                  <div className="mb-6 text-center">
+                    <span className="font-playfair text-4xl font-light">$75–$150</span>
+                    <span className="text-sm text-gray-500"> flat</span>
+                  </div>
+                  <div className="mb-8 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Degrease, scrub, and rinse engine compartment</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-gold" />
+                      <span className="font-light">Improves appearance and protects performance</span>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <Link href="/contact">
+                      <Button className="w-full bg-gold text-black hover:bg-gold/90">BOOK SERVICE</Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+
+            </div>
+
+            {/* Add-Ons Section */}
+            <div className="mt-16">
+              <h3 className="mb-8 text-center font-playfair text-2xl font-light">ADD-ON SERVICES</h3>
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="rounded-lg border border-gray-200 p-6 transition-all hover:border-gold hover:shadow-lg">
+                  <div className="flex justify-between items-center mb-4">
+                    <h4 className="font-light tracking-wider text-lg">METAL POLISHING</h4>
+                    <span className="font-playfair text-xl font-light">$50–$100</span>
+                  </div>
+                  <p className="text-gray-600 font-light">Polish cleats, rails, etc. Flat rate depending on size.</p>
+                </div>
+                <div className="rounded-lg border border-gray-200 p-6 transition-all hover:border-gold hover:shadow-lg">
+                  <div className="flex justify-between items-center mb-4">
+                    <h4 className="font-light tracking-wider text-lg">MOLD & MILDEW SPOT CLEANING</h4>
+                    <span className="font-playfair text-xl font-light">$75+</span>
+                  </div>
+                  <p className="text-gray-600 font-light">Targeted treatment for seats, compartments. Price per job.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Instant Quote Calculator */}
+        <section id="quote" className="relative bg-black py-24">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/hero-boat.jpg"
+              alt="Luxury boat at sunset"
+              fill
+              className="object-cover brightness-[0.15]"
+            />
+          </div>
+          <div className="container relative z-10 px-4">
+            <div className="text-center mb-16">
+              <h2 className="font-playfair text-4xl md:text-5xl text-gold font-light mb-4">
+                Instant Quote Calculator
+              </h2>
+              <p className="text-white/80 md:text-lg font-light max-w-2xl mx-auto">
+                Get an instant estimate for your boat detailing needs. Select your services and preferences below.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              {/* Services Price List */}
+              <div className="bg-black/40 backdrop-blur-sm border border-gold/30 rounded-xl p-8 space-y-6">
+                <h3 className="font-playfair text-2xl text-gold font-light mb-6">Our Premium Services</h3>
+                
+                {/* Exterior Wash */}
+                <div className="p-6 border border-gold/20 rounded-lg hover:border-gold/40 transition-colors">
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="text-gold text-xl font-light">Exterior Wash</h4>
+                    <span className="text-white/90 font-light">$16/ft</span>
+                  </div>
+                  <p className="text-white/70 text-sm font-light">Includes: Foam pre-soak, hand wash, water spot removal, wax/sealant</p>
+                </div>
+
+                {/* Multi-Step Polish */}
+                <div className="p-6 border border-gold/20 rounded-lg hover:border-gold/40 transition-colors">
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="text-gold text-xl font-light">Multi-Step Polish</h4>
+                    <span className="text-white/90 font-light">$65/ft</span>
+                  </div>
+                  <p className="text-white/70 text-sm font-light">Includes: Exterior wash, oxidation removal, compound polish, sealant</p>
+                </div>
+
+                {/* Ceramic Coating */}
+                <div className="p-6 border border-gold/20 rounded-lg hover:border-gold/40 transition-colors">
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="text-gold text-xl font-light">Ceramic Coating</h4>
+                    <span className="text-white/90 font-light">$100/ft</span>
+                  </div>
+                  <p className="text-white/70 text-sm font-light">Includes: Polish plus two layers of gelcoat-specific ceramic coating</p>
+                </div>
+
+                {/* Interior Detail */}
+                <div className="p-6 border border-gold/20 rounded-lg hover:border-gold/40 transition-colors">
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="text-gold text-xl font-light">Interior Detail</h4>
+                    <span className="text-white/90 font-light">$10/ft</span>
+                  </div>
+                  <p className="text-white/70 text-sm font-light">Includes: Vacuuming, steam cleaning, surface wipe-down, UV protectant</p>
+                </div>
+
+                {/* Ceramic Spray Sealant */}
+                <div className="p-6 border border-gold/20 rounded-lg hover:border-gold/40 transition-colors">
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="text-gold text-xl font-light">Ceramic Spray Sealant</h4>
+                    <span className="text-white/90 font-light">$8–$12/ft</span>
+                  </div>
+                  <p className="text-white/70 text-sm font-light">Includes: Hydrophobic layer for long-lasting shine and protection, perfect between full details</p>
+                </div>
+
+                {/* Engine Bay Cleaning */}
+                <div className="p-6 border border-gold/20 rounded-lg hover:border-gold/40 transition-colors">
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="text-gold text-xl font-light">Engine Bay Cleaning</h4>
+                    <span className="text-white/90 font-light">$75–$150 flat</span>
+                  </div>
+                  <p className="text-white/70 text-sm font-light">Includes: Degrease, scrub, and rinse engine compartment, improves appearance and protects performance</p>
+                </div>
+              </div>
+
+              {/* Quote Form */}
+              <div className="bg-black/40 backdrop-blur-sm border border-gold/30 rounded-xl p-8">
+                <h3 className="font-playfair text-2xl text-gold font-light mb-6">Get Your Quote</h3>
+                <form className="space-y-6" onSubmit={calculateQuote}>
+                  {/* Boat Length */}
+                  <div>
+                    <label className="block text-white/90 text-sm font-light mb-2">Boat Length (ft)</label>
+                    <input
+                      type="number"
+                      min="10"
+                      max="60"
+                      className="w-full bg-black/60 border border-gold/30 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors"
+                      placeholder="Enter boat length"
+                      value={formData.boatLength || ''}
+                      onChange={(e) => setFormData(prev => ({ ...prev, boatLength: parseInt(e.target.value) || 0 }))}
+                      required
+                    />
+                  </div>
+
+                  {/* Boat Type */}
+                  <div>
+                    <label className="block text-white/90 text-sm font-light mb-2">Boat Type</label>
+                    <select
+                      className="w-full bg-black/60 border border-gold/30 rounded-lg px-4 py-2 text-white focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors"
+                      value={formData.boatType}
+                      onChange={(e) => setFormData(prev => ({ ...prev, boatType: e.target.value }))}
+                    >
+                      <option value="pontoon">Pontoon</option>
+                      <option value="wakeboat">Wakeboat</option>
+                      <option value="yacht">Yacht</option>
+                      <option value="fishing">Fishing Boat</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  {/* Services */}
+                  <div>
+                    <label className="block text-white/90 text-sm font-light mb-2">Services</label>
+                    <div className="flex flex-wrap gap-2">
+                      {SERVICES.map((service) => (
+                        <button
+                          type="button"
+                          key={service.name}
+                          className={`rounded-lg border px-3 py-1 text-sm font-light transition-colors ${formData.services.includes(service.name)
+                            ? 'bg-gold text-black border-gold'
+                            : 'bg-black/60 text-white border-gold/30 hover:bg-gold/10'}`}
+                          onClick={() => handleServiceChange(service.name)}
+                        >
+                          {service.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {/* Location */}
+                  <div>
+                    <label className="block text-white/90 text-sm font-light mb-2">Location</label>
+                    <select
+                      className="w-full bg-black/60 border border-gold/30 rounded-lg px-4 py-2 text-white focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors"
+                      value={formData.location}
+                      onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
+                    >
+                      <option value="docked">Docked</option>
+                      <option value="trailered">Trailored</option>
+                    </select>
+                  </div>
+                  {/* Utilities */}
+                  <div className="flex gap-6">
+                    <label className="flex items-center gap-2 text-white/90 text-sm font-light">
+                      <input
+                        type="checkbox"
+                        checked={formData.utilities.water}
+                        onChange={(e) => setFormData(prev => ({ ...prev, utilities: { ...prev.utilities, water: e.target.checked } }))}
+                      />
+                      Water Available
+                    </label>
+                    <label className="flex items-center gap-2 text-white/90 text-sm font-light">
+                      <input
+                        type="checkbox"
+                        checked={formData.utilities.electricity}
+                        onChange={(e) => setFormData(prev => ({ ...prev, utilities: { ...prev.utilities, electricity: e.target.checked } }))}
+                      />
+                      Electricity Available
+                    </label>
+                  </div>
+                  {/* Contact Info */}
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <input
+                      type="text"
+                      className="w-full bg-black/60 border border-gold/30 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors"
+                      placeholder="Name"
+                      value={formData.contact.name}
+                      onChange={(e) => setFormData(prev => ({ ...prev, contact: { ...prev.contact, name: e.target.value } }))}
+                      required
+                    />
+                    <input
+                      type="tel"
+                      className="w-full bg-black/60 border border-gold/30 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors"
+                      placeholder="Phone"
+                      value={formData.contact.phone}
+                      onChange={(e) => setFormData(prev => ({ ...prev, contact: { ...prev.contact, phone: e.target.value } }))}
+                      required
+                    />
+                    <input
+                      type="email"
+                      className="w-full bg-black/60 border border-gold/30 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-colors"
+                      placeholder="Email"
+                      value={formData.contact.email}
+                      onChange={(e) => setFormData(prev => ({ ...prev, contact: { ...prev.contact, email: e.target.value } }))}
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full bg-gold text-black hover:bg-gold/90 mt-6">
+                    GET QUOTE
+                  </Button>
+                </form>
+                {/* Quote Result */}
+                {showQuote && (
+                  <div className="mt-8 rounded-lg bg-black/60 p-6 text-center text-white">
+                    <h4 className="mb-2 font-playfair text-2xl text-gold">Your Estimated Total</h4>
+                    <p className="text-3xl font-light mb-2">${quoteTotal}</p>
+                    <p className="text-white/70 text-sm">This is an estimate. We will contact you to confirm your booking and final price.</p>
+                    <Button className="mt-6 bg-gold text-black hover:bg-gold/90" onClick={() => setShowQuote(false)}>
+                      CLOSE
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section id="testimonials" className="bg-gray-50 py-16">
+          <div className="container px-4">
+            <p className="mb-2 text-center text-sm font-light text-gray-500">
+              2,537 people have used our boat detailing services
+            </p>
+            <h2 className="mb-12 text-center font-playfair text-3xl font-light">OUR HAPPY CLIENTS</h2>
+            <div className="grid gap-8 md:grid-cols-3">
+              {[
+                {
+                  text: "The crew is so polite, the work is amazing, and the price is fair. I've been using them for years and my boat always looks brand new.",
+                  name: "Sarah Peterson",
+                  boat: "Sea Ray 210 SLX",
+                },
+                {
+                  text: "Simply the best. When all of the other detailers were booked, they made time for me before a big weekend. Exceptional work and customer service.",
+                  name: "David Jones",
+                  boat: "Mastercraft X24",
+                },
+                {
+                  text: "I cannot express how impressed I am with the ceramic coating they applied. My gelcoat looks better than it did when I first bought my boat 3 years ago.",
+                  name: "Anna Wilson",
+                  boat: "Bayliner Element",
+                },
+              ].map((testimonial, i) => (
+                <div key={i} className="rounded-lg bg-white p-8 shadow-lg">
+                  <div className="mb-4 flex">
+                    {Array(5)
+                      .fill(null)
+                      .map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-gold text-gold" />
+                      ))}
+                  </div>
+                  <p className="mb-6 font-light italic text-gray-700">"{testimonial.text}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className="h-12 w-12 rounded-full overflow-hidden">
+                      <Image
+                        src="/placeholder.svg?height=48&width=48"
+                        alt={testimonial.name}
+                        width={48}
+                        height={48}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-medium">{testimonial.name}</p>
+                      <p className="text-sm font-light text-gray-500">{testimonial.boat}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 text-center">
+              <Link href="/feedback">
+                <Button variant="outline" className="border-gold text-gold hover:bg-gold/10">
+                  SEE ALL REVIEWS
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Banner */}
+        <section className="bg-black py-16">
+          <div className="container px-4 text-center">
+            <h2 className="mb-8 font-playfair text-3xl font-light text-white">
+              Ready to Make Waves with a Clean Boat?
+            </h2>
+            <Link href="/contact">
+              <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
+                BOOK MY DETAIL
+              </Button>
+            </Link>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t bg-white">
+        <div className="container px-4 py-12 md:py-16">
+          <div className="grid gap-8 md:grid-cols-4">
+            <div>
+              <h3 className="mb-4 font-light tracking-wider text-lg">ABOUT</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/our-story" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Our Story
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#team" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Team
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/careers" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Careers
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-4 font-light tracking-wider text-lg">COMPANY</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/privacy-policy" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#terms" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Terms
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/faq" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    FAQ
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-4 font-light tracking-wider text-lg">SUPPORT</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/contact" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Contact us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#support" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Support center
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/feedback" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Feedback
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-4 font-light tracking-wider text-lg">GET IN TOUCH</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    <span>Kelowna, BC, Canada</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="tel:+12505551234"
+                    className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                  >
+                    <Phone className="h-4 w-4" />
+                    <span>+1 (250) 555-1234</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="mailto:info@kelownaboatdetailing.com"
+                    className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                  >
+                    <Mail className="h-4 w-4" />
+                    <span>info@kelownaboatdetailing.com</span>
+                  </Link>
+                </li>
+              </ul>
+              <div className="mt-4 flex gap-4">
+                <Link href="https://www.instagram.com/kelownaboatdetailing/?hl=en" className="text-gray-600 hover:text-gold transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </Link>
+                <Link href="#" className="text-gray-600 hover:text-gold transition-colors">
+                  <Facebook className="h-5 w-5" />
+                </Link>
+                <Link href="#" className="text-gray-600 hover:text-gold transition-colors">
+                  <Twitter className="h-5 w-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 border-t pt-8 text-center">
+            <p className="text-sm font-light text-gray-500">
+              &copy; {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
+            </p>
+            <div className="mt-4 flex justify-center">
+              <Image
+                src="/images/light.png"
+                alt="Kelowna Boat Detailing (Light Logo)"
+                width={40}
+                height={40}
+                className="h-10 w-auto"
+              />
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
