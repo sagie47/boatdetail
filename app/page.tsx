@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, FormEvent, useEffect } from "react";
-import { useSearchParams } from 'next/navigation';
 import { Star, ChevronRight, MapPin, Phone, Mail, Instagram, Facebook, Twitter, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import SearchParamsClient from '@/components/SearchParamsClient';
+import { Suspense } from 'react';
 
 interface QuoteFormData {
   boatLength: number;
@@ -35,16 +36,6 @@ const SERVICES = [
 ];
 
 export default function Home() {
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    if (searchParams.get('section') === 'quote') {
-      const quoteSection = document.getElementById('quote');
-      if (quoteSection) {
-        quoteSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [searchParams]);
   const [formData, setFormData] = useState<QuoteFormData>({
     boatLength: 0,
     boatType: 'pontoon',
@@ -97,6 +88,9 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-white">
       {/* PAGE CONTENT STARTS HERE */}
       <main className="flex-1">
+        <Suspense fallback={<div>Loading...</div>}>
+          <SearchParamsClient />
+        </Suspense>
         {/* Hero Section */}
         <section className="relative">
           <div className="absolute inset-0 z-0">
