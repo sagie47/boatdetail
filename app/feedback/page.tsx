@@ -337,11 +337,6 @@ export default function Feedback() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#support" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Support center
-                  </Link>
-                </li>
-                <li>
                   <Link href="/feedback" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     Feedback
                   </Link>
@@ -358,9 +353,9 @@ export default function Feedback() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="tel:+12505551234" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link href="tel:+17785812947" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     <Phone className="h-4 w-4" />
-                    <span>+1 (250) 555-1234</span>
+                    <span>+1 (778) 581-2947</span>
                   </Link>
                 </li>
                 <li>

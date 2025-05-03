@@ -810,11 +810,6 @@ export default function Home() {
                     Our Story
                   </Link>
                 </li>
-                <li>
-                  <Link href="/careers" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Careers
-                  </Link>
-                </li>
               </ul>
             </div>
             <div>

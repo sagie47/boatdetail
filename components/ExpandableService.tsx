@@ -58,9 +58,9 @@ export function ExpandableService({ service, wide }: ExpandableServiceProps & { 
           {open && (
             <div className="mt-8 bg-gold/10 rounded-xl p-8 border border-gold/30 shadow-inner">
               <p className="text-black/80 font-light mb-6 text-lg leading-relaxed">{service.description}</p>
-              <Link href="/contact">
+              <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer">
                 <Button size="sm" className="bg-gold text-black hover:bg-gold/90">BOOK SERVICE</Button>
-              </Link>
+              </a>
             </div>
           )}
         </div>

@@ -198,8 +198,8 @@ const PricingPage = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="tel:+12505551234" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    <span>+1 (250) 555-1234</span>
+                  <Link href="tel:+17785812947" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    <span>+1 (778) 581-2947</span>
                   </Link>
                 </li>
                 <li>

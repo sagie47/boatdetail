@@ -81,123 +81,6 @@ export default function Contact() {
         {/* Contact Content */}
         <section className="container mx-auto px-4 py-16">
           <div className="grid gap-12 md:grid-cols-2">
-            {/* Contact Form */}
-            <div>
-              <h2 className="font-playfair text-3xl font-light mb-8 pb-2 border-b border-gold/20">Get a Quote</h2>
-              {success && <p className="text-green-600 mb-4">Your message has been sent!</p>}
-              {error && <p className="text-red-600 mb-4">{error}</p>}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div>
-                    <label htmlFor="first-name" className="block text-sm font-light text-gray-700 mb-1">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      id="first-name"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
-                      placeholder="Your first name"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="last-name" className="block text-sm font-light text-gray-700 mb-1">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      id="last-name"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
-                      placeholder="Your last name"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-light text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-light text-gray-700 mb-1">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
-                    placeholder="(250) 555-1234"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="boat-info" className="block text-sm font-light text-gray-700 mb-1">
-                    Boat Information
-                  </label>
-                  <input
-                    type="text"
-                    id="boat-info"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
-                    placeholder="Make, model and size (e.g., Mastercraft X24, 24ft)"
-                    value={boatInfo}
-                    onChange={(e) => setBoatInfo(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="service" className="block text-sm font-light text-gray-700 mb-1">
-                    Service Interested In
-                  </label>
-                  <select
-                    id="service"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
-                    value={serviceSelected}
-                    onChange={(e) => setServiceSelected(e.target.value)}
-                  >
-                    <option value="" disabled selected>Select a service</option>
-                    <option value="exterior-wash">Exterior Wash & Dry</option>
-                    <option value="interior-clean">Interior Vacuum & Wipe-down</option>
-                    <option value="full-detail">Full Detail Package</option>
-                    <option value="oxidation">Oxidation Removal & Gelcoat Polish</option>
-                    <option value="seasonal">Seasonal Prep Package</option>
-                    <option value="other">Other (please specify)</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-light text-gray-700 mb-1">
-                    Additional Information
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
-                    placeholder="Tell us more about your requirements or ask any questions..."
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                  ></textarea>
-                </div>
-                <div>
-                  <Button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full md:w-auto bg-gold text-black hover:bg-gold/90"
-                  >
-                    {loading ? "Sending..." : "SUBMIT INQUIRY"}
-                  </Button>
-                </div>
-              </form>
-            </div>
-
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
@@ -210,8 +93,8 @@ export default function Contact() {
                     <div>
                       <h3 className="text-lg font-light">Call Us</h3>
                       <p className="mt-1 text-gray-600">
-                        <a href="tel:+12505551234" className="hover:text-gold transition-colors">
-                          +1 (250) 555-1234
+                        <a href="tel:+17785812947" className="hover:text-gold transition-colors">
+                          +1 (778) 581-2947
                         </a>
                       </p>
                       <p className="mt-1 text-sm text-gray-500">
@@ -300,9 +183,11 @@ export default function Contact() {
             <h2 className="mb-8 font-playfair text-3xl font-light text-white">
               Ready for the Ultimate Boat Transformation?
             </h2>
+            <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-              BOOK MY DETAIL
+              BOOK A DETAIL
             </Button>
+          </a>
           </div>
         </section>
       </main>
@@ -322,11 +207,6 @@ export default function Contact() {
                 <li>
                   <Link href="/#team" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     Team
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/careers" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Careers
                   </Link>
                 </li>
               </ul>
@@ -381,9 +261,9 @@ export default function Contact() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="tel:+12505551234" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link href="tel:+17785812947" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     <Phone className="h-4 w-4" />
-                    <span>+1 (250) 555-1234</span>
+                    <span>+1 (778) 581-2947</span>
                   </Link>
                 </li>
                 <li>

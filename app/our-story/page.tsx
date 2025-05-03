@@ -36,7 +36,7 @@ export default function OurStory() {
           <div className="max-w-4xl mx-auto">
             <div className="grid gap-16">
               {/* Founding Story */}
-              <div className="grid gap-8 md:grid-cols-2 items-center">
+              <div className="grid gap-8 items-center">
                 <div>
                   <h2 className="font-playfair text-3xl font-light mb-6 pb-2 border-b border-gold/20">How We Started</h2>
                   <div className="prose text-gray-700 font-light space-y-4">
@@ -51,14 +51,7 @@ export default function OurStory() {
                     </p>
                   </div>
                 </div>
-                <div className="relative h-[400px] rounded-lg overflow-hidden">
-                  <Image
-                    src="/placeholder.svg?height=400&width=400"
-                    alt="Kelowna Boat Detailing founder"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                {/* Image removed for visual update */}
               </div>
 
               {/* Our Mission */}
@@ -129,9 +122,11 @@ export default function OurStory() {
             <h2 className="mb-8 font-playfair text-3xl font-light text-white">
               Ready to Experience the Kelowna Boat Detailing Difference?
             </h2>
+            <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-              BOOK MY DETAIL
+              BOOK A DETAIL
             </Button>
+          </a>
           </div>
         </section>
       </main>
@@ -146,16 +141,6 @@ export default function OurStory() {
                 <li>
                   <Link href="/our-story" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     Our Story
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#team" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Team
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/careers" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Careers
                   </Link>
                 </li>
               </ul>
@@ -189,11 +174,6 @@ export default function OurStory() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#support" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Support center
-                  </Link>
-                </li>
-                <li>
                   <Link href="/feedback" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     Feedback
                   </Link>
@@ -210,9 +190,9 @@ export default function OurStory() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="tel:+12505551234" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link href="tel:+17785812947" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     <Phone className="h-4 w-4" />
-                    <span>+1 (250) 555-1234</span>
+                    <span>+1 (778) 581-2947</span>
                   </Link>
                 </li>
                 <li>

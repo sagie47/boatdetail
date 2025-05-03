@@ -297,11 +297,11 @@ export default function GalleryPage() {
               </li>
               <li>
                 <Link
-                  href="tel:+12505551234"
+                  href="tel:+17785812947"
                   className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
                 >
                   <Phone className="h-4 w-4" />
-                  <span>+1 (250) 555-1234</span>
+                  <span>+1 (778) 581-2947</span>
                 </Link>
               </li>
               <li>
