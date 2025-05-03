@@ -84,6 +84,11 @@ export default function Home() {
     setShowQuote(true);
   };
 
+  const scrollToQuote = () => {
+    const el = document.getElementById('quote');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       {/* PAGE CONTENT STARTS HERE */}
@@ -117,7 +122,7 @@ export default function Home() {
                     BOOK A DETAIL
                   </Button>
                 </a>
-                <Link href="/#quote" scroll={false} className="w-full sm:w-auto">
+                <a href="#quote" className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     variant="outline"
@@ -125,7 +130,7 @@ export default function Home() {
                   >
                     GET A FREE QUOTE
                   </Button>
-                </Link>
+                </a>
               </div>
             </div>
           </div>
