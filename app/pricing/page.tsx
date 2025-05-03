@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ExpandableService } from "@/components/ExpandableService";
+import { MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
 
 const PricingPage = () => {
   return (
@@ -137,16 +138,6 @@ const PricingPage = () => {
                     Our Story
                   </Link>
                 </li>
-                <li>
-                  <Link href="#team" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Team
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/careers" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Careers
-                  </Link>
-                </li>
               </ul>
             </div>
             <div>
@@ -158,8 +149,8 @@ const PricingPage = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#terms" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Terms
+                  <Link href="/terms-and-conditions" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Terms & Conditions
                   </Link>
                 </li>
                 <li>
@@ -178,11 +169,6 @@ const PricingPage = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#support" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Support center
-                  </Link>
-                </li>
-                <li>
                   <Link href="/feedback" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     Feedback
                   </Link>
@@ -193,27 +179,58 @@ const PricingPage = () => {
               <h3 className="mb-4 font-light tracking-wider text-lg">GET IN TOUCH</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="#" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link
+                    href="#"
+                    className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                  >
+                    <MapPin className="h-4 w-4" />
                     <span>Kelowna, BC, Canada</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="tel:+17785812947" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link
+                    href="tel:+17785812947"
+                    className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                  >
+                    <Phone className="h-4 w-4" />
                     <span>+1 (778) 581-2947</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="mailto:info@kelownaboatdetailing.com" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link
+                    href="mailto:info@kelownaboatdetailing.com"
+                    className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                  >
+                    <Mail className="h-4 w-4" />
                     <span>info@kelownaboatdetailing.com</span>
                   </Link>
                 </li>
               </ul>
+              <div className="mt-4 flex gap-4">
+                <Link href="https://www.instagram.com/kelownaboatdetailing/?hl=en" className="text-gray-600 hover:text-gold transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </Link>
+                <Link href="#" className="text-gray-600 hover:text-gold transition-colors">
+                  <Facebook className="h-5 w-5" />
+                </Link>
+                <Link href="#" className="text-gray-600 hover:text-gold transition-colors">
+                  <Twitter className="h-5 w-5" />
+                </Link>
+              </div>
             </div>
           </div>
           <div className="mt-12 border-t pt-8 text-center">
-            <p className="text-sm font-light text-gray-500">&copy; {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.</p>
+            <p className="text-sm font-light text-gray-500">
+              &copy; {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
+            </p>
             <div className="mt-4 flex justify-center">
-              <Image src="/images/light.png" alt="Kelowna Boat Detailing" width={40} height={40} className="h-10 w-auto" />
+              <Image
+                src="/images/light.png"
+                alt="Kelowna Boat Detailing (Light Logo)"
+                width={40}
+                height={40}
+                className="h-10 w-auto"
+              />
             </div>
           </div>
         </div>

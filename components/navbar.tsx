@@ -22,6 +22,19 @@ export function Navbar() {
       router.push('/?section=quote');
     }
   };
+
+  const closeAndNavigate = (href: string, opts?: { scroll?: boolean }) => (e: any) => {
+    e.preventDefault();
+    setIsOpen(false);
+    setTimeout(() => {
+      if (opts && opts.scroll === false) {
+        router.push(href, undefined, { scroll: false });
+      } else {
+        router.push(href);
+      }
+    }, 300);
+  };
+
   const [isOpen, setIsOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-black relative">
@@ -83,22 +96,22 @@ export function Navbar() {
               <Image src="/images/darknew.png" alt="Kelowna Boat Detailing (Dark Logo)" width={50} height={50} className="h-12 w-auto" />
             </div>
             <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
-              <Link href="/" className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">HOME</Link>
+              <Link href="/" onClick={closeAndNavigate('/')} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">HOME</Link>
             </div>
             <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
-              <Link href="/our-story" className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">ABOUT</Link>
+              <Link href="/our-story" onClick={closeAndNavigate('/our-story')} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">ABOUT</Link>
             </div>
             <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
-              <Link href="/pricing" className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">SERVICES</Link>
+              <Link href="/pricing" onClick={closeAndNavigate('/pricing')} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">SERVICES</Link>
             </div>
             <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
-              <Link href="/faq" className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">FAQ</Link>
+              <Link href="/faq" onClick={closeAndNavigate('/faq')} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">FAQ</Link>
             </div>
             <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
-              <Link href="/" scroll={false} onClick={handleQuoteClick} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">GET A QUOTE</Link>
+              <Link href="/" scroll={false} onClick={(e) => { e.preventDefault(); setIsOpen(false); setTimeout(() => handleQuoteClick(e), 300); }} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">GET A QUOTE</Link>
             </div>
             <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
-              <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80" target="_blank" rel="noopener noreferrer">BOOK NOW</a>
+              <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" onClick={() => setIsOpen(false)} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80" target="_blank" rel="noopener noreferrer">BOOK NOW</a>
             </div>
           </nav>
         </div>

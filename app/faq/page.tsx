@@ -169,11 +169,6 @@ export default function FAQPage() {
                     Our Story
                   </Link>
                 </li>
-                <li>
-                  <Link href="/careers" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Careers
-                  </Link>
-                </li>
               </ul>
             </div>
             <div>
@@ -215,19 +210,28 @@ export default function FAQPage() {
               <h3 className="mb-4 font-light tracking-wider text-lg">GET IN TOUCH</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="#" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link
+                    href="#"
+                    className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                  >
                     <MapPin className="h-4 w-4" />
                     <span>Kelowna, BC, Canada</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="tel:+12505551234" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link
+                    href="tel:+12505551234"
+                    className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                  >
                     <Phone className="h-4 w-4" />
-                    <span>+1 (250) 555-1234</span>
+                    <span>+1 (778) 581-2947</span>
                   </Link>
                 </li>
                 <li>
-                  <Link href="mailto:info@kelownaboatdetailing.com" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link
+                    href="mailto:info@kelownaboatdetailing.com"
+                    className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                  >
                     <Mail className="h-4 w-4" />
                     <span>info@kelownaboatdetailing.com</span>
                   </Link>
@@ -248,12 +252,12 @@ export default function FAQPage() {
           </div>
           <div className="mt-12 border-t pt-8 text-center">
             <p className="text-sm font-light text-gray-500">
-              {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
+              &copy; {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
             </p>
             <div className="mt-4 flex justify-center">
               <Image
                 src="/images/light.png"
-                alt="Kelowna Boat Detailing"
+                alt="Kelowna Boat Detailing (Light Logo)"
                 width={40}
                 height={40}
                 className="h-10 w-auto"

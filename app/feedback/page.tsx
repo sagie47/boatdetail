@@ -1,9 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, MapPin, Phone, Mail, Instagram, Facebook, Twitter, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from 'react';
 
 export default function Feedback() {
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       {/* Main Content */}
@@ -106,11 +112,14 @@ export default function Feedback() {
                       Overall Satisfaction
                     </p>
                     <div className="flex gap-2">
-                      {[1, 2, 3, 4, 5].map((rating) => (
-                        <label key={rating} className="cursor-pointer">
-                          <input type="radio" name="rating" value={rating} className="sr-only peer" />
-                          <Star className="h-8 w-8 text-gray-300 peer-checked:text-gold peer-checked:fill-gold hover:text-gold/70 transition-colors" />
-                        </label>
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star
+                          key={star}
+                          className={`h-8 w-8 cursor-pointer transition-colors ${(hoverRating || rating) >= star ? 'text-gold fill-gold' : 'text-gray-300'}`}
+                          onMouseEnter={() => setHoverRating(star)}
+                          onMouseLeave={() => setHoverRating(0)}
+                          onClick={() => setRating(star)}
+                        />
                       ))}
                     </div>
                   </div>
@@ -187,7 +196,7 @@ export default function Feedback() {
                   </p>
                   <ul className="space-y-4">
                     <li>
-                      <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white hover:text-gold/90 transition-colors">
+                      <a href="https://g.page/r/CWCCJIC_-vkWEBM/review" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white hover:text-gold/90 transition-colors">
                         <div className="flex-shrink-0 w-8 h-8 bg-white rounded-full flex items-center justify-center">
                           <span className="text-black font-medium text-sm">G</span>
                         </div>
@@ -209,62 +218,6 @@ export default function Feedback() {
                       </a>
                     </li>
                   </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Recent Testimonials */}
-            <div className="mt-16">
-              <h2 className="font-playfair text-3xl font-light mb-8 pb-2 border-b border-gold/20">What Others Are Saying</h2>
-              <div className="grid gap-6 md:grid-cols-2">
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <div className="flex mb-3">
-                    {Array(5).fill(null).map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-gold fill-gold" />
-                    ))}
-                  </div>
-                  <p className="font-light italic text-gray-700 mb-4">
-                    "The team at Kelowna Boat Detailing did an amazing job on my Mastercraft. They removed years of oxidation and made the gelcoat look better than when it was new. Highly recommend their services!"
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full overflow-hidden relative">
-                      <Image
-                        src="/placeholder.svg?height=40&width=40"
-                        alt="Sarah Peterson"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <p className="font-medium">Sarah Peterson</p>
-                      <p className="text-sm text-gray-500">Sea Ray Owner</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <div className="flex mb-3">
-                    {Array(5).fill(null).map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-gold fill-gold" />
-                    ))}
-                  </div>
-                  <p className="font-light italic text-gray-700 mb-4">
-                    "I've tried several detailing services in the Okanagan, and Kelowna Boat Detailing is by far the best. Their attention to detail is unmatched, and the ceramic coating has kept my boat looking pristine all season."
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full overflow-hidden relative">
-                      <Image
-                        src="/placeholder.svg?height=40&width=40"
-                        alt="Michael Johnson"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <p className="font-medium">Michael Johnson</p>
-                      <p className="text-sm text-gray-500">Bayliner Owner</p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -380,7 +333,7 @@ export default function Feedback() {
           </div>
           <div className="mt-12 border-t pt-8 text-center">
             <p className="text-sm font-light text-gray-500">
-              © {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
+              {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
             </p>
             <div className="mt-4 flex justify-center">
               <Image
@@ -396,4 +349,4 @@ export default function Feedback() {
       </footer>
     </div>
   );
-} 
+}
