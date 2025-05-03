@@ -117,7 +117,7 @@ export default function Home() {
                     BOOK A DETAIL
                   </Button>
                 </a>
-                <Link href="/contact" className="w-full sm:w-auto">
+                <Link href="/#quote" scroll={false} className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     variant="outline"
