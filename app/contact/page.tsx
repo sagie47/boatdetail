@@ -1,81 +1,57 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
 
 export default function Contact() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [boatInfo, setBoatInfo] = useState("");
+  const [serviceSelected, setServiceSelected] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess(false);
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, email, phone, boatInfo, service: serviceSelected, message }),
+      });
+      if (res.ok) {
+        setSuccess(true);
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPhone("");
+        setBoatInfo("");
+        setServiceSelected("");
+        setMessage("");
+      } else {
+        const errData = await res.json();
+        setError(errData.error || "Failed to send message.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to send message.");
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-black">
-        <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
-          <div className="flex items-center gap-2">
-            <Link href="/" className="flex items-center gap-2">
-              <Image
-                src="/images/logo.png"
-                alt="Kelowna Boat Detailing"
-                width={50}
-                height={50}
-                className="h-12 w-auto"
-              />
-              <span className="hidden text-xl font-light tracking-wider text-gold md:inline-block">
-                KELOWNA BOAT DETAILING
-              </span>
-            </Link>
-          </div>
-          <nav className="hidden md:flex gap-8">
-            <Link href="/" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              HOME
-            </Link>
-            <Link href="/#about" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              ABOUT
-            </Link>
-            <Link href="/#services" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              SERVICES
-            </Link>
-            <Link href="/#pricing" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              PRICING
-            </Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Link href="/contact" className="hidden md:block">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-gold text-gold bg-black hover:bg-black/90 hover:text-gold"
-              >
-                GET A QUOTE
-              </Button>
-            </Link>
-            <Link href="/#book">
-              <Button size="sm" className="bg-gold text-black hover:bg-gold/90">
-                BOOK NOW
-              </Button>
-            </Link>
-            <div className="md:hidden">
-              <Button variant="ghost" size="icon" className="text-gold">
-                <span className="sr-only">Toggle menu</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-6 w-6"
-                >
-                  <line x1="4" x2="20" y1="12" y2="12" />
-                  <line x1="4" x2="20" y1="6" y2="6" />
-                  <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      
+   
 
       {/* Main Content */}
       <main className="flex-1">
@@ -108,7 +84,9 @@ export default function Contact() {
             {/* Contact Form */}
             <div>
               <h2 className="font-playfair text-3xl font-light mb-8 pb-2 border-b border-gold/20">Get a Quote</h2>
-              <form className="space-y-6">
+              {success && <p className="text-green-600 mb-4">Your message has been sent!</p>}
+              {error && <p className="text-red-600 mb-4">{error}</p>}
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
                     <label htmlFor="first-name" className="block text-sm font-light text-gray-700 mb-1">
@@ -119,6 +97,8 @@ export default function Contact() {
                       id="first-name"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
                       placeholder="Your first name"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                   </div>
                   <div>
@@ -130,6 +110,8 @@ export default function Contact() {
                       id="last-name"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
                       placeholder="Your last name"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -142,6 +124,8 @@ export default function Contact() {
                     id="email"
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
                     placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div>
@@ -153,6 +137,8 @@ export default function Contact() {
                     id="phone"
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
                     placeholder="(250) 555-1234"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
                 <div>
@@ -164,6 +150,8 @@ export default function Contact() {
                     id="boat-info"
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
                     placeholder="Make, model and size (e.g., Mastercraft X24, 24ft)"
+                    value={boatInfo}
+                    onChange={(e) => setBoatInfo(e.target.value)}
                   />
                 </div>
                 <div>
@@ -173,6 +161,8 @@ export default function Contact() {
                   <select
                     id="service"
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
+                    value={serviceSelected}
+                    onChange={(e) => setServiceSelected(e.target.value)}
                   >
                     <option value="" disabled selected>Select a service</option>
                     <option value="exterior-wash">Exterior Wash & Dry</option>
@@ -192,11 +182,17 @@ export default function Contact() {
                     rows={4}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/50"
                     placeholder="Tell us more about your requirements or ask any questions..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                   ></textarea>
                 </div>
                 <div>
-                  <Button className="w-full md:w-auto bg-gold text-black hover:bg-gold/90">
-                    SUBMIT INQUIRY
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full md:w-auto bg-gold text-black hover:bg-gold/90"
+                  >
+                    {loading ? "Sending..." : "SUBMIT INQUIRY"}
                   </Button>
                 </div>
               </form>
@@ -260,18 +256,16 @@ export default function Contact() {
 
               <div>
                 <h3 className="text-xl font-light mb-4">Service Area</h3>
-                <div className="h-[300px] relative rounded-lg overflow-hidden">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d163964.4243849673!2d-119.6154741751436!3d49.88257759576164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537d8cb6e3c730b3%3A0x4ef8e53ddab4c4f7!2sKelowna%2C%20BC!5e0!3m2!1sen!2sca!4v1718744642809!5m2!1sen!2sca" 
-                    width="600" 
-                    height="450" 
-                    style={{ border: 0 }} 
-                    allowFullScreen 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="absolute inset-0 w-full h-full"
-                  ></iframe>
-                </div>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d163964.4243849673!2d-119.6154741751436!3d49.88257759576164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537d8cb6e3c730b3%3A0x4ef8e53ddab4c4f7!2sKelowna%2C%20BC!5e0!3m2!1sen!2sca!4v1718744642809!5m2!1sen!2sca"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="rounded-lg"
+                ></iframe>
               </div>
 
               <div className="bg-gray-50 p-6 rounded-lg">
@@ -414,12 +408,12 @@ export default function Contact() {
           </div>
           <div className="mt-12 border-t pt-8 text-center">
             <p className="text-sm font-light text-gray-500">
-              © {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
+              {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
             </p>
             <div className="mt-4 flex justify-center">
               <Image
-                src="/images/logo.png"
-                alt="Kelowna Boat Detailing"
+                src="/images/light.png"
+                alt="Kelowna Boat Detailing (Dark Logo)"
                 width={40}
                 height={40}
                 className="h-10 w-auto"
@@ -430,4 +424,4 @@ export default function Contact() {
       </footer>
     </div>
   );
-} 
+}

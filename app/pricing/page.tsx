@@ -3,21 +3,31 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Navbar } from "@/components/navbar";
 import { ExpandableService } from "@/components/ExpandableService";
 
 const PricingPage = () => {
   return (
     <main className="min-h-screen bg-white">
-      <Navbar />
-      {/* Header */}
-      <section className="bg-black text-white py-16">
-        <div className="container px-4">
-          <h1 className="mb-4 font-playfair text-4xl font-light">Our Services & Pricing</h1>
-          <p className="mb-8 max-w-2xl font-light text-gray-300">
-            Professional boat detailing services tailored to your vessel's needs. All prices are based on boat length and condition.
-            Contact us for a personalized quote.
-          </p>
+      {/* Hero Section */}
+      <section className="relative">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero-boat.jpg"
+            alt="Boat Services & Pricing"
+            fill
+            className="object-cover brightness-[0.4]"
+            priority
+          />
+        </div>
+        <div className="container relative z-10 px-4 py-24 md:py-32">
+          <div className="grid gap-4">
+            <h1 className="font-playfair text-4xl font-light tracking-tight text-white sm:text-5xl md:text-6xl">
+              OUR <span className="text-gold">SERVICES</span>
+            </h1>
+            <p className="mb-8 max-w-2xl font-light text-white/90 md:text-lg">
+              Professional boat detailing services tailored to your vessel's needs. All prices are based on boat length and condition.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -29,30 +39,30 @@ const PricingPage = () => {
             <ExpandableService
               service={{
                 image: "/images/boat.png",
-                alt: "Exterior Wash & Dry",
-                title: "Exterior Wash & Dry",
-                description: "Waterline scum removal, microfiber drying to prevent spots",
-                price: "$10–$15/ft"
+                alt: "Basic Exterior Wash",
+                title: "Basic Exterior Wash",
+                description: "Foam cannon presoak; hand wash with marine-grade shampoo; water spot removal (non-polish); quick-dry with microfiber towels; spray wax application (3–6 month protection)",
+                price: "$15–$25/ft"
               }}
               wide
             />
             <ExpandableService
               service={{
                 image: "/images/pic1.png",
-                alt: "Interior Vacuum & Wipe-down",
-                title: "Interior Vacuum & Wipe-down",
-                description: "Vacuum carpets & seats, wipe surfaces, cupholders, dash, vinyl, clean windows inside and out",
-                price: "$10–$12/ft"
+                alt: "Interior Basic Clean",
+                title: "Interior Basic Clean",
+                description: "Vacuum carpets and upholstery; wipe down hard surfaces and vinyl; clean windows and mirrors; light dusting of vents and compartments",
+                price: "$12–$18/ft"
               }}
               wide
             />
             <ExpandableService
               service={{
                 image: "/images/pic2.png",
-                alt: "Full Detail Package",
-                title: "Full Detail Package",
-                description: "Exterior wash, full interior clean, spot removal, quick wax for a polished finish",
-                price: "$20–$25/ft",
+                alt: "Full Exterior & Interior Detail Package",
+                title: "Full Exterior & Interior Detail Package",
+                description: "Complete oxidation removal and polish; ceramic spray sealant application; full interior deep clean and upholstery conditioning; glass and chrome polishing inside and out",
+                price: "$45–$80/ft",
                 popular: true
               }}
               wide
@@ -62,8 +72,8 @@ const PricingPage = () => {
                 image: "/images/pic3.png",
                 alt: "Oxidation Removal & Gelcoat Polish",
                 title: "Oxidation Removal & Gelcoat Polish",
-                description: "One-step compound polish on faded gelcoat, buffer and polishing pads",
-                price: "$30–$60/ft"
+                description: "Single-step polish for light oxidation ($35–$50/ft); multi-step polish for heavy oxidation ($60–$75/ft); acid wash prep if needed; rotary buffer with marine pads; hybrid ceramic spray sealant included",
+                price: "$35–$75/ft"
               }}
               wide
             />
@@ -80,10 +90,20 @@ const PricingPage = () => {
             <ExpandableService
               service={{
                 image: "/images/pic2.png",
+                alt: "Interior Deep Clean & Upholstery Care",
+                title: "Interior Deep Clean & Upholstery Care",
+                description: "Includes Basic Interior Clean services; shampoo carpets and fabric seats; condition and protect vinyl/leather upholstery; deodorize and sanitize interior",
+                price: "$18–$30/ft"
+              }}
+              wide
+            />
+            <ExpandableService
+              service={{
+                image: "/images/pic3.png",
                 alt: "Engine Bay Cleaning",
                 title: "Engine Bay Cleaning",
-                description: "Degrease, scrub, and rinse engine compartment, improves appearance and protects performance",
-                price: "$75–$150 flat"
+                description: "Degrease and scrub engine compartment; low-pressure rinse; plastic/rubber dressing application",
+                price: "$85–$175 flat"
               }}
               wide
             />
@@ -97,11 +117,11 @@ const PricingPage = () => {
           <h2 className="mb-8 font-playfair text-3xl font-light">
             Ready to Transform Your Boat?
           </h2>
-          <Link href="/contact">
+          <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-              GET A QUOTE
+              BOOK A DETAIL
             </Button>
-          </Link>
+          </a>
         </div>
       </section>
 
@@ -188,6 +208,12 @@ const PricingPage = () => {
                   </Link>
                 </li>
               </ul>
+            </div>
+          </div>
+          <div className="mt-12 border-t pt-8 text-center">
+            <p className="text-sm font-light text-gray-500">&copy; {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.</p>
+            <div className="mt-4 flex justify-center">
+              <Image src="/images/light.png" alt="Kelowna Boat Detailing" width={40} height={40} className="h-10 w-auto" />
             </div>
           </div>
         </div>

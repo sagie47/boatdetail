@@ -59,7 +59,7 @@ export function ExpandableService({ service, wide }: ExpandableServiceProps & { 
             <div className="mt-8 bg-gold/10 rounded-xl p-8 border border-gold/30 shadow-inner">
               <p className="text-black/80 font-light mb-6 text-lg leading-relaxed">{service.description}</p>
               <Link href="/contact">
-                <Button className="bg-gold text-black hover:bg-gold/90 min-w-[180px] text-lg py-6 px-8 rounded-xl shadow-gold/30 shadow-lg">BOOK SERVICE</Button>
+                <Button size="sm" className="bg-gold text-black hover:bg-gold/90">BOOK SERVICE</Button>
               </Link>
             </div>
           )}

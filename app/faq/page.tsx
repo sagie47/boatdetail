@@ -91,76 +91,7 @@ const FAQ = () => {
 export default function FAQPage() {
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-black">
-        <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
-          <div className="flex items-center gap-2">
-            <Link href="/" className="flex items-center gap-2">
-              <Image
-                src="/images/logo.png"
-                alt="Kelowna Boat Detailing"
-                width={50}
-                height={50}
-                className="h-12 w-auto"
-              />
-              <span className="hidden text-xl font-light tracking-wider text-gold md:inline-block">
-                KELOWNA BOAT DETAILING
-              </span>
-            </Link>
-          </div>
-          <nav className="hidden md:flex gap-8">
-            <Link href="/" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              HOME
-            </Link>
-            <Link href="/#about" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              ABOUT
-            </Link>
-            <Link href="/#services" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              SERVICES
-            </Link>
-            <Link href="/#pricing" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              PRICING
-            </Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Link href="/contact" className="hidden md:block">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-gold text-gold bg-black hover:bg-black/90 hover:text-gold"
-              >
-                GET A QUOTE
-              </Button>
-            </Link>
-            <Link href="/#book">
-              <Button size="sm" className="bg-gold text-black hover:bg-gold/90">
-                BOOK NOW
-              </Button>
-            </Link>
-            <div className="md:hidden">
-              <Button variant="ghost" size="icon" className="text-gold">
-                <span className="sr-only">Toggle menu</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-6 w-6"
-                >
-                  <line x1="4" x2="20" y1="12" y2="12" />
-                  <line x1="4" x2="20" y1="6" y2="6" />
-                  <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Navbar provided by RootLayout */}
 
       {/* Main Content */}
       <main className="flex-1">
@@ -217,9 +148,11 @@ export default function FAQPage() {
             <h2 className="mb-8 font-playfair text-3xl font-light text-white">
               Ready for a Professional Boat Detail?
             </h2>
-            <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-              BOOK MY DETAIL
-            </Button>
+            <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" className="w-full sm:w-auto bg-gold text-black hover:bg-gold/90">
+                    BOOK A DETAIL
+                  </Button>
+                </a>
           </div>
         </section>
       </main>
@@ -234,11 +167,6 @@ export default function FAQPage() {
                 <li>
                   <Link href="/our-story" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     Our Story
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#team" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Team
                   </Link>
                 </li>
                 <li>
@@ -257,8 +185,8 @@ export default function FAQPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#terms" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Terms
+                  <Link href="/terms-and-conditions" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                    Terms & Conditions
                   </Link>
                 </li>
                 <li>
@@ -274,11 +202,6 @@ export default function FAQPage() {
                 <li>
                   <Link href="/contact" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     Contact us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#support" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Support center
                   </Link>
                 </li>
                 <li>
@@ -311,7 +234,7 @@ export default function FAQPage() {
                 </li>
               </ul>
               <div className="mt-4 flex gap-4">
-                <Link href="#" className="text-gray-600 hover:text-gold transition-colors">
+                <Link href="https://www.instagram.com/kelownaboatdetailing/?hl=en" className="text-gray-600 hover:text-gold transition-colors">
                   <Instagram className="h-5 w-5" />
                 </Link>
                 <Link href="#" className="text-gray-600 hover:text-gold transition-colors">
@@ -325,11 +248,11 @@ export default function FAQPage() {
           </div>
           <div className="mt-12 border-t pt-8 text-center">
             <p className="text-sm font-light text-gray-500">
-              © {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
+              {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
             </p>
             <div className="mt-4 flex justify-center">
               <Image
-                src="/images/logo.png"
+                src="/images/light.png"
                 alt="Kelowna Boat Detailing"
                 width={40}
                 height={40}
