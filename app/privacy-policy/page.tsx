@@ -184,7 +184,7 @@ export default function PrivacyPolicy() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-gold" />
-                    <span>Phone: <a href="tel:+12505551234" className="text-gold hover:underline">+1 (250) 555-1234</a></span>
+                    <span>Phone: <a href="tel:+17785812947" className="text-gold hover:underline">+1 (778) 581-2947</a></span>
                   </div>
                   <div className="flex items-center gap-3">
                     <MapPin className="h-5 w-5 text-gold" />
@@ -281,9 +281,9 @@ export default function PrivacyPolicy() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="tel:+12505551234" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
+                  <Link href="tel:+17785812947" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
                     <Phone className="h-4 w-4" />
-                    <span>+1 (250) 555-1234</span>
+                    <span>+1 (778) 581-2947</span>
                   </Link>
                 </li>
                 <li>

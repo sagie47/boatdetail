@@ -49,7 +49,7 @@ const FAQ = () => {
     },
     {
       question: "How do I book a detailing service?",
-      answer: "Booking is easy! You can book online through our website, call us at (250) 555-1234, or email us at info@kelownaboatdetailing.com. We'll discuss your needs, provide a quote, and schedule a convenient appointment time. We recommend booking in advance, especially during peak boating season (May-September) when our schedule fills quickly."
+      answer: "Booking is easy! You can book online through our website, call us at (778) 581-2947, or email us at info@kelownaboatdetailing.com. We'll discuss your needs, provide a quote, and schedule a convenient appointment time. We recommend booking in advance, especially during peak boating season (May-September) when our schedule fills quickly."
     },
     {
       question: "What payment methods do you accept?",
@@ -220,7 +220,7 @@ export default function FAQPage() {
                 </li>
                 <li>
                   <Link
-                    href="tel:+12505551234"
+                    href="tel:+17785812947"
                     className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
                   >
                     <Phone className="h-4 w-4" />
