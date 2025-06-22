@@ -1,154 +1,116 @@
+"use client";
+
 import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react";
+import AnimatedPage from "@/components/ui/AnimatedPage";
+import ScrollAnimatedSection from "@/components/ui/ScrollAnimatedSection";
+
+interface GalleryItem {
+  src: string;
+  type: 'image' | 'video';
+  thumbnail?: string;
+  formats?: string[];
+  alt?: string;
+}
 
 export default function GalleryPage() {
-  const galleryImages = [
-    {
-      src: "/images/pic.jpeg",
-      alt: "Exterior Boat Detailing",
-      category: "exterior",
-      title: "Premium Exterior Detail",
-      description: "Complete exterior transformation with our signature wash and wax service",
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const galleryItems: GalleryItem[] = [
+    { src: '/images/IMG_0670.jpg', type: 'image', alt: 'Boat Detailing Work 1' },
+    { src: '/images/IMG_0991.jpg', type: 'image', alt: 'Boat Detailing Work 2' },
+    { src: '/images/IMG_1036.jpg', type: 'image', alt: 'Boat Detailing Work 3' },
+    { src: '/images/afte.png', type: 'image', alt: 'After Detailing' },
+    { src: '/images/ass.jpeg', type: 'image', alt: 'Detailed Boat Ass' },
+    { src: '/images/before.png', type: 'image', alt: 'Before Detailing' },
+    { src: '/images/fap.png', type: 'image', alt: 'Fap Image' },
+    { src: '/images/poop.jpeg', type: 'image', alt: 'Poop Image' },
+    { src: '/images/pop.png', type: 'image', alt: 'Pop Image' },
+    { src: '/images/ppp.png', type: 'image', alt: 'PPP Image' },
+    { src: '/images/suck.jpeg', type: 'image', alt: 'Suck Image' },
+    { src: '/images/img.jpeg', type: 'image', alt: 'IMG Image' },
+    { 
+      src: '/images/whore.mp4', 
+      type: 'video',
+      thumbnail: '/images/thumbnails/whore-thumbnail.jpg',
+      formats: ['mp4'],
+      alt: 'Boat Detailing Video 2'
     },
-    {
-      src: "/images/pic1.png",
-      alt: "Interior Boat Cleaning",
-      category: "interior",
-      title: "Luxury Interior Clean",
-      description: "Deep cleaning and conditioning of all interior surfaces",
-    },
-    {
-      src: "/images/pic2.png",
-      alt: "Boat Detailing Process",
-      category: "process",
-      title: "Professional Detailing",
-      description: "Our meticulous detailing process in action",
-    },
-    {
-      src: "/images/pic3.png",
-      alt: "Boat Washing",
-      category: "exterior",
-      title: "Hull Cleaning",
-      description: "Specialized hull cleaning and protection",
-    },
-    {
-      src: "/images/boat.png",
-      alt: "Seasonal Maintenance",
-      category: "maintenance",
-      title: "Seasonal Care",
-      description: "Comprehensive seasonal maintenance package",
-    },
-    {
-      src: "/images/season.png",
-      alt: "Before and After",
-      category: "results",
-      title: "Stunning Results",
-      description: "See the difference our services make",
-    },
-  ]
+    { 
+      src: '/images/gaf.mp4', 
+      type: 'video',
+      thumbnail: '/images/thumbnails/gaf-thumbnail.jpg',
+      formats: ['mp4'],
+      alt: 'Boat Detailing Video 1'
+    }
+  ];
+
+  const openModal = (index: number) => {
+    setCurrentIndex(index);
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const navigate = (direction: 'prev' | 'next') => {
+    if (currentIndex === null) return;
+    let newIndex = currentIndex;
+    if (direction === 'prev') {
+      newIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+    } else {
+      newIndex = (currentIndex + 1) % galleryItems.length;
+    }
+    setCurrentIndex(newIndex);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isModalOpen) return;
+      if (e.key === 'Escape') closeModal();
+      else if (e.key === 'ArrowLeft') navigate('prev');
+      else if (e.key === 'ArrowRight') navigate('next');
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isModalOpen, currentIndex, navigate]);
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <header className="sticky top-0 z-50 w-full border-b bg-black">
-        <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
-          <div className="flex items-center gap-2">
-            <Link href="/" className="flex items-center gap-2">
-              <Image
-                src="/images/darknew.png"
-                alt="Kelowna Boat Detailing (Dark Logo)"
-                width={50}
-                height={50}
-                className="h-12 w-auto"
-              />
-              <span className="hidden text-xl font-light tracking-wider text-gold md:inline-block">
-                KELOWNA BOAT DETAILING
-              </span>
-            </Link>
-          </div>
-          <nav className="hidden md:flex gap-8">
-            <Link href="/" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              HOME
-            </Link>
-            <Link href="/our-story" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              ABOUT
-            </Link>
-            <Link href="/#services" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              SERVICES
-            </Link>
-            <Link href="/#pricing" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              PRICING
-            </Link>
-            <Link href="/gallery" className="text-sm font-light tracking-wider text-gold hover:text-gold/80 transition-colors">
-              GALLERY
-            </Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Link href="/#quote" className="hidden md:block">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-gold text-gold bg-black hover:bg-black/90 hover:text-gold"
-              >
-                GET A QUOTE
-              </Button>
-            </Link>
-            <Link href="#book">
-              <Button size="sm" className="bg-gold text-black hover:bg-gold/90">
-                BOOK NOW
-              </Button>
-            </Link>
-            <div className="md:hidden">
-              <Button variant="ghost" size="icon" className="text-gold">
-                <span className="sr-only">Toggle menu</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-6 w-6"
-                >
-                  <line x1="4" x2="20" y1="12" y2="12" />
-                  <line x1="4" x2="20" y1="6" y2="6" />
-                  <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
       {/* Header */}
-      <header className="relative bg-black py-24">
-        <div className="absolute inset-0 overflow-hidden">
-          <Image
-            src="/images/hero-boat.jpg"
-            alt="Gallery header image"
-            fill
-            className="object-cover object-center brightness-[0.2]"
-          />
-        </div>
-        <div className="relative container mx-auto px-4">
-          <Link href="/" className="inline-flex items-center gap-2 text-gold hover:text-gold/80 transition-colors mb-6">
-            <ChevronLeft className="h-4 w-4" />
-            <span className="text-sm font-light">BACK TO HOME</span>
-          </Link>
-          <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4">
-            Our Work Gallery
-          </h1>
-          <p className="text-white/80 font-light md:text-lg max-w-2xl">
-            Explore our portfolio of premium boat detailing services. Each image represents our commitment to excellence
-            and attention to detail.
-          </p>
-        </div>
-      </header>
+      <ScrollAnimatedSection animationType="fadeIn">
+        <header className="relative bg-black py-24">
+          <div className="absolute inset-0 overflow-hidden">
+            <Image
+              src="/images/hero-boat.webp"
+              alt="Gallery header image"
+              fill
+              className="object-cover object-center brightness-[0.2]"
+            />
+          </div>
+          <div className="relative container mx-auto px-4">
+            <Link href="/" className="inline-flex items-center gap-2 text-gold hover:text-gold/80 transition-colors mb-6">
+              <ChevronLeft className="h-4 w-4" />
+              <span className="text-sm font-light">BACK TO HOME</span>
+            </Link>
+            <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4">
+              Our Work Gallery
+            </h1>
+            <p className="text-white/80 font-light md:text-lg max-w-2xl">
+              Explore our portfolio of premium boat detailing services. Each image represents our commitment to excellence
+              and attention to detail.
+            </p>
+          </div>
+        </header>
+      </ScrollAnimatedSection>
 
       {/* Gallery Filter */}
       <div className="border-b">
@@ -169,56 +131,85 @@ export default function GalleryPage() {
       </div>
 
       {/* Gallery Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {galleryImages.map((image, index) => (
-              <div
-                key={index}
-                className="group relative aspect-square overflow-hidden rounded-lg bg-black/20 cursor-pointer"
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-white font-light text-xl mb-2">{image.title}</h3>
-                    <p className="text-white/80 font-light text-sm">{image.description}</p>
+      <AnimatedPage>
+        <ScrollAnimatedSection animationType="zoomIn" className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+              {galleryItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer"
+                  onClick={() => openModal(index)}
+                >
+                  <div className="aspect-square">
+                    {item.type === 'video' ? (
+                      <div className="relative h-full w-full">
+                        <video
+                          className="h-full w-full object-cover"
+                          poster={item.thumbnail}
+                          controls
+                          playsInline
+                          preload="metadata"
+                        >
+                          <source src={item.src} type="video/mp4" />
+                          {item.formats?.includes('webm') && (
+                            <source src={item.src.replace(/\.mp4$/i, '.webm')} type="video/webm" />
+                          )}
+                          Your browser does not support HTML5 video.
+                        </video>
+                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                          <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path></svg>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center h-full w-full bg-gray-100">
+                        <Image
+                          src={item.src}
+                          alt={item.alt || `Gallery item ${index + 1}`}
+                          width={300}
+                          height={300}
+                          className="max-h-full max-w-full object-contain p-2"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-white text-lg font-light">
+                      {item.type === 'video' ? 'Play Video' : 'View Image'}
+                    </span>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </ScrollAnimatedSection>
 
-      {/* CTA Section */}
-      <section className="bg-black py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-playfair text-3xl font-light text-white mb-8">
-            Ready to Transform Your Boat?
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact">
-              <Button size="lg" className="bg-gold text-black hover:bg-gold/90 min-w-[200px]">
-                GET A QUOTE
-              </Button>
-            </Link>
-            <Link href="#book">
-              <Button
-                size="lg"
-                className="bg-black border-gold text-gold hover:bg-black/90 min-w-[200px]"
-                variant="outline"
-              >
-                BOOK NOW
-              </Button>
-            </Link>
+        {/* CTA Section */}
+        <ScrollAnimatedSection animationType="fadeIn" className="bg-black py-16">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="font-playfair text-3xl font-light text-white mb-8">
+              Ready to Transform Your Boat?
+            </h2>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact">
+                <Button size="lg" className="bg-gold text-black hover:bg-gold/90 min-w-[200px]">
+                  GET A QUOTE
+                </Button>
+              </Link>
+              <Link href="#book">
+                <Button
+                  size="lg"
+                  className="bg-black border-gold text-gold hover:bg-black/90 min-w-[200px]"
+                  variant="outline"
+                >
+                  BOOK NOW
+                </Button>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </ScrollAnimatedSection>
+      </AnimatedPage>
     {/* Footer */}
     <footer className="border-t bg-white">
       <div className="container px-4 py-12 md:py-16">
@@ -343,6 +334,54 @@ export default function GalleryPage() {
         </div>
       </div>
     </footer>
+
+      {/* Lightbox Modal */}
+      {isModalOpen && currentIndex !== null && (
+        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4" onClick={closeModal}>
+          <button 
+            className="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 z-[51]"
+            onClick={(e) => { e.stopPropagation(); closeModal(); }}
+          >
+            &times;
+          </button>
+          <button 
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl hover:text-gray-300 z-[51] p-2"
+            onClick={(e) => { e.stopPropagation(); navigate('prev'); }}
+          >
+            &larr;
+          </button>
+          <button 
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl hover:text-gray-300 z-[51] p-2"
+            onClick={(e) => { e.stopPropagation(); navigate('next'); }}
+          >
+            &rarr;
+          </button>
+          <div className="relative max-w-4xl w-full max-h-[90vh] flex items-center justify-center" onClick={e => e.stopPropagation()}>
+            {galleryItems[currentIndex].type === 'video' ? (
+              <video 
+                className="max-h-[90vh] w-auto max-w-full"
+                src={galleryItems[currentIndex].src}
+                controls
+                autoPlay
+                loop
+                onClick={e => e.stopPropagation()}
+              />
+            ) : (
+              <Image
+                src={galleryItems[currentIndex].src}
+                alt={galleryItems[currentIndex].alt || `Gallery item ${currentIndex + 1}`}
+                width={1200}
+                height={800}
+                className="max-h-[90vh] w-auto max-w-full object-contain"
+                onClick={e => e.stopPropagation()}
+              />
+            )}
+          </div>
+          <div className="absolute bottom-4 left-0 right-0 text-center text-white text-sm">
+            {currentIndex + 1} / {galleryItems.length}
+          </div>
+        </div>
+      )}
   </div>
 )
 }

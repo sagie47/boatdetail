@@ -1,52 +1,11 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React from "react";
 
 export default function Contact() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [boatInfo, setBoatInfo] = useState("");
-  const [serviceSelected, setServiceSelected] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setSuccess(false);
-    setError("");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstName, lastName, email, phone, boatInfo, service: serviceSelected, message }),
-      });
-      if (res.ok) {
-        setSuccess(true);
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPhone("");
-        setBoatInfo("");
-        setServiceSelected("");
-        setMessage("");
-      } else {
-        const errData = await res.json();
-        setError(errData.error || "Failed to send message.");
-      }
-    } catch (err) {
-      console.error(err);
-      setError("Failed to send message.");
-    }
-    setLoading(false);
-  };
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -59,7 +18,7 @@ export default function Contact() {
         <section className="relative">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/hero-boat.jpg"
+              src="/images/hero-boat.webp"
               alt="Contact Kelowna Boat Detailing"
               fill
               className="object-cover brightness-[0.4]"

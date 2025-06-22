@@ -18,7 +18,7 @@ export default function Feedback() {
         <section className="relative">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/hero-boat.jpg"
+              src="/images/hero-boat.webp"
               alt="Feedback for Kelowna Boat Detailing"
               fill
               className="object-cover brightness-[0.4]"
@@ -167,7 +167,7 @@ export default function Feedback() {
                 <div className="bg-gray-50 p-6 rounded-lg mb-8">
                   <h3 className="text-xl font-light mb-4">Why Your Feedback Matters</h3>
                   <p className="text-gray-600 font-light mb-4">
-                    At Kelowna Boat Detailing, we're committed to providing the highest quality service. Your feedback helps us:
+                    At Kelowna Boat Detailing, we&apos;re committed to providing the highest quality service. Your feedback helps us:
                   </p>
                   <ul className="space-y-2 text-gray-600 font-light">
                     <li className="flex items-start gap-2">

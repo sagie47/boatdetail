@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, MapPin, Phone, Mail, Instagram, Facebook, Twitter, CheckCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Facebook, Twitter, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function OurStory() {
@@ -12,7 +12,7 @@ export default function OurStory() {
         <section className="relative">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/hero-boat.jpg"
+              src="/images/hero-boat.webp"
               alt="The Kelowna Boat Detailing Story"
               fill
               className="object-cover brightness-[0.4]"
@@ -41,13 +41,19 @@ export default function OurStory() {
                   <h2 className="font-playfair text-3xl font-light mb-6 pb-2 border-b border-gold/20">How We Started</h2>
                   <div className="prose text-gray-700 font-light space-y-4">
                     <p>
-                      Kelowna Boat Detailing was founded in 2012 by Mike Davidson, a lifelong boater and detailing enthusiast who noticed a gap in the market for high-quality, dedicated boat detailing services in the Okanagan Valley.
+                      Welcome to Kelowna Boat Detailing – Where Your Vessel Gets the Care It Deserves
                     </p>
                     <p>
-                      What began as a one-man operation with a pickup truck full of supplies has grown into Kelowna's premier mobile boat detailing service. Mike's passion for bringing boats back to showroom condition, combined with his commitment to exceptional customer service, quickly earned Kelowna Boat Detailing a reputation for excellence.
+                      Whether your boat needs a full detail, oxidation removal, or just a deep clean after a season on Okanagan Lake, we've got you covered. We specialize in professional, high-quality detailing services that keep your boat looking its best and performing at its peak.
                     </p>
                     <p>
-                      Today, our professional team serves hundreds of boat owners throughout the Okanagan, from small fishing boats to luxury yachts. As boating enthusiasts ourselves, we understand the pride that comes with a pristine vessel.
+                      With years of hands-on experience, our team knows how to handle everything from interior deep cleans to gelcoat restoration. We work on all types of boats and understand the unique demands of the local climate and waters.
+                    </p>
+                    <p>
+                      Proudly serving Kelowna and the surrounding area, we've earned a reputation for reliable, meticulous work and customer-first service. No job is too big or small – from quick spruce-ups to full-service details, we treat every boat like it's our own.
+                    </p>
+                    <p>
+                      Book your detail today and get back on the water looking sharp.
                     </p>
                   </div>
                 </div>
@@ -58,7 +64,7 @@ export default function OurStory() {
               <div className="bg-gray-50 p-8 rounded-lg">
                 <h2 className="font-playfair text-3xl font-light mb-6 text-center">Our Mission</h2>
                 <p className="text-center text-xl font-light text-gray-700 max-w-2xl mx-auto">
-                  "To provide the highest quality boat detailing services while exceeding customer expectations through attention to detail, technical expertise, and exceptional customer service."
+                  &quot;To provide the highest quality boat detailing services while exceeding customer expectations through attention to detail, technical expertise, and exceptional customer service.&quot;
                 </p>
               </div>
 

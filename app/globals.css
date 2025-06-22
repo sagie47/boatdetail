@@ -81,3 +81,86 @@
 .font-playfair {
   font-family: var(--font-playfair);
 }
+
+/* Optimize hero section loading */
+.hero-loading {
+  background-color: #1a1a1a; /* Dark background while hero image loads */
+}
+
+/* Improve image loading transitions */
+.transition-opacity {
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Optimize content loading paint */
+section.relative {
+  will-change: opacity;
+  contain: layout paint style;
+}
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+/* Optimize animations and transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimize font loading */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-display: swap;
+}
+
+/* Optimize image containers */
+.image-container {
+  contain: layout style paint;
+}
+
+/* Optimize gallery grid */
+.gallery-grid {
+  contain: layout style;
+  will-change: transform;
+}
+
+/* Optimize modal performance */
+.modal-backdrop {
+  backdrop-filter: blur(4px);
+  will-change: opacity;
+}
+
+/* Optimize hover effects */
+.hover-scale {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Critical CSS for above-the-fold content */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optimize button interactions */
+

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function PrivacyPolicy() {
@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
         <section className="relative">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/hero-boat.jpg"
+              src="/images/hero-boat.webp"
               alt="Boat in marina with privacy policy"
               fill
               className="object-cover brightness-[0.4]"
@@ -165,7 +165,7 @@ export default function PrivacyPolicy() {
               <div>
                 <h2 className="font-playfair text-2xl font-light mb-6 pb-2 border-b border-gold/20">Changes to This Policy</h2>
                 <p className="leading-relaxed mb-4">
-                  We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.
+                  We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &quot;Last Updated&quot; date.
                 </p>
                 <p className="leading-relaxed">
                   We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information.
