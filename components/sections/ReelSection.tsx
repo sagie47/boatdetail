@@ -11,9 +11,14 @@ interface ReelSectionProps {
 const ReelSection: React.FC<ReelSectionProps> = ({ children, className }) => {
   const isMobile = useIsMobile();
   const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
-    if (!isMobile || !videoRef.current) {
+    setMounted(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!mounted || !videoRef.current) {
       return;
     }
 
@@ -38,9 +43,9 @@ const ReelSection: React.FC<ReelSectionProps> = ({ children, className }) => {
     return () => {
       observer.unobserve(video);
     };
-  }, [isMobile]);
+  }, [mounted]);
 
-  if (!isMobile) {
+  if (!mounted) {
     return null;
   }
 
