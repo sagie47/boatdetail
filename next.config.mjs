@@ -14,8 +14,6 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year
     dangerouslyAllowSVG: true,
-    // DEBUG: Adding logging to confirm static export mode
-    unoptimized: true, // Required for static export mode
   },
   experimental: {
     optimizeCss: true,
@@ -56,9 +54,6 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   generateEtags: true,
-  output: 'export',
-  trailingSlash: true,
-  skipTrailingSlashRedirect: true,
 }
 
 export default nextConfig
