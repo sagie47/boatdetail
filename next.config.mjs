@@ -24,7 +24,7 @@ const nextConfig = {
   },
   webpack: (config, { isServer, dev }) => {
     config.plugins = config.plugins || [];
-    
+
     if (!dev) {
       config.plugins.push(new MiniCssExtractPlugin());
     }
@@ -45,28 +45,17 @@ const nextConfig = {
             chunks: 'all',
             enforce: true,
           },
+        },
       };
     }
 
     return config;
   },
-  instrumentationHook: false,
   poweredByHeader: false,
   compress: true,
   generateEtags: true,
-  output: 'export',
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
-}
+};
 
-    return config;
-  },
-  poweredByHeader: false,
-  compress: true,
-  generateEtags: true,
-  output: 'export',
-  trailingSlash: true,
-  skipTrailingSlashRedirect: true,
-}
-
-export default nextConfig
+export default nextConfig;
