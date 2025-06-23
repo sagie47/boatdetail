@@ -45,10 +45,19 @@ const nextConfig = {
             chunks: 'all',
             enforce: true,
           },
-        },
       };
-      instrumentationHook: false,
     }
+
+    return config;
+  },
+  instrumentationHook: false,
+  poweredByHeader: false,
+  compress: true,
+  generateEtags: true,
+  output: 'export',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+}
 
     return config;
   },
