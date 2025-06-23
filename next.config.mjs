@@ -47,6 +47,7 @@ const nextConfig = {
           },
         },
       };
+      instrumentationHook: false,
     }
 
     return config;
@@ -54,6 +55,9 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   generateEtags: true,
+  output: 'export',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
 }
 
 export default nextConfig
