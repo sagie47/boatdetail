@@ -66,6 +66,9 @@
     "vaul": "^0.9.6",
     "zod": "^3.24.1"
   },
+  "dependencies": {
+    "nodemailer": "^6.10.1"
+  },
   "overrides": {
     "react-day-picker": {
       "react": "$react",
