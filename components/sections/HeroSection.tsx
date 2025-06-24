@@ -7,7 +7,15 @@ import { useIsMobile } from "@/hooks/use-mobile";
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
   const isMobile = useIsMobile();
-
+  const [isAnimated, setIsAnimated] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAnimated(true);
+    }, 3000); // Delay for the animation to start
+    return () => clearTimeout(timer);
+  }, []);
+  
   // Optimize initial paint with a simple background color while image loads
   useEffect(() => {
     // Add a class to the body when the component mounts to set a background color
@@ -16,18 +24,21 @@ export default function HeroSection() {
     // Remove it when image is loaded or component unmounts
     return () => document.body.classList.remove('hero-loading');
   }, []);
-
+  
   return (
     <section className={`relative ${isMobile ? 'h-[100svh]' : 'h-full'}`}>
       {isMobile ? (
-        <video
-          src="/images/REE.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 z-0 h-full w-full object-cover"
-        />
+        <>
+          <video
+            src="/images/REE.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 z-0 h-full w-full object-cover"
+          />
+          <div className={`absolute inset-0 z-0 bg-black transition-opacity duration-1000 ${isAnimated ? 'opacity-50' : 'opacity-0'}`} />
+        </>
       ) : (
         <>
           {/* Placeholder that shows before image loads */}
@@ -50,7 +61,7 @@ export default function HeroSection() {
         </>
       )}
       <div className={`container relative z-10 flex h-full flex-col ${isMobile ? 'items-start justify-end text-left' : 'justify-end'} px-4 pb-16 md:py-40 lg:py-52`}>
-        <div className="grid gap-6 md:w-2/3 lg:w-1/2">
+        <div className={`grid gap-6 md:w-2/3 lg:w-1/2 transition-opacity duration-1000 ${isAnimated ? 'opacity-100' : 'opacity-0'}`}>
           <h1 className="font-playfair text-5xl font-light tracking-tight text-white sm:text-6xl md:text-7xl">
             YOUR BOAT, <br />
             <span className="text-gold">BUT BETTER.</span>
