@@ -3,11 +3,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
+  const isMobile = useIsMobile();
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isMobile && pathname === '/') {
+        if (window.scrollY > 100) {
+          setIsNavbarVisible(true);
+        } else {
+          setIsNavbarVisible(false);
+        }
+      } else {
+        setIsNavbarVisible(true);
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on initial render
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMobile, pathname]);
 
   const handleQuoteClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -36,6 +60,11 @@ export function Navbar() {
   };
 
   const [isOpen, setIsOpen] = useState(false);
+
+  if (!isNavbarVisible) {
+    return null;
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-black relative">
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">

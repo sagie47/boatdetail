@@ -18,8 +18,17 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative h-full">
-      {!isMobile && (
+    <section className={`relative ${isMobile ? 'h-[100svh]' : 'h-full'}`}>
+      {isMobile ? (
+        <video
+          src="/images/REE.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 z-0 h-full w-full object-cover"
+        />
+      ) : (
         <>
           {/* Placeholder that shows before image loads */}
           <div className={`absolute inset-0 z-0 bg-gray-900 transition-opacity duration-500 ${isLoaded ? 'opacity-0' : 'opacity-100'}`} />
@@ -40,7 +49,7 @@ export default function HeroSection() {
           </div>
         </>
       )}
-      <div className="container relative z-10 flex h-full flex-col justify-end px-4 pb-16 md:py-40 lg:py-52">
+      <div className={`container relative z-10 flex h-full flex-col ${isMobile ? 'items-start justify-end text-left' : 'justify-end'} px-4 pb-16 md:py-40 lg:py-52`}>
         <div className="grid gap-6 md:w-2/3 lg:w-1/2">
           <h1 className="font-playfair text-5xl font-light tracking-tight text-white sm:text-6xl md:text-7xl">
             YOUR BOAT, <br />

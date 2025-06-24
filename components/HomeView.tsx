@@ -28,13 +28,7 @@ export default function HomeView() {
           <SearchParamsClient />
         </Suspense>
         
-        {isMobile ? (
-          <ReelSection className="snap-y snap-mandatory h-screen w-screen overflow-y-scroll">
-            <HeroSection />
-          </ReelSection>
-        ) : (
-          <HeroSection />
-        )}
+        <HeroSection />
 
         {/* Trust Section */}
         <section className="border-b bg-white">
