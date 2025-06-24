@@ -2,25 +2,18 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const isMobile = useIsMobile();
   const [isAnimated, setIsAnimated] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsAnimated(true);
-    }, 2000); // Delay for the animation to start
+    }, 3000); // Delay for the animation to start
     return () => clearTimeout(timer);
   }, []);
-
+  
   // Optimize initial paint with a simple background color while image loads
   useEffect(() => {
     // Add a class to the body when the component mounts to set a background color
@@ -31,45 +24,25 @@ export default function HeroSection() {
   }, []);
   
   return (
-    <section className="relative h-[100svh] md:h-screen">
-      {isClient && isMobile && (
-        <>
-          <video
-            src="/images/REE.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 z-0 h-full w-full object-cover"
-          />
-          <div
-            className={`absolute inset-0 z-0 bg-black transition-opacity duration-1000 ${
-              isAnimated ? 'opacity-50' : 'opacity-0'
-            }`}
-          />
-        </>
-      )}
-
-      {!isMobile && (
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/hero-boat.webp"
-            alt="Beautiful marina at sunset with boats docked in Kelowna"
-            fill
-            className={`object-cover brightness-[0.4] transition-opacity duration-500 ${
-              isLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            quality={75}
-            placeholder="blur"
-            blurDataURL="data:image/webp;base64,UklGRh4CAABXRUJQVlA4TBECAAAv/8A/EP8QEQAREZEQERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERER"
-            onLoad={() => setIsLoaded(true)}
-          />
-        </div>
-      )}
-
-      <div className="container relative z-10 flex h-full flex-col items-start justify-end px-4 pb-16 text-left md:items-stretch md:py-40 lg:py-52">
+    <section className="relative h-screen">
+      {/* Placeholder that shows before image loads */}
+      <div className={`absolute inset-0 z-0 bg-gray-900 transition-opacity duration-500 ${isLoaded ? 'opacity-0' : 'opacity-100'}`} />
+      
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero-boat.webp"
+          alt="Beautiful marina at sunset with boats docked in Kelowna"
+          fill
+          className={`object-cover brightness-[0.4] transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          quality={75}
+          placeholder="blur"
+          blurDataURL="data:image/webp;base64,UklGRh4CAABXRUJQVlA4TBECAAAv/8A/EP8QEQAREZEQERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERER"
+          onLoad={() => setIsLoaded(true)}
+        />
+      </div>
+      <div className="container relative z-10 flex h-full flex-col justify-end px-4 pb-16 md:py-40 lg:py-52">
         <div className={`grid gap-6 md:w-2/3 lg:w-1/2 transition-opacity duration-1000 ${isAnimated ? 'opacity-100' : 'opacity-0'}`}>
           <h1 className="font-playfair text-5xl font-light tracking-tight text-white sm:text-6xl md:text-7xl">
             YOUR BOAT, <br />
