@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function Error({
   error,
@@ -22,18 +24,10 @@ export default function Error({
           An unexpected error occurred. Please try again.
         </p>
         <div className="space-x-4">
-          <button
-            onClick={() => reset()}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Go back home
-          </a>
+          <Button onClick={() => reset()}>Try again</Button>
+          <Link href="/">
+            <Button variant="outline">Go back home</Button>
+          </Link>
         </div>
       </div>
     </div>

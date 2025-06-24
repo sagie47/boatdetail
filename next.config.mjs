@@ -16,7 +16,9 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
   },
   experimental: {
-    optimizeCss: true,
+    optimizeCss: {
+      critters: true,
+    },
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   compiler: {
