@@ -73,7 +73,7 @@ export function Navbar() {
         </div>
         {/* Mobile Actions */}
         <div className="md:hidden flex items-center gap-2">
-          <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gold text-black hover:bg-gold/90 h-9 px-3 text-sm">
+          <a href="tel:7785812947" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gold text-black hover:bg-gold/90 h-9 px-3 text-sm">
             BOOK NOW
           </a>
           <Button variant="ghost" size="icon" className="text-gold" onClick={() => setIsOpen(!isOpen)}>
@@ -118,7 +118,7 @@ export function Navbar() {
               <Link href="/" scroll={false} onClick={(e) => { e.preventDefault(); setIsOpen(false); setTimeout(() => handleQuoteClick(e), 300); }} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">GET A QUOTE</Link>
             </div>
             <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
-              <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" onClick={() => setIsOpen(false)} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80" target="_blank" rel="noopener noreferrer">BOOK NOW</a>
+              <a href="tel:7785812947" onClick={() => setIsOpen(false)} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">BOOK NOW</a>
             </div>
           </nav>
         </div>
