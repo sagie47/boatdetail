@@ -11,27 +11,6 @@ export function Navbar() {
   const pathname = usePathname();
   const isMobile = useIsMobile();
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-  
-  useEffect(() => {
-    const handleScroll = () => {
-      if (isMobile && pathname === '/') {
-        if (window.scrollY > 100) {
-          setIsNavbarVisible(true);
-        } else {
-          setIsNavbarVisible(false);
-        }
-      } else {
-        setIsNavbarVisible(true);
-      }
-    };
-  
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check on initial render
-  
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isMobile, pathname]);
 
   const handleQuoteClick = (e: React.MouseEvent) => {
     e.preventDefault();

@@ -86,7 +86,7 @@ export default function Gallery() {
       <section id="gallery" className="py-16 bg-gray-50">
         <div className="container px-4">
           <h2 className="mb-12 text-center font-playfair text-3xl font-light">OUR GALLERY</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
             {GALLERY_ITEMS.map((item, index) => (
               <div 
                 key={index} 

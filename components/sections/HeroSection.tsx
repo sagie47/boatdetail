@@ -2,15 +2,17 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { useAppHeight } from "@/hooks/use-app-height";
 
 export default function HeroSection() {
+  useAppHeight();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isAnimated, setIsAnimated] = useState(false);
   
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsAnimated(true);
-    }, 3000); // Delay for the animation to start
+    }, 500); // Delay for the animation to start
     return () => clearTimeout(timer);
   }, []);
   
@@ -24,7 +26,7 @@ export default function HeroSection() {
   }, []);
   
   return (
-    <section className="relative h-screen">
+    <section className="relative h-screen h-[var(--app-height)]">
       {/* Placeholder that shows before image loads */}
       <div className={`absolute inset-0 z-0 bg-gray-900 transition-opacity duration-500 ${isLoaded ? 'opacity-0' : 'opacity-100'}`} />
       
@@ -42,30 +44,34 @@ export default function HeroSection() {
           onLoad={() => setIsLoaded(true)}
         />
       </div>
-      <div className="container relative z-10 flex h-full flex-col justify-end px-4 pb-16 md:py-40 lg:py-52">
-        <div className={`grid gap-6 md:w-2/3 lg:w-1/2 transition-opacity duration-1000 ${isAnimated ? 'opacity-100' : 'opacity-0'}`}>
-          <h1 className="font-playfair text-5xl font-light tracking-tight text-white sm:text-6xl md:text-7xl">
-            YOUR BOAT, <br />
-            <span className="text-gold">BUT BETTER.</span>
-          </h1>
-          <p className="font-light tracking-wide text-white/90 md:text-xl">
-            Experience the ultimate convenience with our mobile boat detailing services in Kelowna & the Okanagan.
-          </p>
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <a href="#quote" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto bg-gold text-black hover:bg-gold/90">
-                GET A FREE QUOTE
-              </Button>
-            </a>
-            <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90"
-              >
-                BOOK A DETAIL
-              </Button>
-            </a>
+      <div className="container relative z-10 flex h-full flex-col justify-end px-4 pb-8 md:justify-center md:py-40 lg:py-52">
+        <div className="md:w-2/3 lg:w-1/2">
+          <div className={`grid gap-6 mb-8 transition-opacity duration-1000 ${isAnimated ? 'opacity-100' : 'opacity-0'}`}>
+            <h1 className="font-playfair text-5xl font-light tracking-tight text-white sm:text-6xl md:text-7xl">
+              YOUR BOAT, <br />
+              <span className="text-gold">BUT BETTER.</span>
+            </h1>
+            <p className="font-light tracking-wide text-white/90 md:text-xl">
+              Experience the ultimate convenience with our mobile boat detailing services in Kelowna & the Okanagan.
+            </p>
+          </div>
+          <div className="pb-[env(safe-area-inset-bottom)]">
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <a href="#quote" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto bg-gold text-black hover:bg-gold/90">
+                  GET A FREE QUOTE
+                </Button>
+              </a>
+              <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90"
+                >
+                  BOOK A DETAIL
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </div>
