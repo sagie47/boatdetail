@@ -5,34 +5,37 @@ import Image from "next/image";
 
 interface GalleryItem {
   src: string;
+  alt: string;
   type: 'image' | 'video';
   thumbnail?: string;
   formats?: string[];
 }
 
 const GALLERY_ITEMS: GalleryItem[] = [
-    { src: '/images/IMG_0670.jpg', type: 'image' },
-    { src: '/images/IMG_0991.jpg', type: 'image' },
-    { src: '/images/IMG_1036.jpg', type: 'image' },
-    { src: '/images/afte.png', type: 'image' },
-    { src: '/images/ass.jpeg', type: 'image' },
-    { src: '/images/before.png', type: 'image' },
-    { src: '/images/fap.png', type: 'image' },
-    { src: '/images/poop.jpeg', type: 'image' },
-    { src: '/images/pop.png', type: 'image' },
-    { src: '/images/ppp.png', type: 'image' },
-    { src: '/images/suck.jpeg', type: 'image' },
-    { 
-      src: '/images/whore.mp4', 
+    { src: '/images/IMG_0670.jpg', alt: 'A freshly detailed boat interior, showing clean seats and sparkling surfaces.', type: 'image' },
+    { src: '/images/IMG_0991.jpg', alt: 'The gleaming hull of a boat after a complete exterior wash and wax.', type: 'image' },
+    { src: '/images/IMG_1036.jpg', alt: 'A close-up of a polished boat dashboard, reflecting the clear sky.', type: 'image' },
+    { src: '/images/afte.png', alt: 'Side-by-side comparison showing the boat before and after detailing.', type: 'image' },
+    { src: '/images/boat-interior-cleaning.jpeg', alt: 'Deep cleaning of boat upholstery, removing stains and grime.', type: 'image' },
+    { src: '/images/before.png', alt: 'A boat with visible dirt and oxidation before the detailing process.', type: 'image' },
+    { src: '/images/boat-polishing.png', alt: 'A detailer carefully polishing the gelcoat of a boat to a high shine.', type: 'image' },
+    { src: '/images/boat-hull-cleaning.jpeg', alt: 'Cleaning the underside of a boat hull to remove algae and buildup.', type: 'image' },
+    { src: '/images/pop.png', alt: 'A satisfying shot of a boat shining in the sun after being detailed.', type: 'image' },
+    { src: '/images/ppp.png', alt: 'A freshly cleaned boat deck, ready for guests.', type: 'image' },
+    { src: '/images/boat-vacuuming.jpeg', alt: 'Technician vacuuming the carpet of a boat cabin.', type: 'image' },
+    {
+      src: '/images/boat-detailing-video.mp4',
+      alt: 'A short video showcasing the boat detailing process from start to finish.',
       type: 'video',
-      thumbnail: '/images/thumbnails/whore-thumbnail.jpg',
+      thumbnail: '/images/thumbnails/boat-detailing-video-thumbnail.jpg',
       formats: ['mp4']
     },
-    { src: '/images/img.jpeg', type: 'image' },
-    { 
-      src: '/images/gaf.mp4', 
+    { src: '/images/img.jpeg', alt: 'A beautiful boat on the water after receiving a premium detailing service.', type: 'image' },
+    {
+      src: '/images/boat-washing-video.mp4',
+      alt: 'A video of a boat being professionally washed with foam cannon.',
       type: 'video',
-      thumbnail: '/images/thumbnails/gaf-thumbnail.jpg',
+      thumbnail: '/images/thumbnails/boat-washing-video-thumbnail.jpg',
       formats: ['mp4']
     }
 ];
@@ -98,7 +101,7 @@ export default function Gallery() {
                     <div className="relative h-full w-full">
                       <Image
                         src={item.thumbnail || item.src}
-                        alt={`Video thumbnail ${index + 1}`}
+                        alt={item.alt}
                         width={300}
                         height={300}
                         className="h-full w-full object-cover"
@@ -117,7 +120,7 @@ export default function Gallery() {
                     <div className="flex items-center justify-center h-full w-full bg-gray-100">
                       <Image
                         src={item.src}
-                        alt={`Gallery item ${index + 1}`}
+                        alt={item.alt}
                         width={300}
                         height={300}
                         className="max-h-full max-w-full object-contain p-2"
@@ -184,7 +187,7 @@ export default function Gallery() {
             ) : (
               <Image
                 src={GALLERY_ITEMS[currentIndex].src}
-                alt={`Gallery item ${currentIndex + 1}`}
+                alt={GALLERY_ITEMS[currentIndex].alt}
                 width={1200}
                 height={800}
                 className="max-h-[90vh] w-auto max-w-full object-contain"

@@ -4,6 +4,7 @@ export default function Stats() {
   return (
     <section className="bg-black py-16">
       <div className="container px-4">
+        <h2 className="sr-only">Our Achievements</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="rounded-lg bg-black border border-gold/30 p-8 text-center">
             <p className="font-playfair text-3xl font-light text-gold">100+</p>
