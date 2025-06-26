@@ -30,6 +30,10 @@ export default function HomeView() {
         
         <HeroSection />
 
+        <ScrollAnimatedSection animationType="slideIn">
+          <Gallery />
+        </ScrollAnimatedSection>
+
         {/* Trust Section */}
         <section className="border-b bg-white">
           <div className="container grid grid-cols-1 gap-1 px-4 py-1">
@@ -58,9 +62,6 @@ export default function HomeView() {
           </ScrollAnimatedSection>
           <ScrollAnimatedSection animationType="fadeIn">
             <Stats />
-          </ScrollAnimatedSection>
-          <ScrollAnimatedSection animationType="slideIn">
-            <Gallery />
           </ScrollAnimatedSection>
           <ScrollAnimatedSection animationType="zoomIn">
             <Pricing />
