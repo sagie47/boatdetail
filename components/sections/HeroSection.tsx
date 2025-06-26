@@ -22,19 +22,29 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative h-[var(--app-height)] overflow-hidden">
+    <section className="relative h-[var(--app-height)] overflow-hidden bg-black">
       {/* Background placeholder */}
       <div className={`absolute inset-0 z-0 bg-gray-900 transition-opacity duration-500 ${isLoaded ? 'opacity-0' : 'opacity-100'}`} />
 
-      {/* Background image */}
-      <div className="absolute inset-0 z-0">
+      {/* Mobile Background Video */}
+      <video
+        src="/images/balls.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 z-0 h-full w-full object-cover brightness-[0.4] md:hidden"
+      />
+
+      {/* Desktop Background Image */}
+      <div className="absolute inset-0 z-0 hidden md:block">
         <Image
           src="/images/hero-boat.webp"
           alt="Beautiful marina at sunset with boats docked in Kelowna"
           fill
           className={`object-cover brightness-[0.4] transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           priority
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 1200px) 50vw, 33vw"
           quality={75}
           placeholder="blur"
           blurDataURL="data:image/webp;base64,UklGRh4CAABXRUJQVlA4TBECAAAv/8A/EP8QEQAREZEQERER..."
