@@ -71,19 +71,19 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-12 border-t pt-8 text-center">
-          <p className="text-sm font-light text-gray-500">
-            &copy; {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
-          </p>
-          <div className="mt-4 flex justify-center">
-            <Image
-              src="/images/light.png"
-              alt="Kelowna Boat Detailing (Light Logo)"
-              width={40}
-              height={40}
-              loading="lazy"
-              className="h-10 w-auto"
-            />
-          </div>
+          <Link href="https://okvalleyweb.com/" target="_blank" rel="noopener noreferrer">
+            <div className="mt-4 flex flex-col items-center justify-center">
+              <p className="text-sm font-light text-gray-500">created by</p>
+              <Image
+                src="/images/Asset 2.png"
+                alt="Web Design Studio Logo"
+                width={40}
+                height={40}
+                loading="lazy"
+                className="h-10 w-auto"
+              />
+            </div>
+          </Link>
         </div>
       </div>
     </footer>

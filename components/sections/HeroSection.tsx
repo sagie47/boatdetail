@@ -26,18 +26,8 @@ export default function HeroSection() {
       {/* Background placeholder */}
       <div className={`absolute inset-0 z-0 bg-gray-900 transition-opacity duration-500 ${isLoaded ? 'opacity-0' : 'opacity-100'}`} />
 
-      {/* Mobile Background Video */}
-      <video
-        src="/images/balls.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 z-0 h-full w-full object-cover brightness-[0.4] md:hidden"
-      />
-
-      {/* Desktop Background Image */}
-      <div className="absolute inset-0 z-0 hidden md:block">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero-boat.webp"
           alt="Beautiful marina at sunset with boats docked in Kelowna"
