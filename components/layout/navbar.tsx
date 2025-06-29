@@ -75,9 +75,7 @@ export function Navbar() {
           <Link href="/" scroll={false} onClick={handleQuoteClick}>
             <Button size="sm" className="bg-black text-gold border border-gold hover:bg-black/90 font-light tracking-wider">GET A QUOTE</Button>
           </Link>
-          <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer">
-            <Button size="sm" className="bg-gold text-black hover:bg-gold/90">BOOK NOW</Button>
-          </a>
+          <Button size="sm" className="bg-gold text-black hover:bg-gold/90" onClick={() => alert('Please call 778-581-2947 to book a detail.')}>BOOK NOW</Button>
         </div>
         {/* Mobile Actions */}
         <div className="md:hidden flex items-center gap-2">

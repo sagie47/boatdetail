@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useAppHeight } from "@/hooks/use-app-height";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function HeroSection() {
   useAppHeight();
@@ -53,25 +54,40 @@ export default function HeroSection() {
             Experience the ultimate convenience with our mobile boat detailing services in Kelowna & the Okanagan.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <a href="#quote" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto bg-gold text-black hover:bg-gold/90">
-                GET A FREE QUOTE
-              </Button>
-            </a>
-            <a
-              href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto"
-            >
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90"
-              >
-                BOOK A DETAIL
-              </Button>
-            </a>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a href="#quote" className="w-full sm:w-auto">
+                    <Button size="lg" className="w-full sm:w-auto bg-gold text-black hover:bg-gold/90">
+                      GET A FREE QUOTE
+                    </Button>
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent className="bg-black text-white border-gold/30">
+                  <p>Or call us at <span className="text-gold">778-581-2947</span></p>
+                </TooltipContent>
+              </Tooltip>
+              
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={() => alert('Please call 778-581-2947 to book a detail.')}
+                    className="w-full sm:w-auto"
+                  >
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="w-full sm:w-auto border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90 cursor-pointer"
+                    >
+                      BOOK A DETAIL
+                    </Button>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-black text-white border-gold/30">
+                  <p>Or call us at <span className="text-gold">778-581-2947</span></p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </div>
