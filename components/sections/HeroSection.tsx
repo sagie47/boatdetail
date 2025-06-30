@@ -70,18 +70,14 @@ export default function HeroSection() {
               
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <button
+                  <Button
+                    size="lg"
+                    variant="outline"
                     onClick={() => alert('Please call 778-581-2947 to book a detail.')}
-                    className="w-full sm:w-auto"
+                    className="w-full sm:w-auto border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90 cursor-pointer"
                   >
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="w-full sm:w-auto border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90 cursor-pointer"
-                    >
-                      BOOK A DETAIL
-                    </Button>
-                  </button>
+                    BOOK A DETAIL
+                  </Button>
                 </TooltipTrigger>
                 <TooltipContent className="bg-black text-white border-gold/30">
                   <p>Or call us at <span className="text-gold">778-581-2947</span></p>

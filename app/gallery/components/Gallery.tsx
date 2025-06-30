@@ -2,8 +2,6 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface GalleryItem {
   src: string;
@@ -45,14 +43,14 @@ const GALLERY_ITEMS: GalleryItem[] = [
       src: '/images/vid1.mp4',
       alt: 'Boat detailing process showing before and after results.',
       type: 'video',
-      thumbnail: '/images/thumbvid1.png',
+      thumbnail: '/images/thumb1.png',
       formats: ['mp4']
     },
     {
       src: '/images/Vid2.mp4',
       alt: 'Professional boat cleaning and detailing in action.',
       type: 'video',
-      thumbnail: '/images/thumbvid2.png',
+      thumbnail: '/images/thumb2.png',
       formats: ['mp4']
     },
     { 
@@ -71,28 +69,8 @@ const GALLERY_ITEMS: GalleryItem[] = [
       type: 'image' 
     },
     { 
-      src: '/images/yachtext.jpg', 
-      alt: 'Stunning yacht exterior with a brilliant shine after professional detailing.', 
-      type: 'image' 
-    },
-    { 
-      src: '/images/interior2.jpg', 
-      alt: 'Immaculate boat interior with pristine upholstery and surfaces after deep cleaning.', 
-      type: 'image' 
-    },
-    { 
-      src: '/images/cockpit.jpg', 
-      alt: 'Spotless boat cockpit with gleaming controls and surfaces after professional detailing.', 
-      type: 'image' 
-    },
-    { 
-      src: '/images/interior3.jpg', 
-      alt: 'Detailed view of a boat interior showing meticulous cleaning and conditioning.', 
-      type: 'image' 
-    },
-    { 
-      src: '/images/bottom.jpg', 
-      alt: 'Boat hull bottom after thorough cleaning and treatment.', 
+      src: '/images/yacht3.heic', 
+      alt: 'High-end yacht with immaculate detailing and polished surfaces.', 
       type: 'image' 
     }
 ];
@@ -100,20 +78,9 @@ const GALLERY_ITEMS: GalleryItem[] = [
 export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const isMobile = useIsMobile();
-
-  const DESKTOP_INITIAL_COUNT = 8;
-  const itemsToShow =
-    isMobile || isExpanded
-      ? GALLERY_ITEMS
-      : GALLERY_ITEMS.slice(0, DESKTOP_INITIAL_COUNT);
 
   const openModal = (index: number) => {
-    const actualIndex = GALLERY_ITEMS.findIndex(
-      (item) => item.src === itemsToShow[index].src
-    );
-    setCurrentIndex(actualIndex);
+    setCurrentIndex(index);
     setIsModalOpen(true);
     document.body.style.overflow = 'hidden';
   };
@@ -158,14 +125,14 @@ export default function Gallery() {
         <div className="container px-4">
           <h2 className="mb-12 text-center font-playfair text-3xl font-light">OUR GALLERY</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-            {itemsToShow.map((item, index) => (
-              <div
-                key={item.src}
-                className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer animate-fadeIn"
+            {GALLERY_ITEMS.map((item, index) => (
+              <div 
+                key={index} 
+                className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer"
                 onClick={() => openModal(index)}
               >
                 <div className="aspect-square">
-                  {item.type === "video" ? (
+                  {item.type === 'video' ? (
                     <div className="relative h-full w-full">
                       <Image
                         src={item.thumbnail || item.src}
@@ -178,11 +145,7 @@ export default function Gallery() {
                       />
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center cursor-pointer">
                         <div className="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <svg
-                            className="w-8 h-8 text-black"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
+                          <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
                           </svg>
                         </div>
@@ -204,23 +167,12 @@ export default function Gallery() {
                 </div>
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <span className="text-white text-lg font-light">
-                    {item.type === "video" ? "Play Video" : "View Image"}
+                    {item.type === 'video' ? 'Play Video' : 'View Image'}
                   </span>
                 </div>
               </div>
             ))}
           </div>
-          {!isMobile && GALLERY_ITEMS.length > DESKTOP_INITIAL_COUNT && (
-            <div className="mt-12 text-center">
-              <Button
-                variant="outline"
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="bg-transparent border-gray-400 hover:bg-gray-100"
-              >
-                {isExpanded ? "Show Less" : "Show More"}
-              </Button>
-            </div>
-          )}
         </div>
       </section>
 
