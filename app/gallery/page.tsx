@@ -22,32 +22,54 @@ export default function GalleryPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const galleryItems: GalleryItem[] = [
-    { src: '/images/IMG_0670.jpg', type: 'image', alt: 'Boat Detailing Work 1' },
-    { src: '/images/IMG_0991.jpg', type: 'image', alt: 'Boat Detailing Work 2' },
-    { src: '/images/IMG_1036.jpg', type: 'image', alt: 'Boat Detailing Work 3' },
-    { src: '/images/afte.png', type: 'image', alt: 'After Detailing' },
-    { src: '/images/ass.jpeg', type: 'image', alt: 'Detailed Boat Ass' },
-    { src: '/images/before.png', type: 'image', alt: 'Before Detailing' },
-    { src: '/images/fap.png', type: 'image', alt: 'Fap Image' },
-    { src: '/images/poop.jpeg', type: 'image', alt: 'Poop Image' },
-    { src: '/images/pop.png', type: 'image', alt: 'Pop Image' },
-    { src: '/images/ppp.png', type: 'image', alt: 'PPP Image' },
-    { src: '/images/suck.jpeg', type: 'image', alt: 'Suck Image' },
-    { src: '/images/img.jpeg', type: 'image', alt: 'IMG Image' },
+    { src: '/images/IMG_0670.jpg', type: 'image', alt: 'A freshly detailed boat interior, showing clean seats and sparkling surfaces.' },
+    { src: '/images/IMG_0991.jpg', type: 'image', alt: 'The gleaming hull of a boat after a complete exterior wash and wax.' },
+    { src: '/images/IMG_1036.jpg', type: 'image', alt: 'A close-up of a polished boat dashboard, reflecting the clear sky.' },
+    { src: '/images/afte.png', type: 'image', alt: 'Side-by-side comparison showing the boat before and after detailing.' },
+    { src: '/images/boat-interior-cleaning.jpeg', type: 'image', alt: 'Deep cleaning of boat upholstery, removing stains and grime.' },
+    { src: '/images/before.png', type: 'image', alt: 'A boat with visible dirt and oxidation before the detailing process.' },
+    { src: '/images/boat-polishing.png', type: 'image', alt: 'A detailer carefully polishing the gelcoat of a boat to a high shine.' },
+    { src: '/images/boat-hull-cleaning.jpeg', type: 'image', alt: 'Cleaning the underside of a boat hull to remove algae and buildup.' },
+    { src: '/images/pop.png', type: 'image', alt: 'A satisfying shot of a boat shining in the sun after being detailed.' },
+    { src: '/images/ppp.png', type: 'image', alt: 'A freshly cleaned boat deck, ready for guests.' },
+    { src: '/images/boat-vacuuming.jpeg', type: 'image', alt: 'Technician vacuuming the carpet of a boat cabin.' },
     { 
-      src: '/images/whore.mp4', 
+      src: '/images/boat-detailing-video.mp4',
       type: 'video',
-      thumbnail: '/images/thumbnails/whore-thumbnail.jpg',
+      thumbnail: '/images/thumbvid1.png',
       formats: ['mp4'],
-      alt: 'Boat Detailing Video 2'
+      alt: 'A short video showcasing the boat detailing process from start to finish.'
+    },
+    { src: '/images/img.jpeg', type: 'image', alt: 'A beautiful boat on the water after receiving a premium detailing service.' },
+    { 
+      src: '/images/boat-washing-video.mp4',
+      type: 'video',
+      thumbnail: '/images/thumbvid2.png',
+      formats: ['mp4'],
+      alt: 'A video of a boat being professionally washed with foam cannon.'
     },
     { 
-      src: '/images/gaf.mp4', 
+      src: '/images/vid1.mp4',
       type: 'video',
-      thumbnail: '/images/thumbnails/gaf-thumbnail.jpg',
+      thumbnail: '/images/thumbvid1.png',
       formats: ['mp4'],
-      alt: 'Boat Detailing Video 1'
-    }
+      alt: 'Boat detailing process showing before and after results.'
+    },
+    { 
+      src: '/images/Vid2.mp4',
+      type: 'video',
+      thumbnail: '/images/thumbvid2.png',
+      formats: ['mp4'],
+      alt: 'Professional boat cleaning and detailing in action.'
+    },
+    { src: '/images/exterior.jpg', type: 'image', alt: 'A beautifully detailed boat exterior with a mirror-like shine on the hull.' },
+    { src: '/images/yacht1.jpg', type: 'image', alt: 'Luxury yacht exterior after professional detailing, showcasing a flawless finish.' },
+    { src: '/images/yacht2.jpg', type: 'image', alt: 'Premium yacht detailing with attention to every curve and surface.' },
+    { src: '/images/yachtext.jpg', type: 'image', alt: 'Stunning yacht exterior with a brilliant shine after professional detailing.' },
+    { src: '/images/interior2.jpg', type: 'image', alt: 'Immaculate boat interior with pristine upholstery and surfaces after deep cleaning.' },
+    { src: '/images/cockpit.jpg', type: 'image', alt: 'Spotless boat cockpit with gleaming controls and surfaces after professional detailing.' },
+    { src: '/images/interior3.jpg', type: 'image', alt: 'Detailed view of a boat interior showing meticulous cleaning and conditioning.' },
+    { src: '/images/bottom.jpg', type: 'image', alt: 'Boat hull bottom after thorough cleaning and treatment.' }
   ];
 
   const openModal = (index: number) => {
