@@ -184,62 +184,65 @@ export default function Gallery() {
                   </div>
                 ))}
               </div>
+              {isMobile && 
+              <div className="flex justify-center mt-4">
+                Swipe to see more
+              </div>
+              }
             </div>
           ) : (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-                {itemsToShow.map((item, index) => (
-                  <div
-                    key={item.src}
-                    className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer animate-fadeIn"
-                    onClick={() => openModal(index)}
-                  >
-                    <div className="aspect-square">
-                      {item.type === "video" ? (
-                        <div className="relative h-full w-full">
-                          <Image
-                            src={item.thumbnail || item.src}
-                            alt={item.alt}
-                            width={300}
-                            height={300}
-                            className="h-full w-full object-cover"
-                            loading="lazy"
-                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                          />
-                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center cursor-pointer">
-                            <div className="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <svg
-                                className="w-8 h-8 text-black"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                              </svg>
-                            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+              {itemsToShow.map((item, index) => (
+                <div
+                  key={item.src}
+                  className="group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer animate-fadeIn"
+                  onClick={() => openModal(index)}
+                >
+                  <div className="aspect-square">
+                    {item.type === "video" ? (
+                      <div className="relative h-full w-full">
+                        <Image
+                          src={item.thumbnail || item.src}
+                          alt={item.alt}
+                          width={300}
+                          height={300}
+                          className="h-full w-full object-cover"
+                          loading="lazy"
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        />
+                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center cursor-pointer">
+                          <div className="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg
+                              className="w-8 h-8 text-black"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                            </svg>
                           </div>
                         </div>
-                      ) : (
-                        <div className="flex items-center justify-center h-full w-full bg-gray-100">
-                          <Image
-                            src={item.src}
-                            alt={item.alt}
-                            width={300}
-                            height={300}
-                            className="max-h-full max-w-full object-contain p-2"
-                            loading="lazy"
-                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                          />
-                        </div>
-                      )}
-                    </div>
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="text-white text-lg font-light">
-                        {item.type === "video" ? "Play Video" : "View Image"}
-                      </span>
-                    </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center h-full w-full bg-gray-100">
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          width={300}
+                          height={300}
+                          className="max-h-full max-w-full object-contain p-2"
+                          loading="lazy"
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        />
+                      </div>
+                    )}
                   </div>
-                ))}
-              </div>
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-white text-lg font-light">
+                      {item.type === "video" ? "Play Video" : "View Image"}
+                    </span>
+                  </div>
+                </div>
+              ))}
               {!isMobile && GALLERY_ITEMS.length > DESKTOP_INITIAL_COUNT && (
                 <div className="mt-12 text-center">
                   <Button
@@ -251,7 +254,7 @@ export default function Gallery() {
                   </Button>
                 </div>
               )}
-            </>
+            </div>
           )}
         </div>
       </section>
