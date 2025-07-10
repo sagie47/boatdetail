@@ -244,7 +244,7 @@ export default function Gallery() {
                 </div>
               ))}
               {!isMobile && GALLERY_ITEMS.length > DESKTOP_INITIAL_COUNT && (
-                <div className="mt-12 text-center">
+                <div className="mt-12 flex justify-center">
                   <Button
                     variant="outline"
                     onClick={() => setIsExpanded(!isExpanded)}
