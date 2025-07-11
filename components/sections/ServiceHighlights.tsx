@@ -17,6 +17,7 @@ const SERVICE_HIGHLIGHTS = [
     title: "OXIDATION REMOVAL",
     image: "/images/pic3.png",
     color: "bg-gold",
+    href: "/ceramic-coating",
   },
   {
     title: "INTERIOR AND EXTERIOR CLEANING",

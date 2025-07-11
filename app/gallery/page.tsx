@@ -28,19 +28,8 @@ export default function GalleryPage() {
     { src: '/images/afte.png', type: 'image', alt: 'After Detailing' },
     { src: '/images/ass.jpeg', type: 'image', alt: 'Detailed Boat Ass' },
     { src: '/images/before.png', type: 'image', alt: 'Before Detailing' },
-    { src: '/images/fap.png', type: 'image', alt: 'Fap Image' },
-    { src: '/images/poop.jpeg', type: 'image', alt: 'Poop Image' },
     { src: '/images/pop.png', type: 'image', alt: 'Pop Image' },
     { src: '/images/ppp.png', type: 'image', alt: 'PPP Image' },
-    { src: '/images/suck.jpeg', type: 'image', alt: 'Suck Image' },
-    { src: '/images/img.jpeg', type: 'image', alt: 'IMG Image' },
-    { 
-      src: '/images/whore.mp4', 
-      type: 'video',
-      thumbnail: '/images/thumbnails/whore-thumbnail.jpg',
-      formats: ['mp4'],
-      alt: 'Boat Detailing Video 2'
-    },
     { 
       src: '/images/gaf.mp4', 
       type: 'video',
