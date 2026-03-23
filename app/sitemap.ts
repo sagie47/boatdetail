@@ -1,62 +1,58 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
+
+import { absoluteUrl } from "@/lib/site";
+
+const lastModified = new Date("2026-03-23T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://kelownaboatdetailing.com';
-  
   return [
     {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
+      url: absoluteUrl("/"),
+      lastModified,
+      changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
+      url: absoluteUrl("/services"),
+      lastModified,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
+      url: absoluteUrl("/pricing"),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/ceramic-coating"),
+      lastModified,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/gallery`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
+      url: absoluteUrl("/gallery"),
+      lastModified,
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
+      url: absoluteUrl("/faq"),
+      lastModified,
+      changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
+      url: absoluteUrl("/contact"),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
-      url: `${baseUrl}/our-story`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
+      url: absoluteUrl("/our-story"),
+      lastModified,
+      changeFrequency: "yearly",
       priority: 0.6,
     },
-    {
-      url: `${baseUrl}/privacy-policy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.4,
-    },
-    {
-      url: `${baseUrl}/terms-and-conditions`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.4,
-    },
-  ]
+  ];
 }

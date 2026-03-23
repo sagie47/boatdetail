@@ -5,6 +5,7 @@ import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,28 +23,27 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "Kelowna Boat Detailing | Premium Mobile Boat Detailing in the Okanagan",
-    template: "%s | Kelowna Boat Detailing"
+    default: `${siteConfig.name} | ${siteConfig.defaultTitle}`,
+    template: `%s | ${siteConfig.name}`
   },
-  description:
-    "Luxury mobile boat detailing services in Kelowna and the Okanagan. From family pontoons to high-performance wakeboats, we bring showroom shine dockside.",
+  description: siteConfig.defaultDescription,
   generator: 'Next.js',
-  keywords: ["boat detailing", "marine detailing", "Kelowna boat cleaning", "Okanagan boat services", "mobile boat detailing"],
-  authors: [{ name: "Kelowna Boat Detailing" }],
-  creator: "Kelowna Boat Detailing",
-  publisher: "Kelowna Boat Detailing",
-  metadataBase: new URL('https://kelownaboatdetailing.com'),
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  metadataBase: new URL(siteConfig.url),
   openGraph: {
-    title: "Kelowna Boat Detailing | Premium Mobile Boat Detailing",
-    description: "Luxury mobile boat detailing services in Kelowna and the Okanagan.",
-    url: "https://kelownaboatdetailing.com",
-    siteName: "Kelowna Boat Detailing",
+    title: `${siteConfig.name} | ${siteConfig.defaultTitle}`,
+    description: siteConfig.defaultDescription,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     images: [
       {
-        url: "/images/logo.png",
+        url: absoluteUrl("/images/logo.png"),
         width: 800,
         height: 600,
-        alt: "Kelowna Boat Detailing Logo",
+        alt: `${siteConfig.name} logo`,
       },
     ],
     locale: "en_CA",
@@ -51,9 +51,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kelowna Boat Detailing | Premium Mobile Boat Detailing",
-    description: "Luxury mobile boat detailing services in Kelowna and the Okanagan.",
-    images: ["/images/logo.png"],
+    title: `${siteConfig.name} | ${siteConfig.defaultTitle}`,
+    description: siteConfig.defaultDescription,
+    images: [absoluteUrl("/images/logo.png")],
   },
 }
 
@@ -86,52 +86,47 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              "name": "Kelowna Boat Detailing",
-              "image": "https://kelownaboatdetailing.com/images/logo.png",
-              "@id": "https://kelownaboatdetailing.com",
-              "url": "https://kelownaboatdetailing.com",
-              "telephone": "+1-250-555-0199",
+              "@type": "ProfessionalService",
+              "@id": siteConfig.url,
+              "name": siteConfig.name,
+              "url": siteConfig.url,
+              "image": absoluteUrl("/images/logo.png"),
+              "telephone": siteConfig.phoneIntl,
+              "email": siteConfig.email,
               "priceRange": "$$",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "123 Boat Launch Ave",
-                "addressLocality": "Kelowna",
-                "addressRegion": "BC",
-                "postalCode": "V1Y 7P4",
-                "addressCountry": "CA"
-              },
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 49.8880,
-                "longitude": -119.4960
-              },
-              "openingHoursSpecification": {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                  "Saturday",
-                  "Sunday"
-                ],
-                "opens": "09:00",
-                "closes": "17:00"
-              },
+              "areaServed": siteConfig.serviceAreas.map((area) => ({
+                "@type": "City",
+                "name": area,
+              })),
               "sameAs": [
-                "https://www.instagram.com/kelownaboatdetailing"
+                siteConfig.instagramUrl
               ],
-              "servesCuisine": "",
-              "description": "Luxury mobile boat detailing services in Kelowna and the Okanagan. From family pontoons to high-performance wakeboats, we bring showroom shine dockside.",
-              "hasOffer": [
+              "description": siteConfig.defaultDescription,
+              "serviceType": [
+                "Mobile boat detailing",
+                "Boat oxidation removal",
+                "Boat ceramic coating",
+                "Interior boat detailing",
+                "Exterior boat detailing"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": siteConfig.phoneIntl,
+                "email": siteConfig.email,
+                "contactType": "customer service",
+                "areaServed": "CA",
+                "availableLanguage": "English"
+              },
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Boat detailing services",
+                "itemListElement": [
                 {
                   "@type": "Offer",
                   "itemOffered": {
                     "@type": "Service",
                     "name": "Basic Exterior Wash",
-                    "description": "Includes foam cannon presoak, hand wash with marine-grade shampoo, water spot removal, and spray wax application."
+                    "description": "Foam cannon presoak, hand wash with marine-grade shampoo, water spot removal, and spray wax application."
                   }
                 },
                 {
@@ -146,11 +141,12 @@ export default function RootLayout({
                   "@type": "Offer",
                   "itemOffered": {
                     "@type": "Service",
-                    "name": "Full Exterior & Interior Detail Package",
-                    "description": "A comprehensive package including complete oxidation removal, ceramic spray sealant, and a full interior deep clean."
+                    "name": "Full Interior and Exterior Detail",
+                    "description": "Comprehensive detailing package with oxidation removal, protective sealant, and full interior deep clean."
                   }
                 }
-              ]
+                ]
+              }
             })
           }}
         />

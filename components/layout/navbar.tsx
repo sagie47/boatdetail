@@ -3,14 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useState } from "react";
+import { siteConfig } from "@/lib/site";
 
 export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const isMobile = useIsMobile();
-  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleQuoteClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -31,18 +30,12 @@ export function Navbar() {
     setIsOpen(false);
     setTimeout(() => {
       if (opts && opts.scroll === false) {
-        router.push(href, undefined, { scroll: false });
+        router.push(href, { scroll: false });
       } else {
         router.push(href);
       }
     }, 300);
   };
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  if (!isNavbarVisible) {
-    return null;
-  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-black relative">
@@ -75,11 +68,13 @@ export function Navbar() {
           <Link href="/" scroll={false} onClick={handleQuoteClick}>
             <Button size="sm" className="bg-black text-gold border border-gold hover:bg-black/90 font-light tracking-wider">GET A QUOTE</Button>
           </Link>
-          <Button size="sm" className="bg-gold text-black hover:bg-gold/90" onClick={() => alert('Please call 778-581-2947 to book a detail.')}>BOOK NOW</Button>
+          <Link href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">
+            <Button size="sm" className="bg-gold text-black hover:bg-gold/90">BOOK NOW</Button>
+          </Link>
         </div>
         {/* Mobile Actions */}
         <div className="md:hidden flex items-center gap-2">
-          <a href="tel:7785812947" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gold text-black hover:bg-gold/90 h-9 px-3 text-sm">
+          <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gold text-black hover:bg-gold/90 h-9 px-3 text-sm">
             BOOK NOW
           </a>
           <Button variant="ghost" size="icon" className="text-gold" onClick={() => setIsOpen(!isOpen)}>
@@ -124,7 +119,7 @@ export function Navbar() {
               <Link href="/" scroll={false} onClick={(e) => { e.preventDefault(); setIsOpen(false); setTimeout(() => handleQuoteClick(e), 300); }} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">GET A QUOTE</Link>
             </div>
             <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
-              <a href="tel:7785812947" onClick={() => setIsOpen(false)} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">BOOK NOW</a>
+              <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">BOOK NOW</a>
             </div>
           </nav>
         </div>
