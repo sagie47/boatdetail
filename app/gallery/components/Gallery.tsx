@@ -86,12 +86,10 @@ export default function Gallery() {
     );
     setCurrentIndex(actualIndex);
     setIsModalOpen(true);
-    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    document.body.style.overflow = 'unset';
   };
 
   const navigate = useCallback((direction: 'prev' | 'next') => {
@@ -107,6 +105,8 @@ export default function Gallery() {
   }, [currentIndex]);
 
   useEffect(() => {
+    document.body.style.overflow = isModalOpen ? 'hidden' : 'unset';
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isModalOpen) return;
       
@@ -120,7 +120,10 @@ export default function Gallery() {
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
   }, [isModalOpen, navigate]);
 
   return (

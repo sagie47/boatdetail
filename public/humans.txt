@@ -1,0 +1,9 @@
+/* TEAM */
+Company: Kelowna Boat Detailing
+Site: https://kelownaboatdetailing.com
+Contact: info@kelownaboatdetailing.com
+Location: Kelowna, BC, Canada
+
+/* SITE */
+Framework: Next.js
+Language: English

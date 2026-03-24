@@ -2,21 +2,10 @@ const ffmpeg = require('fluent-ffmpeg');
 const path = require('path');
 const fs = require('fs');
 
-// Ensure the thumbnails directory exists
-const thumbnailsDir = path.join(__dirname, '../public/images/thumbnails');
-if (!fs.existsSync(thumbnailsDir)) {
-  fs.mkdirSync(thumbnailsDir, { recursive: true });
-}
-
-// Videos to process with their output filenames
 const videos = [
-  { 
-    input: path.join(__dirname, '../public/images/whore.mp4'),
-    output: path.join(thumbnailsDir, 'whore-thumbnail.jpg') 
-  },
-  { 
-    input: path.join(__dirname, '../public/images/gaf.mp4'),
-    output: path.join(thumbnailsDir, 'gaf-thumbnail.jpg') 
+  {
+    input: path.join(__dirname, '../public/images/boat-detailing-video.mp4'),
+    output: path.join(__dirname, '../public/images/thumbvid1.png')
   }
 ];
 

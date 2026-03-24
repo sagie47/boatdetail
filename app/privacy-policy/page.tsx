@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Privacy Policy",
+  path: "/privacy-policy",
+  noIndex: true,
+});
 
 export default function PrivacyPolicy() {
   return (
@@ -180,11 +188,11 @@ export default function PrivacyPolicy() {
                 <div className="bg-gray-50 p-6 rounded-lg space-y-4">
                   <div className="flex items-center gap-3">
                     <Mail className="h-5 w-5 text-gold" />
-                    <span>Email: <a href="mailto:info@kelownaboatdetailing.com" className="text-gold hover:underline">info@kelownaboatdetailing.com</a></span>
+                    <span>Email: <a href={siteConfig.emailHref} className="text-gold hover:underline">{siteConfig.email}</a></span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-gold" />
-                    <span>Phone: <a href="tel:+17785812947" className="text-gold hover:underline">+1 (778) 581-2947</a></span>
+                    <span>Phone: <a href={siteConfig.phoneHref} className="text-gold hover:underline">{siteConfig.phoneDisplay}</a></span>
                   </div>
                   <div className="flex items-center gap-3">
                     <MapPin className="h-5 w-5 text-gold" />
@@ -205,123 +213,14 @@ export default function PrivacyPolicy() {
             <h2 className="mb-8 font-playfair text-3xl font-light text-white">
               Ready to Make Waves with a Clean Boat?
             </h2>
-            <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-              BOOK MY DETAIL
-            </Button>
+            <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
+                BOOK MY DETAIL
+              </Button>
+            </a>
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t bg-white">
-        <div className="container px-4 py-12 md:py-16">
-          <div className="grid gap-8 md:grid-cols-4">
-            <div>
-              <h3 className="mb-4 font-light tracking-wider text-lg">ABOUT</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/#about" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Our Story
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#team" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Team
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#careers" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Careers
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="mb-4 font-light tracking-wider text-lg">COMPANY</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/privacy-policy" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms-and-conditions" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Terms & Conditions
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#faq" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    FAQ
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="mb-4 font-light tracking-wider text-lg">SUPPORT</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/#contact" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Contact us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#feedback" className="text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    Feedback
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="mb-4 font-light tracking-wider text-lg">GET IN TOUCH</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="#" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    <MapPin className="h-4 w-4" />
-                    <span>Kelowna, BC, Canada</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="tel:+17785812947" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    <Phone className="h-4 w-4" />
-                    <span>+1 (778) 581-2947</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="mailto:info@kelownaboatdetailing.com" className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors">
-                    <Mail className="h-4 w-4" />
-                    <span>info@kelownaboatdetailing.com</span>
-                  </Link>
-                </li>
-              </ul>
-              <div className="mt-4 flex gap-4">
-                <Link href="#" className="text-gray-600 hover:text-gold transition-colors">
-                  <Instagram className="h-5 w-5" />
-                </Link>
-                <Link href="#" className="text-gray-600 hover:text-gold transition-colors">
-                  <Facebook className="h-5 w-5" />
-                </Link>
-                <Link href="#" className="text-gray-600 hover:text-gold transition-colors">
-                  <Twitter className="h-5 w-5" />
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="mt-12 border-t pt-8 text-center">
-            <p className="text-sm font-light text-gray-500">
-              {new Date().getFullYear()} Kelowna Boat Detailing. All rights reserved.
-            </p>
-            <div className="mt-4 flex justify-center">
-              <Image
-                src="/images/light.png"
-                alt="Kelowna Boat Detailing"
-                width={40}
-                height={40}
-                className="h-10 w-auto"
-              />
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
