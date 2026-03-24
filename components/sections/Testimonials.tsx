@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
 
+import ReviewLink from "@/components/tracking/ReviewLink";
+
 const TESTIMONIALS = [
   {
     text: "The crew is so polite, the work is amazing, and the price is fair. I've been using them for years and my boat always looks brand new.",
@@ -28,7 +30,19 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="bg-gray-50 py-16">
       <div className="container px-4">
-        <h2 className="mb-12 text-center font-playfair text-3xl font-light">OUR HAPPY CLIENTS</h2>
+        <div className="mb-12 text-center">
+          <h2 className="font-playfair text-3xl font-light">OUR HAPPY CLIENTS</h2>
+          <p className="mt-3 text-gray-600">
+            See what local boat owners say, then check current feedback on Google
+            before you book.
+          </p>
+          <ReviewLink
+            placement="testimonials"
+            className="mt-4 inline-flex text-sm font-medium uppercase tracking-[0.25em] text-gold transition-colors hover:text-gold/80"
+          >
+            Read Google Reviews
+          </ReviewLink>
+        </div>
         <div className="grid gap-8 md:grid-cols-3">
           {TESTIMONIALS.map((testimonial, i) => (
             <div key={i} className="rounded-lg bg-white p-8 shadow-lg">

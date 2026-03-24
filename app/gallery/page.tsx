@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import AnimatedPage from "@/components/ui/AnimatedPage";
 import ScrollAnimatedSection from "@/components/ui/ScrollAnimatedSection";
-import { siteConfig } from "@/lib/site";
+import BookingLink from "@/components/tracking/BookingLink";
 
 interface GalleryItem {
   src: string;
@@ -199,7 +199,7 @@ export default function GalleryPage() {
                   GET A QUOTE
                 </Button>
               </Link>
-              <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">
+              <BookingLink placement="gallery_footer_cta">
                 <Button
                   size="lg"
                   variant="outline"
@@ -207,7 +207,7 @@ export default function GalleryPage() {
                 >
                   BOOK NOW
                 </Button>
-              </a>
+              </BookingLink>
             </div>
           </div>
         </ScrollAnimatedSection>

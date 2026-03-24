@@ -1,7 +1,12 @@
 'use client';
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+
+import BookingLink from "@/components/tracking/BookingLink";
+import CallLink from "@/components/tracking/CallLink";
+import ReviewLink from "@/components/tracking/ReviewLink";
+import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/lib/site";
 import { useAppHeight } from "@/hooks/use-app-height";
 
 export default function HeroSection() {
@@ -58,20 +63,26 @@ export default function HeroSection() {
                 GET A FREE QUOTE
               </Button>
             </a>
-            <a
-              href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto"
-            >
+            <BookingLink placement="hero_primary" className="w-full sm:w-auto">
               <Button
                 size="lg"
                 variant="outline"
                 className="w-full sm:w-auto border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90"
               >
-                BOOK A DETAIL
+                BOOK ONLINE
               </Button>
-            </a>
+            </BookingLink>
+          </div>
+          <div className="flex flex-col gap-3 text-sm text-white/85 sm:flex-row sm:items-center sm:gap-6">
+            <CallLink placement="hero_secondary" className="transition-colors hover:text-gold">
+              Call or text {siteConfig.phoneDisplay}
+            </CallLink>
+            <ReviewLink
+              placement="hero_secondary"
+              className="transition-colors hover:text-gold"
+            >
+              Read Google Reviews
+            </ReviewLink>
           </div>
         </div>
       </div>

@@ -3,8 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
+import BookingLink from "@/components/tracking/BookingLink";
+import CallLink from "@/components/tracking/CallLink";
 import { useState } from "react";
-import { siteConfig } from "@/lib/site";
 
 export function Navbar() {
   const router = useRouter();
@@ -65,18 +66,27 @@ export function Navbar() {
         </nav>
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
+          <CallLink
+            placement="navbar_desktop"
+            className="text-xs font-medium tracking-[0.25em] text-gold transition-colors hover:text-gold/80"
+          >
+            CALL/TEXT
+          </CallLink>
           <Link href="/" scroll={false} onClick={handleQuoteClick}>
             <Button size="sm" className="bg-black text-gold border border-gold hover:bg-black/90 font-light tracking-wider">GET A QUOTE</Button>
           </Link>
-          <Link href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">
+          <BookingLink placement="navbar_desktop">
             <Button size="sm" className="bg-gold text-black hover:bg-gold/90">BOOK NOW</Button>
-          </Link>
+          </BookingLink>
         </div>
         {/* Mobile Actions */}
         <div className="md:hidden flex items-center gap-2">
-          <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gold text-black hover:bg-gold/90 h-9 px-3 text-sm">
+          <BookingLink
+            placement="navbar_mobile"
+            className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md bg-gold px-3 text-sm font-medium text-black transition-colors hover:bg-gold/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
             BOOK NOW
-          </a>
+          </BookingLink>
           <Button variant="ghost" size="icon" className="text-gold" onClick={() => setIsOpen(!isOpen)}>
             <span className="sr-only">Toggle menu</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
@@ -119,7 +129,22 @@ export function Navbar() {
               <Link href="/" scroll={false} onClick={(e) => { e.preventDefault(); setIsOpen(false); setTimeout(() => handleQuoteClick(e), 300); }} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">GET A QUOTE</Link>
             </div>
             <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
-              <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80">BOOK NOW</a>
+              <CallLink
+                placement="navbar_mobile_menu"
+                onClick={() => setIsOpen(false)}
+                className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80"
+              >
+                CALL/TEXT
+              </CallLink>
+            </div>
+            <div className="group w-full flex items-center justify-center py-3 transition-shadow hover:shadow-[0_0_15px_rgba(255,215,0,0.7)]">
+              <BookingLink
+                placement="navbar_mobile_menu"
+                onClick={() => setIsOpen(false)}
+                className="block w-full text-center text-sm font-light tracking-wider text-gold hover:text-gold/80"
+              >
+                BOOK NOW
+              </BookingLink>
             </div>
           </nav>
         </div>

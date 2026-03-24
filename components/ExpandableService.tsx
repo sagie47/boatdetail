@@ -2,6 +2,7 @@
 import Image from "next/image";
 
 import { useState } from "react";
+import BookingLink from "@/components/tracking/BookingLink";
 import { Button } from "@/components/ui/button";
 
 interface ServiceData {
@@ -9,7 +10,7 @@ interface ServiceData {
   alt: string;
   title: string;
   description: string;
-  price: string;
+  price?: string;
   popular?: boolean;
 }
 
@@ -48,7 +49,9 @@ export function ExpandableService({ service, wide }: ExpandableServiceProps & { 
                 <span className="ml-4 px-4 py-1 bg-gold text-black rounded text-sm font-medium align-middle">POPULAR</span>
               )}
             </h3>
-            <span className="sm:ml-auto text-2xl font-light text-gold">{service.price}</span>
+            {service.price ? (
+              <span className="sm:ml-auto text-2xl font-light text-gold">{service.price}</span>
+            ) : null}
             <div className="sm:ml-8 text-gold text-4xl font-bold select-none flex items-center">
               <span className="inline-block transition-transform duration-300 transform group-hover:scale-125">
                 {open ? "−" : "+"}
@@ -58,9 +61,9 @@ export function ExpandableService({ service, wide }: ExpandableServiceProps & { 
           {open && (
             <div className="mt-8 bg-gold/10 rounded-xl p-8 border border-gold/30 shadow-inner">
               <p className="text-black/80 font-light mb-6 text-lg leading-relaxed">{service.description}</p>
-              <a href="https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP" target="_blank" rel="noopener noreferrer">
+              <BookingLink placement={`service_card_${service.title.toLowerCase().replace(/\s+/g, "_")}`}>
                 <Button size="sm" className="bg-gold text-black hover:bg-gold/90">BOOK SERVICE</Button>
-              </a>
+              </BookingLink>
             </div>
           )}
         </div>

@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Boat Ceramic Coating",
   description:
-    "Protect your boat with durable ceramic coating that adds gloss, UV defense, and easier maintenance for Okanagan boating conditions.",
+    "Protect your boat with true ceramic coating from $75-$110/ft plus prep, built for long-term gloss, UV defense, and easier maintenance in Okanagan conditions.",
   path: "/ceramic-coating",
 });
 
@@ -31,18 +31,20 @@ export default function CeramicCoatingPage() {
               Protect Your Boat with Ceramic Coating
             </h1>
             <p className="mb-4 text-lg">
-              Our premium ceramic coating services provide a durable, hydrophobic
-              layer that repels water, dirt, and UV rays, keeping your boat
-              looking its best for longer.
+              Our true ceramic coating service starts at $75-$110 per foot plus
+              prep and correction. It is built for owners who want long-term
+              gloss, stronger UV defense, and easier maintenance between washes.
             </p>
             <p className="mb-4 text-lg">
               Ceramic coatings offer superior protection compared to traditional
-              waxing, lasting for years instead of months. They also enhance the
-              boat&apos;s shine and make it easier to clean.
+              waxing, lasting for years instead of months when applied to a
+              properly prepared surface. They also enhance the boat&apos;s shine
+              and make cleanup faster after long Okanagan days on the water.
             </p>
             <p className="mb-4 text-lg">
-              We use only high-quality ceramic coating products, and our
-              experienced technicians ensure a clean, even application.
+              Prep matters. We quote final ceramic pricing based on gelcoat
+              condition, correction needs, and protection goals so the finish
+              holds up the way a premium coating should.
             </p>
           </div>
           <Link href="/contact" className="w-full">
