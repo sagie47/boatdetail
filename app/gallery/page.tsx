@@ -41,12 +41,10 @@ export default function GalleryPage() {
   const openModal = (index: number) => {
     setCurrentIndex(index);
     setIsModalOpen(true);
-    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    document.body.style.overflow = "unset";
   };
 
   const navigate = (direction: "prev" | "next") => {
@@ -62,6 +60,8 @@ export default function GalleryPage() {
   };
 
   useEffect(() => {
+    document.body.style.overflow = isModalOpen ? "hidden" : "unset";
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!isModalOpen) {
         return;
