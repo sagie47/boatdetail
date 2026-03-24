@@ -8,6 +8,7 @@ declare global {
 }
 
 const CAD_CURRENCY = "CAD";
+const CONVERSION_CALLBACK_TIMEOUT_MS = 500;
 
 function cleanString(value: string) {
   return value.trim();
@@ -46,21 +47,71 @@ export function trackEvent(
   });
 }
 
+type GoogleAdsUserData = {
+  email?: string;
+  phone_number?: string;
+};
+
+function buildUserData(payload: { email?: string; phone?: string }) {
+  const userData: GoogleAdsUserData = {};
+  const email = cleanEmail(payload.email);
+  const phone = cleanPhone(payload.phone);
+
+  if (email) {
+    userData.email = email;
+  }
+
+  if (phone) {
+    userData.phone_number = phone;
+  }
+
+  return Object.keys(userData).length > 0 ? userData : undefined;
+}
+
 function trackGoogleAdsConversion({
   sendTo,
   payload,
+  userData,
+  onComplete,
 }: {
   sendTo?: string;
   payload?: Record<string, unknown>;
+  userData?: GoogleAdsUserData;
+  onComplete?: () => void;
 }) {
-  if (typeof window === "undefined" || !sendTo || typeof window.gtag !== "function") {
+  if (typeof window === "undefined") {
+    onComplete?.();
     return;
   }
+
+  if (!sendTo || typeof window.gtag !== "function") {
+    onComplete?.();
+    return;
+  }
+
+  if (userData) {
+    window.gtag("set", "user_data", userData);
+  }
+
+  let hasCompleted = false;
+  const complete = () => {
+    if (hasCompleted) {
+      return;
+    }
+
+    hasCompleted = true;
+    onComplete?.();
+  };
 
   window.gtag("event", "conversion", {
     send_to: sendTo,
     ...payload,
+    ...(onComplete ? { event_callback: complete } : {}),
   });
+
+  if (onComplete) {
+    window.setTimeout(complete, CONVERSION_CALLBACK_TIMEOUT_MS);
+  }
 }
 
 function buildSendTo(label?: string) {
@@ -75,6 +126,7 @@ function buildSendTo(label?: string) {
 export function trackPhoneClickConversion(payload: {
   placement: string;
   phoneNumber?: string;
+  onComplete?: () => void;
 }) {
   trackEvent("phone_click", {
     placement: payload.placement,
@@ -86,12 +138,17 @@ export function trackPhoneClickConversion(payload: {
     payload: {
       phone_number: cleanPhone(payload.phoneNumber),
     },
+    userData: buildUserData({
+      phone: payload.phoneNumber,
+    }),
+    onComplete: payload.onComplete,
   });
 }
 
 export function trackBookingClickConversion(payload: {
   placement: string;
   destination: string;
+  onComplete?: () => void;
 }) {
   trackEvent("booking_click", payload);
 
@@ -101,6 +158,7 @@ export function trackBookingClickConversion(payload: {
       value: 1,
       currency: CAD_CURRENCY,
     },
+    onComplete: payload.onComplete,
   });
 }
 
@@ -126,20 +184,13 @@ export function trackLeadSubmittedConversion(
 
   trackGoogleAdsConversion({
     sendTo: buildSendTo(label),
+    userData: buildUserData({
+      email: payload.email,
+      phone: payload.phone,
+    }),
     payload: {
       value: payload.value ?? 1,
       currency: payload.currency ?? CAD_CURRENCY,
-      email_address: cleanEmail(payload.email),
-      phone_number: cleanPhone(payload.phone),
-      user_data: {
-        email_address: cleanEmail(payload.email),
-        phone_number: cleanPhone(payload.phone),
-        address: payload.name
-          ? {
-              first_name: cleanString(payload.name).split(/\s+/)[0],
-            }
-          : undefined,
-      },
     },
   });
 }

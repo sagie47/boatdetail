@@ -24,10 +24,16 @@ export default function CallLink({
       {...props}
       href={siteConfig.phoneHref}
       onClick={(event) => {
+        event.preventDefault();
+
         trackPhoneClickConversion({
           placement,
           phoneNumber: siteConfig.phoneIntl,
+          onComplete: () => {
+            window.location.href = siteConfig.phoneHref;
+          },
         });
+
         onClick?.(event);
       }}
     >
