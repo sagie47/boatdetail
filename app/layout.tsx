@@ -59,7 +59,8 @@ export const metadata: Metadata = {
   },
 }
 
-const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID;
+const googleTagId =
+  process.env.NEXT_PUBLIC_GOOGLE_TAG_ID ?? "AW-17056247627";
 
 export default function RootLayout({
   children,
@@ -76,23 +77,19 @@ export default function RootLayout({
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-54WTH2MC');`}</script>
         {/* End Google Tag Manager */}
-        {googleTagId ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${googleTagId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-tag" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                window.gtag = gtag;
-                gtag('js', new Date());
-                gtag('config', '${googleTagId}', { send_page_view: false });
-              `}
-            </Script>
-          </>
-        ) : null}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleTagId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', '${googleTagId}');
+          `}
+        </Script>
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         {/* Google Tag Manager (noscript) */}
