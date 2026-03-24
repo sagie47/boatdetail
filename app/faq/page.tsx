@@ -93,11 +93,9 @@ export default function FAQPage() {
 
                 <div className="mt-12 text-center">
                   <p className="mb-4 text-gray-600">Still have questions?</p>
-                  <Link href="/contact">
-                    <Button className="bg-gold text-black hover:bg-gold/90">
-                      CONTACT US
-                    </Button>
-                  </Link>
+                  <Button asChild className="bg-gold text-black hover:bg-gold/90">
+                    <Link href="/contact">CONTACT US</Link>
+                  </Button>
                 </div>
               </div>
             </section>
@@ -109,11 +107,9 @@ export default function FAQPage() {
                 <h2 className="mb-8 font-playfair text-3xl font-light text-white">
                   Ready for a Professional Boat Detail?
                 </h2>
-                <BookingLink placement="faq_footer_cta">
-                  <Button size="lg" className="w-full bg-gold text-black hover:bg-gold/90 sm:w-auto">
-                    BOOK A DETAIL
-                  </Button>
-                </BookingLink>
+                <Button asChild size="lg" className="w-full bg-gold text-black hover:bg-gold/90 sm:w-auto">
+                  <BookingLink placement="faq_footer_cta">BOOK A DETAIL</BookingLink>
+                </Button>
               </div>
             </section>
           </ScrollAnimatedSection>

@@ -1,6 +1,10 @@
 "use client";
 
-import type { AnchorHTMLAttributes, ReactNode } from "react";
+import {
+  forwardRef,
+  type AnchorHTMLAttributes,
+  type ReactNode,
+} from "react";
 
 import { siteConfig } from "@/lib/site";
 import { trackBookingClickConversion } from "@/lib/tracking";
@@ -13,30 +17,39 @@ type BookingLinkProps = Omit<
   placement: string;
 };
 
-export default function BookingLink({
+const BookingLink = forwardRef<HTMLAnchorElement, BookingLinkProps>(function BookingLink({
   children,
   placement,
   rel,
   target,
   ...props
-}: BookingLinkProps) {
-  const relValue = rel ?? (target === "_blank" ? "noopener noreferrer" : undefined);
+}, ref) {
+  const resolvedTarget = target ?? "_blank";
+  const relValue =
+    rel ?? (resolvedTarget === "_blank" ? "noopener noreferrer" : undefined);
 
   return (
     <a
+      ref={ref}
       {...props}
       href={siteConfig.bookingUrl}
-      target={target ?? "_blank"}
+      target={resolvedTarget}
       rel={relValue}
       onClick={(event) => {
+        props.onClick?.(event);
+        if (event.defaultPrevented) {
+          return;
+        }
+
         trackBookingClickConversion({
           placement,
           destination: siteConfig.bookingUrl,
         });
-        props.onClick?.(event);
       }}
     >
       {children}
     </a>
   );
-}
+});
+
+export default BookingLink;

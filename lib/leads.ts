@@ -17,8 +17,6 @@ export const quoteLeadSchema = z.object({
   email: z.string().trim().email(),
   boatLength: z.coerce.number().positive().max(300),
   services: z.array(z.string().trim().min(1).max(160)).min(1).max(12),
-  quoteMin: z.coerce.number().nonnegative(),
-  quoteMax: z.coerce.number().nonnegative(),
 });
 
 export const contactLeadSchema = z.object({
@@ -51,6 +49,9 @@ export type ContactLead = z.infer<typeof contactLeadSchema>;
 export type FeedbackLead = z.infer<typeof feedbackLeadSchema>;
 
 const REQUIRED_SMTP_ENV = ["SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS"] as const;
+const DEFAULT_SMTP_CONNECTION_TIMEOUT_MS = 10000;
+const DEFAULT_SMTP_GREETING_TIMEOUT_MS = 10000;
+const DEFAULT_SMTP_SOCKET_TIMEOUT_MS = 20000;
 
 export class LeadDeliveryConfigError extends Error {
   constructor(message = "Lead delivery is not configured.") {
@@ -80,6 +81,14 @@ function getTransportConfig() {
     host: process.env.SMTP_HOST!,
     port,
     secure: process.env.SMTP_SECURE === "true" || port === 465,
+    connectionTimeout:
+      Number(process.env.SMTP_CONNECTION_TIMEOUT_MS) ||
+      DEFAULT_SMTP_CONNECTION_TIMEOUT_MS,
+    greetingTimeout:
+      Number(process.env.SMTP_GREETING_TIMEOUT_MS) ||
+      DEFAULT_SMTP_GREETING_TIMEOUT_MS,
+    socketTimeout:
+      Number(process.env.SMTP_SOCKET_TIMEOUT_MS) || DEFAULT_SMTP_SOCKET_TIMEOUT_MS,
     auth: {
       user: process.env.SMTP_USER!,
       pass: process.env.SMTP_PASS!,

@@ -160,3 +160,7 @@ export const serviceCatalog: ServiceCatalogItem[] = [
     ],
   },
 ];
+
+export function getServiceBySlug(slug: string) {
+  return serviceCatalog.find((service) => service.slug === slug);
+}

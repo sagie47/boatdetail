@@ -19,7 +19,11 @@ function cleanPhone(value?: string) {
     return undefined;
   }
 
-  const digits = value.replace(/[^\d+]/g, "");
+  const stripped = cleanString(value).replace(/[^\d+]/g, "");
+  const digits = stripped.startsWith("+")
+    ? `+${stripped.slice(1).replace(/\+/g, "")}`
+    : stripped.replace(/\+/g, "");
+
   return digits || undefined;
 }
 
@@ -42,8 +46,8 @@ export function trackEvent(
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
-    event,
     ...payload,
+    event,
   });
 }
 
@@ -89,10 +93,6 @@ function trackGoogleAdsConversion({
     return;
   }
 
-  if (userData) {
-    window.gtag("set", "user_data", userData);
-  }
-
   let hasCompleted = false;
   const complete = () => {
     if (hasCompleted) {
@@ -103,14 +103,26 @@ function trackGoogleAdsConversion({
     onComplete?.();
   };
 
-  window.gtag("event", "conversion", {
-    send_to: sendTo,
-    ...payload,
-    ...(onComplete ? { event_callback: complete } : {}),
-  });
-
   if (onComplete) {
     window.setTimeout(complete, CONVERSION_CALLBACK_TIMEOUT_MS);
+  }
+
+  try {
+    if (userData) {
+      window.gtag("set", "user_data", userData);
+    }
+  } catch (error) {
+    console.error("Google Ads user_data tracking failed:", error);
+  }
+
+  try {
+    window.gtag("event", "conversion", {
+      send_to: sendTo,
+      ...payload,
+      ...(onComplete ? { event_callback: complete } : {}),
+    });
+  } catch (error) {
+    console.error("Google Ads conversion tracking failed:", error);
   }
 }
 
@@ -138,9 +150,6 @@ export function trackPhoneClickConversion(payload: {
     payload: {
       phone_number: cleanPhone(payload.phoneNumber),
     },
-    userData: buildUserData({
-      phone: payload.phoneNumber,
-    }),
     onComplete: payload.onComplete,
   });
 }
@@ -150,7 +159,10 @@ export function trackBookingClickConversion(payload: {
   destination: string;
   onComplete?: () => void;
 }) {
-  trackEvent("booking_click", payload);
+  trackEvent("booking_click", {
+    placement: payload.placement,
+    destination: payload.destination,
+  });
 
   trackGoogleAdsConversion({
     sendTo: buildSendTo(process.env.NEXT_PUBLIC_GOOGLE_ADS_BOOKING_CLICK_LABEL),

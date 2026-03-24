@@ -72,12 +72,16 @@ export function Navbar() {
           >
             CALL/TEXT
           </CallLink>
-          <Link href="/" scroll={false} onClick={handleQuoteClick}>
-            <Button size="sm" className="bg-black text-gold border border-gold hover:bg-black/90 font-light tracking-wider">GET A QUOTE</Button>
-          </Link>
-          <BookingLink placement="navbar_desktop">
-            <Button size="sm" className="bg-gold text-black hover:bg-gold/90">BOOK NOW</Button>
-          </BookingLink>
+          <Button
+            asChild
+            size="sm"
+            className="border border-gold bg-black font-light tracking-wider text-gold hover:bg-black/90"
+          >
+            <Link href="/" scroll={false} onClick={handleQuoteClick}>GET A QUOTE</Link>
+          </Button>
+          <Button asChild size="sm" className="bg-gold text-black hover:bg-gold/90">
+            <BookingLink placement="navbar_desktop">BOOK NOW</BookingLink>
+          </Button>
         </div>
         {/* Mobile Actions */}
         <div className="md:hidden flex items-center gap-2">

@@ -194,20 +194,17 @@ export default function GalleryPage() {
               Ready to Transform Your Boat?
             </h2>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              <Link href="/contact">
-                <Button size="lg" className="min-w-[200px] bg-gold text-black hover:bg-gold/90">
-                  GET A QUOTE
-                </Button>
-              </Link>
-              <BookingLink placement="gallery_footer_cta">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="min-w-[200px] border-gold bg-transparent text-gold hover:bg-gold hover:text-black"
-                >
-                  BOOK NOW
-                </Button>
-              </BookingLink>
+              <Button asChild size="lg" className="min-w-[200px] bg-gold text-black hover:bg-gold/90">
+                <Link href="/contact">GET A QUOTE</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="min-w-[200px] border-gold bg-transparent text-gold hover:bg-gold hover:text-black"
+              >
+                <BookingLink placement="gallery_footer_cta">BOOK NOW</BookingLink>
+              </Button>
             </div>
           </div>
         </ScrollAnimatedSection>

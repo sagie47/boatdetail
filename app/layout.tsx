@@ -88,7 +88,7 @@ export default function RootLayout({
                 function gtag(){dataLayer.push(arguments);}
                 window.gtag = gtag;
                 gtag('js', new Date());
-                gtag('config', '${googleTagId}');
+                gtag('config', '${googleTagId}', { send_page_view: false });
               `}
             </Script>
           </>

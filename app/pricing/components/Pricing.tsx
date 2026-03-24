@@ -56,11 +56,11 @@ export default function Pricing() {
                   ))}
                 </div>
                 <div className="mt-auto">
-                  <BookingLink placement={`pricing_grid_${service.slug}`}>
-                    <Button className="w-full bg-gold text-black hover:bg-gold/90">
+                  <Button asChild className="w-full bg-gold text-black hover:bg-gold/90">
+                    <BookingLink placement={`pricing_grid_${service.slug}`}>
                       BOOK SERVICE
-                    </Button>
-                  </BookingLink>
+                    </BookingLink>
+                  </Button>
                 </div>
               </CardContent>
             </Card>

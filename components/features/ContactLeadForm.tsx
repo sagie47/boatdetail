@@ -44,6 +44,8 @@ export default function ContactLeadForm() {
     setMessage("");
 
     try {
+      const normalizedBoatLength = Number(formState.boatLength);
+
       const response = await fetch("/api/leads/contact", {
         method: "POST",
         headers: {
@@ -51,7 +53,10 @@ export default function ContactLeadForm() {
         },
         body: JSON.stringify({
           ...formState,
-          boatLength: formState.boatLength ? Number(formState.boatLength) : "",
+          boatLength:
+            formState.boatLength && normalizedBoatLength > 0
+              ? normalizedBoatLength
+              : "",
         }),
       });
 
@@ -70,7 +75,7 @@ export default function ContactLeadForm() {
         phone: formState.phone,
         eventData: {
           service: formState.service,
-          has_boat_length: Boolean(formState.boatLength),
+          has_boat_length: normalizedBoatLength > 0,
         },
       });
 
@@ -222,7 +227,7 @@ export default function ContactLeadForm() {
             <input
               id="contact-boat-length"
               type="number"
-              min="0"
+              min="1"
               value={formState.boatLength}
               onChange={(event) =>
                 setFormState((current) => ({
@@ -325,6 +330,7 @@ export default function ContactLeadForm() {
 
         {message ? (
           <div
+            role="alert"
             className={`rounded-lg px-4 py-3 text-sm ${
               submitState === "success"
                 ? "bg-green-50 text-green-800"

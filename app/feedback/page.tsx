@@ -342,6 +342,7 @@ export default function Feedback() {
                     </Button>
                     {message ? (
                       <div
+                        role="alert"
                         className={`rounded-lg px-4 py-3 text-sm ${
                           submitState === "success"
                             ? "bg-green-50 text-green-800"
@@ -431,11 +432,9 @@ export default function Feedback() {
             <h2 className="mb-8 font-playfair text-3xl font-light text-white">
               Ready to Experience the Kelowna Difference?
             </h2>
-            <BookingLink placement="feedback_footer_cta">
-              <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-                BOOK A DETAIL
-              </Button>
-            </BookingLink>
+            <Button asChild size="lg" className="bg-gold text-black hover:bg-gold/90">
+              <BookingLink placement="feedback_footer_cta">BOOK A DETAIL</BookingLink>
+            </Button>
           </div>
         </section>
       </main>

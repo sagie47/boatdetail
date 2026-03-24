@@ -36,12 +36,12 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
   );
   const [message, setMessage] = useState("");
 
-  const handleServiceChange = useCallback((service: string) => {
+  const handleServiceChange = useCallback((serviceSlug: string) => {
     setFormData((previous) => ({
       ...previous,
-      services: previous.services.includes(service)
-        ? previous.services.filter((item) => item !== service)
-        : [...previous.services, service],
+      services: previous.services.includes(serviceSlug)
+        ? previous.services.filter((item) => item !== serviceSlug)
+        : [...previous.services, serviceSlug],
     }));
   }, []);
 
@@ -61,25 +61,31 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
         return;
       }
 
-      const totals = formData.services.reduce(
-        (accumulator, service) => {
-          const item = SERVICES.find((entry) => entry.title === service);
-          if (!item) {
-            return accumulator;
-          }
+      const selectedServices = formData.services
+        .map((serviceSlug) => SERVICES.find((entry) => entry.slug === serviceSlug))
+        .filter((service): service is (typeof SERVICES)[number] => Boolean(service));
 
-          if (item.perFoot) {
-            accumulator.min += item.priceMin * formData.boatLength;
-            accumulator.max += item.priceMax * formData.boatLength;
+      if (selectedServices.length !== formData.services.length) {
+        setSubmitState("error");
+        setMessage("Select valid services to generate an estimate.");
+        return;
+      }
+
+      const totals = selectedServices.reduce(
+        (accumulator, service) => {
+          if (service.perFoot) {
+            accumulator.min += service.priceMin * formData.boatLength;
+            accumulator.max += service.priceMax * formData.boatLength;
           } else {
-            accumulator.min += item.priceMin;
-            accumulator.max += item.priceMax;
+            accumulator.min += service.priceMin;
+            accumulator.max += service.priceMax;
           }
 
           return accumulator;
         },
         { min: 0, max: 0 }
       );
+      const serviceTitles = selectedServices.map((service) => service.title);
 
       onQuoteCalculated(totals.min, totals.max);
       setIsSubmitting(true);
@@ -98,8 +104,6 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
             email: formData.contact.email,
             boatLength: formData.boatLength,
             services: formData.services,
-            quoteMin: totals.min,
-            quoteMax: totals.max,
           }),
         });
 
@@ -117,7 +121,8 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
           phone: formData.contact.phone,
           value: totals.max,
           eventData: {
-            services: formData.services.join(", "),
+            services: serviceTitles.join(", "),
+            service_slugs: formData.services.join(", "),
             boat_length: formData.boatLength,
             estimate_min: totals.min,
             estimate_max: totals.max,
@@ -129,7 +134,7 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
         );
       } catch (error) {
         trackEvent("quote_request_failed", {
-          services: formData.services.join(", "),
+          service_slugs: formData.services.join(", "),
         });
         setSubmitState("error");
         setMessage(
@@ -184,8 +189,8 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
                   <input
                     type="checkbox"
                     id={service.slug}
-                    checked={formData.services.includes(service.title)}
-                    onChange={() => handleServiceChange(service.title)}
+                    checked={formData.services.includes(service.slug)}
+                    onChange={() => handleServiceChange(service.slug)}
                     className="mt-1 h-4 w-4 rounded border-gray-400 bg-black/30 text-gold focus:ring-gold"
                   />
                   <label htmlFor={service.slug} className="ml-3 flex-1 cursor-pointer">
@@ -211,10 +216,11 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
           </label>
           <div className="space-y-4">
             <div className="rounded-lg border border-gold/20 p-4 transition-colors hover:border-gold/40">
-              <label className="mb-1 block text-sm font-light text-white/90">
+              <label htmlFor="quote-contact-name" className="mb-1 block text-sm font-light text-white/90">
                 Your Name
               </label>
               <input
+                id="quote-contact-name"
                 type="text"
                 className="w-full border-0 bg-transparent p-0 text-white placeholder-gray-400 focus:outline-none focus:ring-0"
                 value={formData.contact.name}
@@ -231,10 +237,11 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
               />
             </div>
             <div className="rounded-lg border border-gold/20 p-4 transition-colors hover:border-gold/40">
-              <label className="mb-1 block text-sm font-light text-white/90">
+              <label htmlFor="quote-contact-phone" className="mb-1 block text-sm font-light text-white/90">
                 Phone Number
               </label>
               <input
+                id="quote-contact-phone"
                 type="tel"
                 className="w-full border-0 bg-transparent p-0 text-white placeholder-gray-400 focus:outline-none focus:ring-0"
                 value={formData.contact.phone}
@@ -251,10 +258,11 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
               />
             </div>
             <div className="rounded-lg border border-gold/20 p-4 transition-colors hover:border-gold/40">
-              <label className="mb-1 block text-sm font-light text-white/90">
+              <label htmlFor="quote-contact-email" className="mb-1 block text-sm font-light text-white/90">
                 Email Address
               </label>
               <input
+                id="quote-contact-email"
                 type="email"
                 className="w-full border-0 bg-transparent p-0 text-white placeholder-gray-400 focus:outline-none focus:ring-0"
                 value={formData.contact.email}
@@ -283,6 +291,7 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
 
         {message ? (
           <div
+            role="alert"
             className={`rounded-lg px-4 py-3 text-sm ${
               submitState === "success"
                 ? "bg-green-950/60 text-green-100"

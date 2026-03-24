@@ -1,6 +1,10 @@
 "use client";
 
-import type { AnchorHTMLAttributes, ReactNode } from "react";
+import {
+  forwardRef,
+  type AnchorHTMLAttributes,
+  type ReactNode,
+} from "react";
 
 import { siteConfig } from "@/lib/site";
 import { trackPhoneClickConversion } from "@/lib/tracking";
@@ -13,14 +17,15 @@ type CallLinkProps = Omit<
   placement: string;
 };
 
-export default function CallLink({
+const CallLink = forwardRef<HTMLAnchorElement, CallLinkProps>(function CallLink({
   children,
   placement,
   onClick,
   ...props
-}: CallLinkProps) {
+}, ref) {
   return (
     <a
+      ref={ref}
       {...props}
       href={siteConfig.phoneHref}
       onClick={(event) => {
@@ -40,4 +45,6 @@ export default function CallLink({
       {children}
     </a>
   );
-}
+});
+
+export default CallLink;

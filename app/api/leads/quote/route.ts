@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ZodError } from "zod";
 
 import {
   LeadDeliveryConfigError,
@@ -7,19 +8,50 @@ import {
   renderLeadTable,
   sendLeadEmail,
 } from "@/lib/leads";
+import { getServiceBySlug } from "@/lib/serviceCatalog";
 
 export const runtime = "nodejs";
+
+class InvalidQuoteServiceError extends Error {
+  constructor() {
+    super("Unknown service in quote request.");
+    this.name = "InvalidQuoteServiceError";
+  }
+}
 
 export async function POST(request: Request) {
   try {
     const payload = quoteLeadSchema.parse(await request.json());
+    const selectedServices = payload.services.map((slug) => {
+      const service = getServiceBySlug(slug);
+      if (!service) {
+        throw new InvalidQuoteServiceError();
+      }
+
+      return service;
+    });
+
+    const totals = selectedServices.reduce(
+      (accumulator, service) => {
+        if (service.perFoot) {
+          accumulator.min += service.priceMin * payload.boatLength;
+          accumulator.max += service.priceMax * payload.boatLength;
+        } else {
+          accumulator.min += service.priceMin;
+          accumulator.max += service.priceMax;
+        }
+
+        return accumulator;
+      },
+      { min: 0, max: 0 }
+    );
 
     const quoteRange =
-      payload.quoteMin === payload.quoteMax
-        ? formatCurrency(payload.quoteMin)
-        : `${formatCurrency(payload.quoteMin)} to ${formatCurrency(payload.quoteMax)}`;
+      totals.min === totals.max
+        ? formatCurrency(totals.min)
+        : `${formatCurrency(totals.min)} to ${formatCurrency(totals.max)}`;
 
-    const services = payload.services.join(", ");
+    const services = selectedServices.map((service) => service.title).join(", ");
 
     const text = [
       "New quote request",
@@ -67,7 +99,14 @@ export async function POST(request: Request) {
       );
     }
 
-    if (error instanceof Error && "issues" in error) {
+    if (error instanceof InvalidQuoteServiceError) {
+      return NextResponse.json(
+        { ok: false, error: "Please choose valid services for your quote request." },
+        { status: 400 }
+      );
+    }
+
+    if (error instanceof ZodError) {
       return NextResponse.json(
         { ok: false, error: "Please complete all required quote fields." },
         { status: 400 }

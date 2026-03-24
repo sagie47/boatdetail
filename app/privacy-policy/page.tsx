@@ -215,11 +215,9 @@ export default function PrivacyPolicy() {
             <h2 className="mb-8 font-playfair text-3xl font-light text-white">
               Ready to Make Waves with a Clean Boat?
             </h2>
-            <BookingLink placement="privacy_policy_footer_cta">
-              <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-                BOOK MY DETAIL
-              </Button>
-            </BookingLink>
+            <Button asChild size="lg" className="bg-gold text-black hover:bg-gold/90">
+              <BookingLink placement="privacy_policy_footer_cta">BOOK MY DETAIL</BookingLink>
+            </Button>
           </div>
         </section>
       </main>

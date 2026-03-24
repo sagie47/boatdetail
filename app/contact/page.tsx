@@ -167,15 +167,14 @@ export default function Contact() {
               >
                 Call Or Text Now
               </CallLink>
-              <BookingLink placement="contact_footer" className="inline-block">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-gold bg-transparent text-gold hover:bg-gold hover:text-black"
-                >
-                  Book Online
-                </Button>
-              </BookingLink>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-gold bg-transparent text-gold hover:bg-gold hover:text-black"
+              >
+                <BookingLink placement="contact_footer">Book Online</BookingLink>
+              </Button>
             </div>
           </div>
         </section>

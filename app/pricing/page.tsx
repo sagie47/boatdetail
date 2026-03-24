@@ -55,6 +55,7 @@ export default function PricingPage() {
                 <ExpandableService
                   key={service.slug}
                   service={{
+                    slug: service.slug,
                     image: service.image,
                     alt: service.alt,
                     title: service.title,
@@ -74,11 +75,9 @@ export default function PricingPage() {
             <h2 className="mb-8 font-playfair text-3xl font-light">
               Ready to Transform Your Boat?
             </h2>
-            <BookingLink placement="pricing_page_footer_cta">
-              <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-                BOOK A DETAIL
-              </Button>
-            </BookingLink>
+            <Button asChild size="lg" className="bg-gold text-black hover:bg-gold/90">
+              <BookingLink placement="pricing_page_footer_cta">BOOK A DETAIL</BookingLink>
+            </Button>
           </div>
         </ScrollAnimatedSection>
       </AnimatedPage>

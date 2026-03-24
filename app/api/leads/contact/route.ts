@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ZodError } from "zod";
 
 import {
   contactLeadSchema,
@@ -68,7 +69,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (error instanceof Error && "issues" in error) {
+    if (error instanceof ZodError) {
       return NextResponse.json(
         { ok: false, error: "Please complete the required contact fields." },
         { status: 400 }

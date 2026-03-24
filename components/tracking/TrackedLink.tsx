@@ -1,6 +1,10 @@
 "use client";
 
-import type { AnchorHTMLAttributes, ReactNode } from "react";
+import {
+  forwardRef,
+  type AnchorHTMLAttributes,
+  type ReactNode,
+} from "react";
 
 import { trackEvent } from "@/lib/tracking";
 
@@ -11,22 +15,29 @@ type TrackedLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
 };
 
-export default function TrackedLink({
+const TrackedLink = forwardRef<HTMLAnchorElement, TrackedLinkProps>(function TrackedLink({
   children,
   eventName,
   eventData,
   onClick,
   ...props
-}: TrackedLinkProps) {
+}, ref) {
   return (
     <a
+      ref={ref}
       {...props}
       onClick={(event) => {
-        trackEvent(eventName, eventData);
         onClick?.(event);
+        if (event.defaultPrevented) {
+          return;
+        }
+
+        trackEvent(eventName, eventData);
       }}
     >
       {children}
     </a>
   );
-}
+});
+
+export default TrackedLink;

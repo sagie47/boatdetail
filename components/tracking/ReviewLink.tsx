@@ -1,6 +1,10 @@
 "use client";
 
-import type { AnchorHTMLAttributes, ReactNode } from "react";
+import {
+  forwardRef,
+  type AnchorHTMLAttributes,
+  type ReactNode,
+} from "react";
 
 import { siteConfig } from "@/lib/site";
 
@@ -14,20 +18,23 @@ type ReviewLinkProps = Omit<
   placement: string;
 };
 
-export default function ReviewLink({
+const ReviewLink = forwardRef<HTMLAnchorElement, ReviewLinkProps>(function ReviewLink({
   children,
   placement,
   rel,
   target,
   ...props
-}: ReviewLinkProps) {
-  const relValue = rel ?? (target === "_blank" ? "noopener noreferrer" : undefined);
+}, ref) {
+  const resolvedTarget = target ?? "_blank";
+  const relValue =
+    rel ?? (resolvedTarget === "_blank" ? "noopener noreferrer" : undefined);
 
   return (
     <TrackedLink
+      ref={ref}
       {...props}
       href={siteConfig.reviewUrl}
-      target={target ?? "_blank"}
+      target={resolvedTarget}
       rel={relValue}
       eventName="review_click"
       eventData={{ placement }}
@@ -35,4 +42,6 @@ export default function ReviewLink({
       {children}
     </TrackedLink>
   );
-}
+});
+
+export default ReviewLink;

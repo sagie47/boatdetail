@@ -58,20 +58,17 @@ export default function HeroSection() {
             Experience the ultimate convenience with our mobile boat detailing services in Kelowna & the Okanagan.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <a href="#quote" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto bg-gold text-black hover:bg-gold/90">
-                GET A FREE QUOTE
-              </Button>
-            </a>
-            <BookingLink placement="hero_primary" className="w-full sm:w-auto">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90"
-              >
-                BOOK ONLINE
-              </Button>
-            </BookingLink>
+            <Button asChild size="lg" className="w-full sm:w-auto bg-gold text-black hover:bg-gold/90">
+              <a href="#quote">GET A FREE QUOTE</a>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="w-full sm:w-auto border-gold bg-black text-gold hover:bg-black/90 hover:text-gold/90"
+            >
+              <BookingLink placement="hero_primary">BOOK ONLINE</BookingLink>
+            </Button>
           </div>
           <div className="flex flex-col gap-3 text-sm text-white/85 sm:flex-row sm:items-center sm:gap-6">
             <CallLink placement="hero_secondary" className="transition-colors hover:text-gold">

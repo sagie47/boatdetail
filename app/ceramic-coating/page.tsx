@@ -47,11 +47,9 @@ export default function CeramicCoatingPage() {
               holds up the way a premium coating should.
             </p>
           </div>
-          <Link href="/contact" className="w-full">
-            <Button variant="default" className="w-full">
-              Get a Free Quote
-            </Button>
-          </Link>
+          <Button asChild variant="default" className="w-full">
+            <Link href="/contact">Get a Free Quote</Link>
+          </Button>
         </div>
       </div>
     </div>

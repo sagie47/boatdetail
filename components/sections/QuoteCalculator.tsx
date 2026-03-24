@@ -116,14 +116,9 @@ export default function QuoteCalculator() {
                   >
                     Call Or Text Now
                   </CallLink>
-                  <BookingLink placement="quote_result" className="inline-block w-full">
-                    <Button
-                      size="lg"
-                      className="w-full bg-gold text-black hover:bg-gold/90"
-                    >
-                      Book Online
-                    </Button>
-                  </BookingLink>
+                  <Button asChild size="lg" className="w-full bg-gold text-black hover:bg-gold/90">
+                    <BookingLink placement="quote_result">Book Online</BookingLink>
+                  </Button>
                   <Button
                     variant="ghost"
                     size="lg"
