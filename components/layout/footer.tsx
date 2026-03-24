@@ -2,6 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Instagram, Mail, MapPin, Phone } from "lucide-react";
 
+import BookingLink from "@/components/tracking/BookingLink";
+import CallLink from "@/components/tracking/CallLink";
+import ReviewLink from "@/components/tracking/ReviewLink";
 import { siteConfig } from "@/lib/site";
 
 export default function Footer() {
@@ -73,13 +76,13 @@ export default function Footer() {
             <h3 className="mb-4 font-light tracking-wider text-lg">GET IN TOUCH</h3>
             <ul className="space-y-2">
               <li>
-                <Link
-                  href={siteConfig.phoneHref}
+                <CallLink
+                  placement="footer"
                   className="flex items-center gap-2 text-sm font-light text-gray-600 hover:text-gold transition-colors"
                 >
                   <Phone className="h-4 w-4" />
                   <span>{siteConfig.phoneDisplay}</span>
-                </Link>
+                </CallLink>
               </li>
               <li>
                 <Link
@@ -97,14 +100,20 @@ export default function Footer() {
                 </p>
               </li>
               <li>
-                <Link
-                  href={siteConfig.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <BookingLink
+                  placement="footer"
                   className="text-sm font-light text-gray-600 hover:text-gold transition-colors"
                 >
                   Book online
-                </Link>
+                </BookingLink>
+              </li>
+              <li>
+                <ReviewLink
+                  placement="footer"
+                  className="text-sm font-light text-gray-600 hover:text-gold transition-colors"
+                >
+                  Google reviews
+                </ReviewLink>
               </li>
             </ul>
             <div className="mt-4 flex gap-4">

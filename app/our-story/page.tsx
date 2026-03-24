@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 
+import BookingLink from "@/components/tracking/BookingLink";
 import { Button } from "@/components/ui/button";
 import { buildMetadata } from "@/lib/seo";
-import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
   title: "Our Story",
@@ -152,11 +152,9 @@ export default function OurStory() {
             <h2 className="mb-8 font-playfair text-3xl font-light text-white">
               Ready to Experience the Kelowna Boat Detailing Difference?
             </h2>
-            <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-                BOOK A DETAIL
-              </Button>
-            </a>
+            <Button asChild size="lg" className="bg-gold text-black hover:bg-gold/90">
+              <BookingLink placement="our_story_footer_cta">BOOK A DETAIL</BookingLink>
+            </Button>
           </div>
         </section>
       </main>

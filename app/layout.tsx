@@ -2,9 +2,11 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 import { Navbar } from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import { serviceCatalog } from "@/lib/serviceCatalog";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
 const inter = Inter({
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.defaultDescription,
   generator: 'Next.js',
-  keywords: siteConfig.keywords,
+  keywords: [...siteConfig.keywords],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
@@ -57,6 +59,8 @@ export const metadata: Metadata = {
   },
 }
 
+const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -72,6 +76,23 @@ export default function RootLayout({
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-54WTH2MC');`}</script>
         {/* End Google Tag Manager */}
+        {googleTagId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleTagId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-tag" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', '${googleTagId}', { send_page_view: false });
+              `}
+            </Script>
+          </>
+        ) : null}
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         {/* Google Tag Manager (noscript) */}
@@ -120,32 +141,14 @@ export default function RootLayout({
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
                 "name": "Boat detailing services",
-                "itemListElement": [
-                {
+                "itemListElement": serviceCatalog.map((service) => ({
                   "@type": "Offer",
                   "itemOffered": {
                     "@type": "Service",
-                    "name": "Basic Exterior Wash",
-                    "description": "Foam cannon presoak, hand wash with marine-grade shampoo, water spot removal, and spray wax application."
+                    "name": service.title,
+                    "description": service.description
                   }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Interior Basic Clean",
-                    "description": "Includes vacuuming carpets and upholstery, wiping down hard surfaces, and cleaning windows and mirrors."
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Full Interior and Exterior Detail",
-                    "description": "Comprehensive detailing package with oxidation removal, protective sealant, and full interior deep clean."
-                  }
-                }
-                ]
+                }))
               }
             })
           }}

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import AnimatedPage from "@/components/ui/AnimatedPage";
 import ScrollAnimatedSection from "@/components/ui/ScrollAnimatedSection";
-import { siteConfig } from "@/lib/site";
+import BookingLink from "@/components/tracking/BookingLink";
 
 interface GalleryItem {
   src: string;
@@ -194,20 +194,17 @@ export default function GalleryPage() {
               Ready to Transform Your Boat?
             </h2>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              <Link href="/contact">
-                <Button size="lg" className="min-w-[200px] bg-gold text-black hover:bg-gold/90">
-                  GET A QUOTE
-                </Button>
-              </Link>
-              <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="min-w-[200px] border-gold bg-transparent text-gold hover:bg-gold hover:text-black"
-                >
-                  BOOK NOW
-                </Button>
-              </a>
+              <Button asChild size="lg" className="min-w-[200px] bg-gold text-black hover:bg-gold/90">
+                <Link href="/contact">GET A QUOTE</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="min-w-[200px] border-gold bg-transparent text-gold hover:bg-gold hover:text-black"
+              >
+                <BookingLink placement="gallery_footer_cta">BOOK NOW</BookingLink>
+              </Button>
             </div>
           </div>
         </ScrollAnimatedSection>

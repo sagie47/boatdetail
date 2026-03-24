@@ -6,10 +6,10 @@ import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import BookingLink from "@/components/tracking/BookingLink";
 import AnimatedPage from "@/components/ui/AnimatedPage";
 import ScrollAnimatedSection from "@/components/ui/ScrollAnimatedSection";
 import faqs from "@/data/faq.json";
-import { siteConfig } from "@/lib/site";
 
 function FAQAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -93,11 +93,9 @@ export default function FAQPage() {
 
                 <div className="mt-12 text-center">
                   <p className="mb-4 text-gray-600">Still have questions?</p>
-                  <Link href="/contact">
-                    <Button className="bg-gold text-black hover:bg-gold/90">
-                      CONTACT US
-                    </Button>
-                  </Link>
+                  <Button asChild className="bg-gold text-black hover:bg-gold/90">
+                    <Link href="/contact">CONTACT US</Link>
+                  </Button>
                 </div>
               </div>
             </section>
@@ -109,11 +107,9 @@ export default function FAQPage() {
                 <h2 className="mb-8 font-playfair text-3xl font-light text-white">
                   Ready for a Professional Boat Detail?
                 </h2>
-                <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="w-full bg-gold text-black hover:bg-gold/90 sm:w-auto">
-                    BOOK A DETAIL
-                  </Button>
-                </a>
+                <Button asChild size="lg" className="w-full bg-gold text-black hover:bg-gold/90 sm:w-auto">
+                  <BookingLink placement="faq_footer_cta">BOOK A DETAIL</BookingLink>
+                </Button>
               </div>
             </section>
           </ScrollAnimatedSection>

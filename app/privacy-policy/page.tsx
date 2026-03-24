@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
+import BookingLink from "@/components/tracking/BookingLink";
+import CallLink from "@/components/tracking/CallLink";
 import { Button } from "@/components/ui/button";
 import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
@@ -192,7 +194,7 @@ export default function PrivacyPolicy() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-gold" />
-                    <span>Phone: <a href={siteConfig.phoneHref} className="text-gold hover:underline">{siteConfig.phoneDisplay}</a></span>
+                    <span>Phone: <CallLink placement="privacy_policy" className="text-gold hover:underline">{siteConfig.phoneDisplay}</CallLink></span>
                   </div>
                   <div className="flex items-center gap-3">
                     <MapPin className="h-5 w-5 text-gold" />
@@ -213,11 +215,9 @@ export default function PrivacyPolicy() {
             <h2 className="mb-8 font-playfair text-3xl font-light text-white">
               Ready to Make Waves with a Clean Boat?
             </h2>
-            <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-                BOOK MY DETAIL
-              </Button>
-            </a>
+            <Button asChild size="lg" className="bg-gold text-black hover:bg-gold/90">
+              <BookingLink placement="privacy_policy_footer_cta">BOOK MY DETAIL</BookingLink>
+            </Button>
           </div>
         </section>
       </main>

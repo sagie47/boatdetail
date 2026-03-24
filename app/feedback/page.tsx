@@ -4,12 +4,101 @@ import Image from "next/image";
 import { ChevronRight, Instagram, Mail, Star } from "lucide-react";
 import { useState } from "react";
 
+import BookingLink from "@/components/tracking/BookingLink";
+import ReviewLink from "@/components/tracking/ReviewLink";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site";
+import { trackEvent } from "@/lib/tracking";
+
+type FeedbackFormState = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  serviceDate: string;
+  service: string;
+  crewMember: string;
+  feedback: string;
+  publishConsent: boolean;
+};
+
+const INITIAL_STATE: FeedbackFormState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  serviceDate: "",
+  service: "",
+  crewMember: "",
+  feedback: "",
+  publishConsent: false,
+};
 
 export default function Feedback() {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  const [formState, setFormState] = useState(INITIAL_STATE);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitState, setSubmitState] = useState<"idle" | "success" | "error">(
+    "idle"
+  );
+  const [message, setMessage] = useState("");
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (rating === 0) {
+      setSubmitState("error");
+      setMessage("Please choose a rating before submitting feedback.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitState("idle");
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/leads/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formState,
+          rating,
+        }),
+      });
+
+      const result = (await response.json()) as { ok: boolean; error?: string };
+      if (!response.ok || !result.ok) {
+        throw new Error(
+          result.error ||
+            "We couldn't submit your feedback right now. Please use Google Reviews instead."
+        );
+      }
+
+      trackEvent("feedback_submitted", {
+        rating,
+        publish_consent: formState.publishConsent,
+      });
+      setSubmitState("success");
+      setMessage(
+        "Thanks for the feedback. If you're happy to share it publicly too, the Google Reviews link on this page is the fastest path."
+      );
+      setFormState(INITIAL_STATE);
+      setRating(0);
+    } catch (error) {
+      trackEvent("feedback_failed", {
+        rating,
+      });
+      setSubmitState("error");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "We couldn't submit your feedback right now. Please use Google Reviews instead."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -44,70 +133,121 @@ export default function Feedback() {
                 <h2 className="mb-8 border-b border-gold/20 pb-2 font-playfair text-3xl font-light">
                   Submit Your Feedback
                 </h2>
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid gap-6 md:grid-cols-2">
                     <div>
-                      <label htmlFor="first-name" className="mb-1 block text-sm font-light text-gray-700">
+                      <label
+                        htmlFor="first-name"
+                        className="mb-1 block text-sm font-light text-gray-700"
+                      >
                         First Name
                       </label>
                       <input
                         type="text"
                         id="first-name"
+                        required
+                        value={formState.firstName}
+                        onChange={(event) =>
+                          setFormState((current) => ({
+                            ...current,
+                            firstName: event.target.value,
+                          }))
+                        }
                         className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/50"
                         placeholder="Your first name"
                       />
                     </div>
                     <div>
-                      <label htmlFor="last-name" className="mb-1 block text-sm font-light text-gray-700">
+                      <label
+                        htmlFor="last-name"
+                        className="mb-1 block text-sm font-light text-gray-700"
+                      >
                         Last Name
                       </label>
                       <input
                         type="text"
                         id="last-name"
+                        value={formState.lastName}
+                        onChange={(event) =>
+                          setFormState((current) => ({
+                            ...current,
+                            lastName: event.target.value,
+                          }))
+                        }
                         className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/50"
                         placeholder="Your last name"
                       />
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="email" className="mb-1 block text-sm font-light text-gray-700">
+                    <label
+                      htmlFor="email"
+                      className="mb-1 block text-sm font-light text-gray-700"
+                    >
                       Email
                     </label>
                     <input
                       type="email"
                       id="email"
+                      required
+                      value={formState.email}
+                      onChange={(event) =>
+                        setFormState((current) => ({
+                          ...current,
+                          email: event.target.value,
+                        }))
+                      }
                       className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/50"
                       placeholder="you@example.com"
                     />
                   </div>
                   <div>
-                    <label htmlFor="service-date" className="mb-1 block text-sm font-light text-gray-700">
+                    <label
+                      htmlFor="service-date"
+                      className="mb-1 block text-sm font-light text-gray-700"
+                    >
                       Service Date
                     </label>
                     <input
                       type="date"
                       id="service-date"
+                      value={formState.serviceDate}
+                      onChange={(event) =>
+                        setFormState((current) => ({
+                          ...current,
+                          serviceDate: event.target.value,
+                        }))
+                      }
                       className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/50"
                     />
                   </div>
                   <div>
-                    <label htmlFor="service" className="mb-1 block text-sm font-light text-gray-700">
+                    <label
+                      htmlFor="service"
+                      className="mb-1 block text-sm font-light text-gray-700"
+                    >
                       Service Received
                     </label>
                     <select
                       id="service"
-                      defaultValue=""
+                      value={formState.service}
+                      onChange={(event) =>
+                        setFormState((current) => ({
+                          ...current,
+                          service: event.target.value,
+                        }))
+                      }
                       className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/50"
                     >
-                      <option value="" disabled>
-                        Select the service you received
+                      <option value="">Select the service you received</option>
+                      <option value="Exterior Wash and Dry">Exterior Wash and Dry</option>
+                      <option value="Interior Detail">Interior Detail</option>
+                      <option value="Full Detail Package">Full Detail Package</option>
+                      <option value="Oxidation Removal and Gelcoat Polish">
+                        Oxidation Removal and Gelcoat Polish
                       </option>
-                      <option value="exterior-wash">Exterior Wash and Dry</option>
-                      <option value="interior-clean">Interior Vacuum and Wipe-down</option>
-                      <option value="full-detail">Full Detail Package</option>
-                      <option value="oxidation">Oxidation Removal and Gelcoat Polish</option>
-                      <option value="seasonal">Seasonal Prep Package</option>
-                      <option value="other">Other (please specify)</option>
+                      <option value="Seasonal Prep Package">Seasonal Prep Package</option>
+                      <option value="Other">Other</option>
                     </select>
                   </div>
                   <div>
@@ -131,23 +271,44 @@ export default function Feedback() {
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="crew-member" className="mb-1 block text-sm font-light text-gray-700">
+                    <label
+                      htmlFor="crew-member"
+                      className="mb-1 block text-sm font-light text-gray-700"
+                    >
                       Crew Member (if known)
                     </label>
                     <input
                       type="text"
                       id="crew-member"
+                      value={formState.crewMember}
+                      onChange={(event) =>
+                        setFormState((current) => ({
+                          ...current,
+                          crewMember: event.target.value,
+                        }))
+                      }
                       className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/50"
                       placeholder="Name of crew member who performed the service"
                     />
                   </div>
                   <div>
-                    <label htmlFor="feedback" className="mb-1 block text-sm font-light text-gray-700">
+                    <label
+                      htmlFor="feedback"
+                      className="mb-1 block text-sm font-light text-gray-700"
+                    >
                       Your Feedback
                     </label>
                     <textarea
                       id="feedback"
                       rows={5}
+                      required
+                      value={formState.feedback}
+                      onChange={(event) =>
+                        setFormState((current) => ({
+                          ...current,
+                          feedback: event.target.value,
+                        }))
+                      }
                       className="w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/50"
                       placeholder="Please share your thoughts about our service. What did you like? What could we improve?"
                     />
@@ -156,6 +317,13 @@ export default function Feedback() {
                     <label className="flex items-center gap-2">
                       <input
                         type="checkbox"
+                        checked={formState.publishConsent}
+                        onChange={(event) =>
+                          setFormState((current) => ({
+                            ...current,
+                            publishConsent: event.target.checked,
+                          }))
+                        }
                         className="h-4 w-4 rounded border-gray-300 text-gold focus:ring-gold/50"
                       />
                       <span className="text-sm text-gray-600">
@@ -164,10 +332,26 @@ export default function Feedback() {
                       </span>
                     </label>
                   </div>
-                  <div>
-                    <Button className="w-full bg-gold text-black hover:bg-gold/90 md:w-auto">
-                      SUBMIT FEEDBACK
+                  <div className="flex flex-col gap-4">
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gold text-black hover:bg-gold/90 md:w-auto"
+                    >
+                      {isSubmitting ? "Submitting..." : "SUBMIT FEEDBACK"}
                     </Button>
+                    {message ? (
+                      <div
+                        role="alert"
+                        className={`rounded-lg px-4 py-3 text-sm ${
+                          submitState === "success"
+                            ? "bg-green-50 text-green-800"
+                            : "bg-red-50 text-red-800"
+                        }`}
+                      >
+                        {message}
+                      </div>
+                    ) : null}
                   </div>
                 </form>
               </div>
@@ -206,17 +390,15 @@ export default function Feedback() {
                   </p>
                   <ul className="space-y-4">
                     <li>
-                      <a
-                        href="https://g.page/r/CWCCJIC_-vkWEBM/review"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <ReviewLink
+                        placement="feedback_page"
                         className="flex items-center gap-3 text-white transition-colors hover:text-gold/90"
                       >
                         <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white">
                           <span className="text-sm font-medium text-black">G</span>
                         </div>
                         <span>Google Reviews</span>
-                      </a>
+                      </ReviewLink>
                     </li>
                     <li>
                       <a
@@ -250,11 +432,9 @@ export default function Feedback() {
             <h2 className="mb-8 font-playfair text-3xl font-light text-white">
               Ready to Experience the Kelowna Difference?
             </h2>
-            <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-gold text-black hover:bg-gold/90">
-                BOOK A DETAIL
-              </Button>
-            </a>
+            <Button asChild size="lg" className="bg-gold text-black hover:bg-gold/90">
+              <BookingLink placement="feedback_footer_cta">BOOK A DETAIL</BookingLink>
+            </Button>
           </div>
         </section>
       </main>
