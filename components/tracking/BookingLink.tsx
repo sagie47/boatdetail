@@ -24,15 +24,19 @@ const BookingLink = forwardRef<HTMLAnchorElement, BookingLinkProps>(function Boo
   target,
   ...props
 }, ref) {
-  const resolvedTarget = target ?? "_blank";
+  const bookingDestination = siteConfig.bookingEnabled
+    ? siteConfig.bookingUrl
+    : siteConfig.bookingFallbackUrl;
+  const isExternal = /^https?:\/\//i.test(bookingDestination);
+  const resolvedTarget = target ?? (isExternal ? "_blank" : "_self");
   const relValue =
-    rel ?? (resolvedTarget === "_blank" ? "noopener noreferrer" : undefined);
+    rel ?? (isExternal && resolvedTarget === "_blank" ? "noopener noreferrer" : undefined);
 
   return (
     <a
       ref={ref}
       {...props}
-      href={siteConfig.bookingUrl}
+      href={bookingDestination}
       target={resolvedTarget}
       rel={relValue}
       onClick={(event) => {
@@ -43,7 +47,7 @@ const BookingLink = forwardRef<HTMLAnchorElement, BookingLinkProps>(function Boo
 
         trackBookingClickConversion({
           placement,
-          destination: siteConfig.bookingUrl,
+          destination: bookingDestination,
         });
       }}
     >

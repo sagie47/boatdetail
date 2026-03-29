@@ -8,6 +8,7 @@ import AnimatedPage from "@/components/ui/AnimatedPage";
 import ScrollAnimatedSection from "@/components/ui/ScrollAnimatedSection";
 import { buildMetadata } from "@/lib/seo";
 import { serviceCatalog } from "@/lib/serviceCatalog";
+import SeasonalOffers from "@/components/sections/SeasonalOffers";
 
 export const metadata: Metadata = buildMetadata({
   title: "Boat Detailing Pricing",
@@ -50,6 +51,9 @@ export default function PricingPage() {
             <h2 className="mb-12 text-center font-playfair text-4xl font-light text-black">
             OUR SERVICES &amp; PRICING
           </h2>
+            <div className="mb-16">
+              <SeasonalOffers />
+            </div>
           <div className="flex flex-col gap-12 xl:gap-16">
               {serviceCatalog.map((service) => (
                 <ExpandableService
