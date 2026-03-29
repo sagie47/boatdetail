@@ -107,7 +107,8 @@ export default function QuoteCalculator() {
                   This is an estimate based on boat length and selected services.
                   If your request above submitted successfully, we&apos;ll follow up
                   with scheduling details. If you want to move faster, call, text,
-                  or book online now.
+                  or book online now. Premium slots include a deposit to secure your
+                  preferred date.
                 </p>
                 <div className="flex flex-col gap-3">
                   <CallLink

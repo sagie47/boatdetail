@@ -20,7 +20,9 @@ export const siteConfig = {
   emailHref: "mailto:info@kelownaboatdetailing.com",
   instagramUrl: "https://www.instagram.com/kelownaboatdetailing/?hl=en",
   reviewUrl: "https://g.page/r/CWCCJIC_-vkWEBM/review",
+  bookingEnabled: false,
   bookingUrl: "https://app.squareup.com/appointments/buyer/widget/aja9n9y3sjp8vy/LJBQ126WXZDTP",
+  bookingFallbackUrl: "/contact?entry=booking",
   serviceAreaLabel: "Serving Kelowna and the Okanagan Valley",
   serviceAreas: [
     "Kelowna",
