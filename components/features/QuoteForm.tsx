@@ -288,6 +288,10 @@ export default function QuoteForm({ onQuoteCalculated }: QuoteFormProps) {
         >
           {isSubmitting ? "Sending request..." : "Get Estimate & Send Request"}
         </Button>
+        <p className="text-sm font-light text-white/70">
+          Premium oxidation, true ceramic, and launch-detail requests may require a deposit
+          to confirm scheduling priority.
+        </p>
 
         {message ? (
           <div

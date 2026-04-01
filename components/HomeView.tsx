@@ -9,6 +9,7 @@ import PageLayout from '@/components/layout/PageLayout';
 import HeroSection from '@/components/sections/HeroSection';
 import ServiceHighlights from '@/components/sections/ServiceHighlights';
 import ProfessionalWashing from '@/components/sections/ProfessionalWashing';
+import SeasonalOffers from '@/components/sections/SeasonalOffers';
 import Stats from '@/components/sections/Stats';
 import Gallery from '@/app/gallery/components/Gallery';
 import Pricing from '@/app/pricing/components/Pricing';
@@ -31,6 +32,9 @@ export default function HomeView() {
         <AnimatedPage>
           <ScrollAnimatedSection animationType="fadeIn">
             <Stats />
+          </ScrollAnimatedSection>
+          <ScrollAnimatedSection animationType="fadeIn">
+            <SeasonalOffers />
           </ScrollAnimatedSection>
           <ScrollAnimatedSection animationType="fadeIn" className="bg-white py-16">
             <div className="container px-4">
