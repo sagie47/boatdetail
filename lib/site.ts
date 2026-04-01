@@ -20,7 +20,8 @@ export const siteConfig = {
   emailHref: "mailto:info@kelownaboatdetailing.com",
   instagramUrl: "https://www.instagram.com/kelownaboatdetailing/?hl=en",
   reviewUrl: "https://g.page/r/CWCCJIC_-vkWEBM/review",
-  setmoreBookingUrl: process.env.NEXT_PUBLIC_SETMORE_BOOKING_URL ?? "",
+  setmoreBookingUrl:
+    process.env.NEXT_PUBLIC_SETMORE_BOOKING_URL ?? "https://kbd5yvh.setmore.com/",
   bookingEnabled: true,
   bookingUrl: "/book",
   bookingFallbackUrl: "/book",
