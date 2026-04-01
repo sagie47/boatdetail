@@ -24,7 +24,8 @@ const BookingLink = forwardRef<HTMLAnchorElement, BookingLinkProps>(function Boo
   target,
   ...props
 }, ref) {
-  const resolvedTarget = target ?? "_blank";
+  const isPhoneBooking = siteConfig.bookingUrl.startsWith("tel:");
+  const resolvedTarget = target ?? (isPhoneBooking ? undefined : "_blank");
   const relValue =
     rel ?? (resolvedTarget === "_blank" ? "noopener noreferrer" : undefined);
 
