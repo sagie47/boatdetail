@@ -157,7 +157,7 @@ export default function ContactLeadForm() {
                 }))
               }
               className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
-              placeholder="778-769-4402"
+              placeholder="778 363 8686"
             />
           </div>
         </div>
