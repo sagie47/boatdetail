@@ -1,8 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /_next/
 Disallow: /*/edit
 Disallow: /*/delete
 
-Sitemap: https://kelownaboatdetailing.com/sitemap.xml
+Sitemap: https://www.kelownaboatdetailing.com/sitemap.xml

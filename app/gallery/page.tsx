@@ -18,19 +18,19 @@ interface GalleryItem {
 }
 
 const galleryItems: GalleryItem[] = [
-  { src: "/images/IMG_0670.jpg", type: "image", alt: "Boat detailing work 1" },
-  { src: "/images/IMG_0991.jpg", type: "image", alt: "Boat detailing work 2" },
-  { src: "/images/IMG_1036.jpg", type: "image", alt: "Boat detailing work 3" },
-  { src: "/images/afte.png", type: "image", alt: "After detailing result" },
-  { src: "/images/interior2.jpg", type: "image", alt: "Detailed boat interior" },
-  { src: "/images/before.png", type: "image", alt: "Before detailing condition" },
-  { src: "/images/pop.png", type: "image", alt: "Detailed boat exterior" },
-  { src: "/images/ppp.png", type: "image", alt: "Detailed marine surface" },
+  { src: "/images/IMG_0670.jpg", type: "image", alt: "Freshly cleaned boat seating and cockpit after interior detailing" },
+  { src: "/images/IMG_0991.jpg", type: "image", alt: "Polished boat hull after exterior wash and gelcoat protection" },
+  { src: "/images/IMG_1036.jpg", type: "image", alt: "Detailed boat dashboard and helm with clean glossy surfaces" },
+  { src: "/images/afte.png", type: "image", alt: "Boat finish after professional detailing and polishing" },
+  { src: "/images/interior2.jpg", type: "image", alt: "Detailed boat interior upholstery and flooring after cleaning" },
+  { src: "/images/before.png", type: "image", alt: "Boat surface before detailing with visible dirt and oxidation" },
+  { src: "/images/pop.png", type: "image", alt: "Clean detailed boat exterior ready for Okanagan boating season" },
+  { src: "/images/ppp.png", type: "image", alt: "Close-up of polished marine surface after detailing" },
   {
     src: "/images/boat-detailing-video.mp4",
     type: "video",
     thumbnail: "/images/thumbvid1.png",
-    alt: "Boat detailing video",
+    alt: "Boat detailing process video showing cleaning and polishing work",
   },
 ];
 
@@ -108,8 +108,8 @@ export default function GalleryPage() {
               Our Work Gallery
             </h1>
             <p className="max-w-2xl font-light text-white/80 md:text-lg">
-              Explore our portfolio of premium boat detailing services. Each image
-              represents our commitment to craftsmanship and finish quality.
+              See interior cleaning, gelcoat polishing, oxidation correction, and
+              finish protection examples from local mobile boat detailing work.
             </p>
           </div>
         </header>
@@ -133,6 +133,27 @@ export default function GalleryPage() {
       </div>
 
       <AnimatedPage>
+        <ScrollAnimatedSection animationType="fadeIn" className="bg-white py-14">
+          <div className="container mx-auto max-w-4xl px-4 text-center">
+            <p className="text-sm font-medium uppercase tracking-[0.35em] text-gold">
+              Before, after, and process proof
+            </p>
+            <p className="mt-5 text-lg leading-8 text-gray-700">
+              The gallery shows the kinds of surfaces we work on across Kelowna
+              and the Okanagan: vinyl seating, cockpit floors, dashboards,
+              oxidized hulls, polished gelcoat, and high-contact areas that need
+              careful cleaning before guests step aboard.
+            </p>
+            <p className="mt-4 leading-7 text-gray-600">
+              Photos help set expectations before a quote. If your boat has
+              similar oxidation, staining, water spots, or interior buildup, send
+              a few images with your request and we can recommend whether a wash,
+              interior refresh, full detail, polish, or ceramic protection is the
+              right next step.
+            </p>
+          </div>
+        </ScrollAnimatedSection>
+
         <ScrollAnimatedSection animationType="zoomIn" className="py-16">
           <div className="container mx-auto px-4">
             <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-4">

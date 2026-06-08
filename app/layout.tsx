@@ -105,13 +105,15 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
-              "@id": siteConfig.url,
+              "@id": `${siteConfig.url}/#business`,
               "name": siteConfig.name,
               "url": siteConfig.url,
               "image": absoluteUrl("/images/logo.png"),
               "telephone": siteConfig.phoneIntl,
               "email": siteConfig.email,
               "priceRange": "$$",
+              "openingHours": "Mo-Su 08:00-18:00",
+              "hasMap": "https://www.google.com/maps/place/Kelowna,+BC",
               "areaServed": siteConfig.serviceAreas.map((area) => ({
                 "@type": "City",
                 "name": area,
@@ -147,6 +149,22 @@ export default function RootLayout({
                   }
                 }))
               }
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "@id": `${siteConfig.url}/#website`,
+              "name": siteConfig.name,
+              "url": siteConfig.url,
+              "publisher": {
+                "@id": `${siteConfig.url}/#business`
+              },
+              "inLanguage": "en-CA"
             })
           }}
         />

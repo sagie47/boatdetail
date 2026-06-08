@@ -1,6 +1,6 @@
 /* TEAM */
 Company: Kelowna Boat Detailing
-Site: https://kelownaboatdetailing.com
+Site: https://www.kelownaboatdetailing.com
 Contact: info@kelownaboatdetailing.com
 Location: Kelowna, BC, Canada
 

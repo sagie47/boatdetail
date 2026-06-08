@@ -18,7 +18,7 @@ export default function TermsAndConditions() {
         <p>Effective Date: May 2, 2025</p>
         <p>Business Name: Kelowna Boat Detailing</p>
         <p>Business Address: Kelowna, BC, Canada</p>
-        <p>Website: kelownaboatdetailing.com</p>
+        <p>Website: www.kelownaboatdetailing.com</p>
 
         <h2 className="mt-6 font-playfair text-2xl font-light">1. Services</h2>
         <p>
