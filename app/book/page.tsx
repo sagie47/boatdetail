@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { CallLink } from "@/components/tracking/CallLink";
+import CallLink from "@/components/tracking/CallLink";
 import { siteConfig } from "@/lib/site";
 
 const setmoreBookingUrl = siteConfig.setmoreBookingUrl;

@@ -24,7 +24,9 @@ export function buildMetadata({
   const mergedKeywords = [...new Set([...siteConfig.keywords, ...keywords])];
 
   return {
-    title: resolvedTitle,
+    title: {
+      absolute: resolvedTitle,
+    },
     description,
     keywords: mergedKeywords,
     alternates: {

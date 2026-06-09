@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Kelowna Boat Detailing",
-  url: "https://kelownaboatdetailing.com",
-  defaultTitle: "Premium Mobile Boat Detailing in Kelowna and the Okanagan",
+  url: "https://www.kelownaboatdetailing.com",
+  defaultTitle: "Mobile Boat Detailing in Kelowna",
   defaultDescription:
     "Premium mobile boat detailing services in Kelowna and across the Okanagan. Exterior washes, interior detailing, oxidation removal, and ceramic coating done dockside.",
   keywords: [
